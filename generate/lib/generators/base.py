@@ -182,7 +182,10 @@ class Method:
                 and (not isinstance(ps.additional_properties, int) or ps.additional_properties > 0)
             ) or (ps.properties is not None and len(ps.properties) > 0):
                 parameters_type = Type.from_schema_parameters(pascal_ident(name, "Parameters"), ps, path=path)
-                parameters = [("parameters", parameters_type)]
+
+                # Generate the Parameters type only if it is not empty
+                if parameters_type.attributes:
+                    parameters = [("parameters", parameters_type)]
 
         return_type = None
         if method_info.returns is not None:
