@@ -22,14 +22,14 @@ SCHEMA_FILE	?= PVE-schema-$(PROXMOX_VERSION).json
 
 ## Dump the JSONSchema for the API
 schema:
+
+$(SCHEMA_FILE) schema:
 		docker build --platform=linux/amd64 \
 			-t $(DUMP_SCHEMA) \
 			--build-arg DISTRO=$(DEBIAN_DISTRO) \
 			--build-arg PROXMOX_VERSION=$(PROXMOX_VERSION) \
 			$(DUMP_SCHEMA_DIR)
 		docker run $(DUMP_SCHEMA) bash -c "/app/dump-schema.pl" > $(SCHEMA_FILE)
-
-$(SCHEMA_FILE):	schema
 
 VENV		:= .venv
 
