@@ -31,4 +31,17 @@ schema:
 
 $(SCHEMA_FILE):	schema
 
-.PHONY:		help schema
+VENV		:= .venv
+
+$(VENV):
+		virtualenv $(VENV)
+
+## Initialize a virtual environment
+venv:		$(VENV)
+
+## Generate the implementation for Rust
+rust:		$(SCHEMA_FILE)
+		echo "Generating Rust implementation from $(SCHEMA_FILE)"
+		./generate.py $(SCHEMA_FILE) rust --enable-async-client -o ../rust/src/gen
+
+.PHONY:		help schema venv rust
