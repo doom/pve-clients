@@ -32,9 +32,9 @@ def _as_rust_type(type: Type) -> str:
             case "string":
                 return "String"
             case "integer":
-                return "u32"
+                return "u64"
             case "number":
-                return "f32"
+                return "f64"
             case "boolean":
                 return "bool"
             case "array":
