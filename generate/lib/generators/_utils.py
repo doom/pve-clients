@@ -1,3 +1,4 @@
+from importlib.resources import files
 from itertools import chain
 import re
 from typing import Iterable, Iterator
@@ -55,3 +56,7 @@ def sanitize_path(path: str) -> str:
         return False
 
     return "".join([c for c in path if is_allowed(c)]).replace("-", "_")
+
+
+def get_resource(name: str) -> str:
+    return files("lib.generators.resources").joinpath(name).read_text(encoding="utf-8")

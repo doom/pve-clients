@@ -6,7 +6,7 @@ from textwrap import dedent
 from .. import schema
 
 from .base import BaseGenerator, Type, Method, ANY_TYPE_FALLBACK
-from ._utils import pascal_ident, snake_ident, words, sanitize_path
+from ._utils import get_resource, pascal_ident, sanitize_path, snake_ident, words
 from ..schema import parse_path_component
 
 
@@ -118,6 +118,13 @@ class Generator(BaseGenerator):
                 if v.type.optional and not v.repeated:
                     serde_opts["skip_serializing_if"] = '"Option::is_none"'
                     serde_opts["default"] = None
+                if v.type.name == "boolean":
+                    if v.type.optional:
+                        serde_opts["deserialize_with"] = '"crate::gen::common::deserialize_option_bool_lax"'
+                        serde_opts["serialize_with"] = '"crate::gen::common::serialize_option_bool_as_u64"'
+                    else:
+                        serde_opts["deserialize_with"] = '"crate::gen::common::deserialize_bool_lax"'
+                        serde_opts["serialize_with"] = '"crate::gen::common::serialize_bool_as_u64"'
                 if serde_opts:
                     self.output(f"#[serde({_format_annotation_kwargs(serde_opts)})]")
 
@@ -240,6 +247,12 @@ class Generator(BaseGenerator):
         with self.file(f"{self.output_directory}/../{os.path.basename(self.output_directory)}.rs"):
             for node in root:
                 self.output(f"pub mod {node.path.strip('/')};")
+            self.output_newline()
+            self.output("pub mod common;")
+
+        # Generate custom types
+        with open(f"{self.output_directory}/common.rs", "w") as f:
+            f.write(get_resource("common.rs"))
 
         for node in schema.traverse(root):
             info, path = node.info, node.path
