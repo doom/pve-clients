@@ -3,11 +3,10 @@ from contextlib import contextmanager
 from dataclasses import dataclass
 from textwrap import dedent
 
-from .. import schema
+from ... import schema
 
-from .base import BaseGenerator, Type, Method, ANY_TYPE_FALLBACK
-from ._utils import get_resource, pascal_ident, sanitize_path, snake_ident, words
-from ..schema import parse_path_component
+from ..base import BaseGenerator, Type, Method, ANY_TYPE_FALLBACK
+from .._utils import get_resource, pascal_ident, sanitize_path, snake_ident, words
 
 
 def _escape_doc(doc: str) -> str:
@@ -134,7 +133,7 @@ class Generator(BaseGenerator):
                 self.output(f"pub {_escape_ident(v.name)}: {rust_type},")
 
     def output_new_method(self, node: schema.Node):
-        name, is_variable = parse_path_component(node.text)
+        name, is_variable = schema.parse_path_component(node.text)
 
         method = Method(
             name="new",
@@ -196,7 +195,7 @@ class Generator(BaseGenerator):
             # Create methods to obtain child clients
             if node.children is not None:
                 for child in node.children:
-                    child_name, is_variable = parse_path_component(child.text)
+                    child_name, is_variable = schema.parse_path_component(child.text)
                     ret = f"{_escape_ident(snake_ident(child_name))}::{pascal_ident(child_name, 'Client')}"
                     method = Method(
                         name=snake_ident(child_name),
@@ -252,7 +251,7 @@ class Generator(BaseGenerator):
 
         # Generate custom types
         with open(f"{self.output_directory}/common.rs", "w") as f:
-            f.write(get_resource("common.rs"))
+            f.write(get_resource("rust", "common.rs"))
 
         for node in schema.traverse(root):
             info, path = node.info, node.path
