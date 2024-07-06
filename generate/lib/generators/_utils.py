@@ -58,5 +58,5 @@ def sanitize_path(path: str) -> str:
     return "".join([c for c in path if is_allowed(c)]).replace("-", "_")
 
 
-def get_resource(name: str) -> str:
-    return files("lib.generators.resources").joinpath(name).read_text(encoding="utf-8")
+def get_resource(generator: str, name: str) -> str:
+    return files(f"lib.generators.{generator}.resources").joinpath(name).read_text(encoding="utf-8")
