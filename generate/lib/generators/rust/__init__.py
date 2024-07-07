@@ -119,11 +119,11 @@ class Generator(BaseGenerator):
                     serde_opts["default"] = None
                 if v.type.name == "boolean":
                     if v.type.optional:
-                        serde_opts["deserialize_with"] = '"crate::gen::common::deserialize_option_bool_lax"'
-                        serde_opts["serialize_with"] = '"crate::gen::common::serialize_option_bool_as_u64"'
+                        serde_opts["deserialize_with"] = '"crate::common::deserialize_option_bool_lax"'
+                        serde_opts["serialize_with"] = '"crate::common::serialize_option_bool_as_u64"'
                     else:
-                        serde_opts["deserialize_with"] = '"crate::gen::common::deserialize_bool_lax"'
-                        serde_opts["serialize_with"] = '"crate::gen::common::serialize_bool_as_u64"'
+                        serde_opts["deserialize_with"] = '"crate::common::deserialize_bool_lax"'
+                        serde_opts["serialize_with"] = '"crate::common::serialize_bool_as_u64"'
                 if serde_opts:
                     self.output(f"#[serde({_format_annotation_kwargs(serde_opts)})]")
 
@@ -243,15 +243,18 @@ class Generator(BaseGenerator):
 
     def process(self, root: list[schema.Node]):
         # Create "root" file declaring all child modules
-        with self.file(f"{self.output_directory}/../{os.path.basename(self.output_directory)}.rs"):
+        with self.file(f"{self.output_directory}/lib.rs"):
             for node in root:
                 self.output(f"pub mod {node.path.strip('/')};")
             self.output_newline()
+            self.output("pub mod client;")
             self.output("pub mod common;")
 
-        # Generate custom types
-        with open(f"{self.output_directory}/common.rs", "w") as f:
-            f.write(get_resource("rust", "common.rs"))
+        # Generate pre-written code
+        files = {"client.rs", "common.rs"}
+        for file in files:
+            with open(f"{self.output_directory}/{file}", "w") as f:
+                f.write(get_resource("rust", file))
 
         for node in schema.traverse(root):
             info, path = node.info, node.path
