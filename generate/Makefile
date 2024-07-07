@@ -42,6 +42,6 @@ venv:		$(VENV)
 ## Generate the implementation for Rust
 rust:		$(SCHEMA_FILE)
 		echo "Generating Rust implementation from $(SCHEMA_FILE)"
-		./generate.py $(SCHEMA_FILE) rust --enable-async-client -o ../rust/src/gen
+		./generate.py $(SCHEMA_FILE) rust --enable-async-client -o ../rust/src
 
 .PHONY:		help schema venv rust
