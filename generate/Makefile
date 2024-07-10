@@ -39,9 +39,14 @@ $(VENV):
 ## Initialize a virtual environment
 venv:		$(VENV)
 
+## Generate the implementation for Python
+python:		$(SCHEMA_FILE)
+		echo "Generating Python implementation from $(SCHEMA_FILE)"
+		./generate.py $(SCHEMA_FILE) python --enable-async-client -o ../python/pve
+
 ## Generate the implementation for Rust
 rust:		$(SCHEMA_FILE)
 		echo "Generating Rust implementation from $(SCHEMA_FILE)"
 		./generate.py $(SCHEMA_FILE) rust --enable-async-client -o ../rust/src
 
-.PHONY:		help schema venv rust
+.PHONY:		help schema venv python rust
