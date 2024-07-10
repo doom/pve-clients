@@ -200,3 +200,6 @@ class Method:
             return_type=return_type,
             parameters=parameters,
         )
+
+    def has_return_type(self) -> bool:
+        return self.return_type is not None and self.return_type.name != "null"

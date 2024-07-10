@@ -6,7 +6,7 @@ import sys
 
 from pydantic import TypeAdapter
 
-from lib.generators import rust
+from lib.generators import python, rust
 from lib.schema import Node
 
 
@@ -24,7 +24,7 @@ def main():
         case "go":
             print("Not yet implemented")
         case "python":
-            print("Not yet implemented")
+            python.Generator(output_directory=args.output_directory, async_=args.enable_async_client).process(schema)
         case "rust":
             rust.Generator(output_directory=args.output_directory, async_=args.enable_async_client).process(schema)
 
