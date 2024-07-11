@@ -1,0 +1,54 @@
+name: Generate Python client
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  PR_BRANCH: generate-python-${{ github.run_id }}
+
+jobs:
+  generate-python:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install virtualenv
+        run: |
+          pip3 install virtualenv
+
+      - name: Generate Python client
+        run: |
+          cd generate && \
+          make venv && \
+          source .venv/bin/activate && \
+          pip3 install -r requirements.txt && \
+          make python
+
+      - name: Format generated Python code
+        run: |
+          pip3 install black
+          black python/pve
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: Regenerate Python client
+          title: Regenerate Python client
+          branch: "${{ env.PR_BRANCH }}"
+
+      - name: Output
+        if: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          echo "::notice file=,line=1::PR - ${{ steps.cpr.outputs.pull-request-url }}"
