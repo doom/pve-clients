@@ -1,0 +1,39 @@
+from dataclasses import dataclass
+from typing import Any, Optional
+
+from pydantic import BaseModel, Field
+
+from pve.client import AbstractClient, AsyncAbstractClient
+from pve.common import CommonPydanticConfig
+
+
+@dataclass
+class ScheduleNowClient:
+    client: AbstractClient
+    path: str
+
+    def __init__(self, client: AbstractClient, parent_path: str):
+        self.client = client
+        self.path = f"{parent_path}/{'schedule_now'}"
+
+    def post(self) -> str:
+        """
+        Schedule replication job to start as soon as possible.
+        """
+        return self.client.post(self.path, parse_as=str)
+
+
+@dataclass
+class AsyncScheduleNowClient:
+    client: AsyncAbstractClient
+    path: str
+
+    def __init__(self, client: AsyncAbstractClient, parent_path: str):
+        self.client = client
+        self.path = f"{parent_path}/{'schedule_now'}"
+
+    async def post(self) -> str:
+        """
+        Schedule replication job to start as soon as possible.
+        """
+        return await self.client.post(self.path, parse_as=str)
