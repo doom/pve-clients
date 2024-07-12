@@ -196,7 +196,10 @@ class Generator(BaseGenerator):
             if node.children is not None:
                 for child in node.children:
                     child_name, is_variable = schema.parse_path_component(child.text)
-                    ret = f"{_escape_ident(snake_ident(child_name))}::{pascal_ident(child_name, 'Client')}"
+                    child_client_struct = pascal_ident(child_name, "Client")
+                    if async_:
+                        child_client_struct = f"Async{child_client_struct}"
+                    ret = f"{_escape_ident(snake_ident(child_name))}::{child_client_struct}"
                     method = Method(
                         name=snake_ident(child_name),
                         return_type=Type(name=f"{ret}<T>"),
