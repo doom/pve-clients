@@ -7,13 +7,13 @@ on:
     branches:
       - main
     paths:
-      - rust/**.rs
+      - rust/**
 
   push:
     branches:
       - main
     paths:
-      - rust/**.rs
+      - rust/**
 
 jobs:
   check-rust:

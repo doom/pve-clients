@@ -1,0 +1,79 @@
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct PostParameters {
+    #[doc = "sets the height of the console in pixels."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub height: Option<u64>,
+    #[doc = "use websocket instead of standard VNC."]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub websocket: Option<bool>,
+    #[doc = "sets the width of the console in pixels."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub width: Option<u64>,
+}
+
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct PostResponseItem {
+    pub cert: String,
+    pub port: u64,
+    pub ticket: String,
+    pub upid: String,
+    pub user: String,
+}
+
+#[derive(Debug, Clone)]
+pub struct VncproxyClient<T> {
+    client: T,
+    path: String,
+}
+
+impl<T> VncproxyClient<T>
+where
+    T: Clone,
+{
+    pub fn new(client: T, parent_path: &str) -> Self {
+        Self {
+            client,
+            path: format!("{}/{}", parent_path, "vncproxy"),
+        }
+    }
+}
+impl<T> VncproxyClient<T>
+where
+    T: crate::client::HttpClient,
+{
+    #[doc = "Creates a TCP VNC proxy connections."]
+    pub fn post(&self, parameters: PostParameters) -> Result<PostResponseItem, T::Error> {
+        self.client.post(&self.path, &parameters)
+    }
+}
+#[derive(Debug, Clone)]
+pub struct AsyncVncproxyClient<T> {
+    client: T,
+    path: String,
+}
+
+impl<T> AsyncVncproxyClient<T>
+where
+    T: Clone,
+{
+    pub fn new(client: T, parent_path: &str) -> Self {
+        Self {
+            client,
+            path: format!("{}/{}", parent_path, "vncproxy"),
+        }
+    }
+}
+impl<T> AsyncVncproxyClient<T>
+where
+    T: crate::client::AsyncHttpClient,
+{
+    #[doc = "Creates a TCP VNC proxy connections."]
+    pub async fn post(&self, parameters: PostParameters) -> Result<PostResponseItem, T::Error> {
+        self.client.post(&self.path, &parameters).await
+    }
+}
