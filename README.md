@@ -6,4 +6,4 @@ Proxmox VE API clients, generated from the [official JSONSchema spec](https://pv
 
 - [ ] Go
 - [x] Python
-- [ ] Rust
+- [x] Rust
