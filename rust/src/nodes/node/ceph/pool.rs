@@ -28,10 +28,10 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct ApplicationMetadata {}
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct AutoscaleStatus {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

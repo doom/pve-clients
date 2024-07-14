@@ -4,7 +4,7 @@ pub mod metadata;
 pub mod out;
 pub mod scrub;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "If set, we remove partition table entries."]
     #[serde(
@@ -16,7 +16,7 @@ pub struct DeleteParameters {
     pub cleanup: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
 #[derive(Debug, Clone)]

@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Whether the tasklog file should be downloaded. This parameter can't be used in conjunction with other parameters"]
     #[serde(

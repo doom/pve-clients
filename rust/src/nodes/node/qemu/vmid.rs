@@ -24,7 +24,7 @@ pub mod unlink;
 pub mod vncproxy;
 pub mod vncwebsocket;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "If set, destroy additionally all disks not referenced in the config but with a matching VMID from all enabled storages."]
     #[serde(

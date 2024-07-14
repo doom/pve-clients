@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[doc = "Enable host firewall rules."]
     #[serde(
@@ -88,7 +88,7 @@ pub struct GetResponseItem {
     pub tcpflags: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "A list of settings you want to delete."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

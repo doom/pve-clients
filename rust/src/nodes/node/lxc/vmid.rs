@@ -19,7 +19,7 @@ pub mod termproxy;
 pub mod vncproxy;
 pub mod vncwebsocket;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "If set, destroy additionally all disks with the VMID from all enabled storages which are not referenced in the config."]
     #[serde(

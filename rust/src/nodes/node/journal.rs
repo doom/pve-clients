@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "End before the given Cursor. Conflicts with 'until'"]
     #[serde(skip_serializing_if = "Option::is_none", default)]

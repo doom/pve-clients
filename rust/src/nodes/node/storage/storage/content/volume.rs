@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "Time to wait for the task to finish. We return 'null' if the task finish within that time."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -37,7 +37,7 @@ pub struct PostParameters {
     pub target_node: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "The new notes."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

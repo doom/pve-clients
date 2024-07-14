@@ -2,7 +2,7 @@ pub mod acme;
 pub mod custom;
 pub mod info;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
 #[derive(Debug, Clone)]

@@ -1,11 +1,11 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Return only a specific property from the node configuration."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub property: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[doc = "Node specific ACME settings."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -31,7 +31,7 @@ pub struct GetResponseItem {
     pub wakeonlan: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Node specific ACME settings."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

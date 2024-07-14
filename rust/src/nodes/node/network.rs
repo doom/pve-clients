@@ -1,13 +1,13 @@
 pub mod iface;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Only list specific interface types."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub r#type: Option<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

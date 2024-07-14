@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub r#type: Option<String>,
@@ -22,7 +22,7 @@ pub struct GetResponseMembersItem {
     pub vmid: Option<u64>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,

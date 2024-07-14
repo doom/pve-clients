@@ -66,7 +66,7 @@ pub struct GetResponseItem {
 }
 
 #[doc = "HA manager service status."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Ha {}
 
 #[derive(Debug, Clone)]

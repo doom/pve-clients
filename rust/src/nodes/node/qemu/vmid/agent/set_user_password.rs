@@ -15,7 +15,7 @@ pub struct PostParameters {
 }
 
 #[doc = "Returns an object with a single `result` property."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostResponseItem {}
 
 #[derive(Debug, Clone)]

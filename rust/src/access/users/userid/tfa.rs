@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Request all entries as an array."]
     #[serde(
@@ -10,7 +10,7 @@ pub struct GetParameters {
     pub multiple: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[doc = "The type of TFA the users realm has set, if any."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

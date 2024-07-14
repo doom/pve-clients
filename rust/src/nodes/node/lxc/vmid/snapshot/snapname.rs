@@ -1,7 +1,7 @@
 pub mod config;
 pub mod rollback;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "For removal from config file, even if removing disk snapshots fails."]
     #[serde(
@@ -13,7 +13,7 @@ pub struct DeleteParameters {
     pub force: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
 #[derive(Debug, Clone)]

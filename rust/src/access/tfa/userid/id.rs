@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "The current password."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -26,7 +26,7 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "A description to distinguish multiple entries from one another"]
     #[serde(skip_serializing_if = "Option::is_none", default)]

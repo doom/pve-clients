@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Get current values (instead of pending values)."]
     #[serde(
@@ -139,7 +139,7 @@ pub struct GetResponseItem {
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "OS architecture type."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

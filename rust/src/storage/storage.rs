@@ -1,7 +1,7 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "block size"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -228,7 +228,7 @@ pub struct PutResponseItem {
 }
 
 #[doc = "Partial, possible server generated, configuration properties."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Config {
     #[doc = "The, possible auto-generated, encryption-key."]
     #[serde(

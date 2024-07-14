@@ -1,6 +1,6 @@
 pub mod volume;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Only list content of this type."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

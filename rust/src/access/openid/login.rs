@@ -20,7 +20,7 @@ pub struct PostResponseItem {
     pub username: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Cap {}
 
 #[derive(Debug, Clone)]

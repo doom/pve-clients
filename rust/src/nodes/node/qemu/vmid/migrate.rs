@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Target node."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -25,7 +25,7 @@ pub struct GetResponseItem {
 }
 
 #[doc = "List not allowed nodes with additional informations, only passed if VM is offline"]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct NotAllowedNodes {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

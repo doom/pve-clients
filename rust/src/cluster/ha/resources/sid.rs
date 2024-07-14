@@ -26,7 +26,7 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Description."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

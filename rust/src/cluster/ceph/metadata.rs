@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub scope: Option<String>,
@@ -20,19 +20,19 @@ pub struct GetResponseItem {
 }
 
 #[doc = "Metadata servers configured in the cluster and their properties."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Mds {}
 
 #[doc = "Managers configured in the cluster and their properties."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Mgr {}
 
 #[doc = "Monitors configured in the cluster and their properties."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Mon {}
 
 #[doc = "Ceph version installed on the nodes."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Node {}
 
 #[derive(Debug, Clone)]

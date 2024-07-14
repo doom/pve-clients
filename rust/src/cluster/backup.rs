@@ -6,7 +6,7 @@ pub struct GetResponseItem {
     pub id: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
     #[doc = "Backup all known guest systems on this host."]
     #[serde(
