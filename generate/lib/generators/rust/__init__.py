@@ -105,7 +105,11 @@ class Generator(BaseGenerator):
         if type.doc is not None:
             self.output(f'#[doc = "{_escape_doc(type.doc)}"]')
 
-        self.output("#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]")
+        autoderived = ["Debug", "Clone", "PartialEq", "serde::Serialize", "serde::Deserialize"]
+        if all(v.type.optional for _, v in type.attributes):
+            autoderived.append("Default")
+
+        self.output(f"#[derive({', '.join(autoderived)})]")
         with self.struct(type.name):
             for k, v in type.attributes:
                 if v.doc is not None:
