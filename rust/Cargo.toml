@@ -3,6 +3,16 @@ name = "pve"
 version = "0.1.0"
 edition = "2021"
 
+description = "Proxmox VE API client, generated from the official JSONSchema spec."
+homepage = "https://github.com/doom/pve-clients"
+repository = "https://github.com/doom/pve-clients"
+keywords = ["proxmox", "pve"]
+
+authors = [
+    'Clément "Doom" Doumergue <clement.doumergue@epitech.eu>',
+]
+license = "MIT"
+
 [dependencies]
 serde = { version = "1.0.201", features = ["derive"] }
 serde_json = "1.0.117"
