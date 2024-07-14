@@ -14,7 +14,7 @@ pub struct GetResponseItem {
     pub value: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Backfilling of PGs is suspended."]
     #[serde(

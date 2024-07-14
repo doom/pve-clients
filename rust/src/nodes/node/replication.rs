@@ -1,6 +1,6 @@
 pub mod id;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Only list replication jobs for this guest."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

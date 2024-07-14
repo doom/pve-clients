@@ -4,7 +4,7 @@ pub mod nodes;
 pub mod qdevice;
 pub mod totem;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]

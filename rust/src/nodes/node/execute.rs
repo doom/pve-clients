@@ -4,7 +4,7 @@ pub struct PostParameters {
     pub commands: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostResponseItem {}
 
 #[derive(Debug, Clone)]

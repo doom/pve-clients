@@ -13,7 +13,7 @@ pub struct GetParameters {
     pub verify_certificates: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub filename: Option<String>,

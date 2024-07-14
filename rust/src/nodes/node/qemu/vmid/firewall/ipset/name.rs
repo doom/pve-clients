@@ -1,6 +1,6 @@
 pub mod cidr;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
     #[doc = "Delete all members of the IPSet, if there are any."]
     #[serde(

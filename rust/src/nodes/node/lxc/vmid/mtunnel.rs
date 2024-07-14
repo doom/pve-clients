@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
     #[doc = "List of network bridges to check availability. Will be checked again for actually used bridges during migration."]
     #[serde(skip_serializing_if = "Option::is_none", default)]

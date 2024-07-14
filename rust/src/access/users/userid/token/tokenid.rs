@@ -1,4 +1,4 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
@@ -15,7 +15,7 @@ pub struct GetResponseItem {
     pub privsep: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
@@ -42,7 +42,7 @@ pub struct PostResponseItem {
     pub value: String,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Info {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
@@ -59,7 +59,7 @@ pub struct Info {
     pub privsep: Option<bool>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
@@ -77,7 +77,7 @@ pub struct PutParameters {
 }
 
 #[doc = "Updated token information."]
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,

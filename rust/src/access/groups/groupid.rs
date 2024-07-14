@@ -5,7 +5,7 @@ pub struct GetResponseItem {
     pub members: Vec<String>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,

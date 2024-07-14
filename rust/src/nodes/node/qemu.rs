@@ -1,6 +1,6 @@
 pub mod vmid;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetParameters {
     #[doc = "Determine the full status of active VMs."]
     #[serde(

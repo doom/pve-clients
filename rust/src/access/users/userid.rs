@@ -1,7 +1,7 @@
 pub mod tfa;
 pub mod token;
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
@@ -31,10 +31,10 @@ pub struct GetResponseItem {
     pub tokens: Option<Tokens>,
 }
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Tokens {}
 
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[serde(
         skip_serializing_if = "Option::is_none",
