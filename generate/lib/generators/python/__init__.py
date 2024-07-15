@@ -85,14 +85,14 @@ class Generator(BaseGenerator):
 
         self.output(f"{fmtd_async}def {_escape_ident(method.name)}({', '.join(fmtd_parameters)}){fmtd_return}:")
         with self.indented():
-            if method.doc is not None:
+            if method.doc:
                 self.output(f'"""\n{_escape_doc(method.doc)}\n"""')
             yield
         self.output_newline()
 
     def output_type(self, type: Type):
         with self.struct(type.name, bases=["BaseModel"]):
-            if type.doc is not None:
+            if type.doc:
                 self.output(f'"""\n{type.doc}\n"""')
 
             if len(type.attributes) == 0:
@@ -100,7 +100,7 @@ class Generator(BaseGenerator):
                 return
 
             for k, v in type.attributes:
-                if v.doc is not None:
+                if v.doc:
                     self.output(f"# {_escape_doc(v.doc)}")
 
                 pydantic_opts = {}

@@ -87,7 +87,7 @@ class Generator(BaseGenerator):
 
     @contextmanager
     def output_method(self, method: Method, async_: bool = False):
-        if method.doc is not None:
+        if method.doc:
             self.output(f'#[doc = "{_escape_doc(method.doc)}"]')
 
         fmtd_parameters = ["&self"] if not method.static else []
@@ -102,7 +102,7 @@ class Generator(BaseGenerator):
         self.output_newline()
 
     def output_type(self, type: Type):
-        if type.doc is not None:
+        if type.doc:
             self.output(f'#[doc = "{_escape_doc(type.doc)}"]')
 
         autoderived = ["Debug", "Clone", "PartialEq", "serde::Serialize", "serde::Deserialize"]
@@ -114,7 +114,7 @@ class Generator(BaseGenerator):
         self.output(f"#[derive({', '.join(autoderived)})]")
         with self.struct(type.name):
             for k, v in type.attributes:
-                if v.doc is not None:
+                if v.doc:
                     self.output(f'#[doc = "{_escape_doc(v.doc)}"]')
 
                 serde_opts = {}
