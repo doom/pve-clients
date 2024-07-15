@@ -109,6 +109,8 @@ class Generator(BaseGenerator):
         if all(v.type.optional for _, v in type.attributes):
             autoderived.append("Default")
 
+        extra_snippets = []
+
         self.output(f"#[derive({', '.join(autoderived)})]")
         with self.struct(type.name):
             for k, v in type.attributes:
@@ -128,6 +130,33 @@ class Generator(BaseGenerator):
                     else:
                         serde_opts["deserialize_with"] = '"crate::common::deserialize_bool_lax"'
                         serde_opts["serialize_with"] = '"crate::common::serialize_bool_as_u64"'
+                if v.repeated:
+                    prefix = k.removesuffix("[n]")
+                    del serde_opts["rename"]
+                    deserialize_function = f"deserialize_repeated_{prefix}_in_{snake_ident(type.name)}"
+                    serialize_function = f"serialize_repeated_{prefix}_in_{snake_ident(type.name)}"
+                    serde_opts["default"] = None
+                    serde_opts["flatten"] = None
+                    serde_opts["deserialize_with"] = f'"{deserialize_function}"'
+                    serde_opts["serialize_with"] = f'"{serialize_function }"'
+                    serde_opts["skip_serializing_if"] = '"std::collections::HashMap::is_empty"'
+                    extra_snippets.append(dedent(f"""\
+                        pub fn {deserialize_function}<'de, D, V>(deserializer: D) -> Result<std::collections::HashMap<u32, V>, D::Error>
+                        where
+                            D: serde::Deserializer<'de>,
+                            V: serde::de::DeserializeOwned,
+                        {{
+                            crate::common::deserialize_repeated_with_prefix("{prefix}", deserializer)
+                        }}
+
+                        fn {serialize_function}<V, S>(value: &std::collections::HashMap<u32, V>, s: S) -> Result<S::Ok, S::Error>
+                        where
+                            V: serde::Serialize,
+                            S: serde::Serializer,
+                        {{
+                            crate::common::serialize_repeated_with_prefix(value, "{prefix}", s)
+                        }}
+                    """))
                 if serde_opts:
                     self.output(f"#[serde({_format_annotation_kwargs(serde_opts)})]")
 
@@ -135,6 +164,10 @@ class Generator(BaseGenerator):
                 if v.repeated:
                     rust_type = f"std::collections::HashMap<u32, {rust_type}>"
                 self.output(f"pub {_escape_ident(v.name)}: {rust_type},")
+
+        for s in extra_snippets:
+            self.output(s)
+            self.output_newline()
 
     def output_new_method(self, node: schema.Node):
         name, is_variable = schema.parse_path_component(node.text)
