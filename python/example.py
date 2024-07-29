@@ -48,8 +48,8 @@ class Client:
     ) -> ModelType:
         resp = self.req.get(
             f"{self.base_url}/{path}",
-            json=query
-            and query.model_dump_json(
+            params=query
+            and query.model_dump(
                 exclude_none=True,
             ),
         )
