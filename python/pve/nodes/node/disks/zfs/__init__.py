@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 from . import name as _name
 
 
@@ -28,19 +32,12 @@ class PostParameters(BaseModel):
 
 
 class GetResponseItem(BaseModel):
-    #
     alloc: int
-    #
     dedup: float
-    #
     frag: int
-    #
     free: int
-    #
     health: str
-    #
     name: str
-    #
     size: int
 
     class Config(CommonPydanticConfig):

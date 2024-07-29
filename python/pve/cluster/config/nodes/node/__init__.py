@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 
 
 class PostResponseItem(BaseModel):
@@ -22,13 +26,27 @@ class PostParameters(BaseModel):
     # Do not throw error if node already exists.
     force: Optional[bool] = Field(default=None)
     # Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)
-    links: dict[int, Optional[str]] = Field(alias="link[n]", default=None)
+    links: dict[int, Optional[str]] = Field(default=None)
     # IP Address of node to add. Used as fallback if no links are given.
     new_node_ip: Optional[str] = Field(default=None)
     # Node id for this node.
     nodeid: Optional[int] = Field(default=None)
     # Number of votes for this node
     votes: Optional[int] = Field(default=None)
+
+    @model_serializer(mode="wrap")
+    def _serialize_repeated(self, serializer):
+        data = serializer(self)
+        data = serialize_repeated_with_prefix(data, group="links", prefix="link")
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def _extract_repeated(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+        data = extract_repeated_with_prefix(data, group="links", prefix="link")
+        return data
 
     class Config(CommonPydanticConfig):
         pass

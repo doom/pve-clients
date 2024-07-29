@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 from . import config as _config
 from . import rollback as _rollback
 
@@ -49,7 +53,6 @@ class SnapnameClient:
         return self.client.delete(self.path, parameters, parse_as=str)
 
     def get(self) -> list[GetResponseItem]:
-        """ """
         return self.client.get(self.path, parse_as=list[GetResponseItem])
 
 
@@ -81,5 +84,4 @@ class AsyncSnapnameClient:
         return await self.client.delete(self.path, parameters, parse_as=str)
 
     async def get(self) -> list[GetResponseItem]:
-        """ """
         return await self.client.get(self.path, parse_as=list[GetResponseItem])
