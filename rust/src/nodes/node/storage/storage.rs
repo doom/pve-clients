@@ -65,7 +65,6 @@ impl<T> StorageClient<T>
 where
     T: crate::client::HttpClient,
 {
-    #[doc = ""]
     pub fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &())
     }
@@ -123,7 +122,6 @@ impl<T> AsyncStorageClient<T>
 where
     T: crate::client::AsyncHttpClient,
 {
-    #[doc = ""]
     pub async fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &()).await
     }

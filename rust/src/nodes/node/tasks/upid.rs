@@ -38,7 +38,6 @@ where
         self.client.delete(&self.path, &())
     }
 
-    #[doc = ""]
     pub fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &())
     }
@@ -77,7 +76,6 @@ where
         self.client.delete(&self.path, &()).await
     }
 
-    #[doc = ""]
     pub async fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &()).await
     }

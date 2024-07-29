@@ -104,13 +104,25 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub memory: Option<u64>,
     #[doc = "Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume."]
-    #[serde(rename = "mp[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_mp_in_post_parameters",
+        serialize_with = "serialize_repeated_mp_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub mps: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub nameserver: Option<String>,
     #[doc = "Specifies network interfaces for the container."]
-    #[serde(rename = "net[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_net_in_post_parameters",
+        serialize_with = "serialize_repeated_net_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub nets: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Specifies whether a container will be started during system bootup."]
     #[serde(
@@ -211,10 +223,78 @@ pub struct PostParameters {
     )]
     pub unprivileged: Option<bool>,
     #[doc = "Reference to unused volumes. This is used internally, and should not be modified manually."]
-    #[serde(rename = "unused[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_unused_in_post_parameters",
+        serialize_with = "serialize_repeated_unused_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
     #[doc = "The (unique) ID of the VM."]
     pub vmid: u64,
+}
+pub fn deserialize_repeated_mp_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("mp", deserializer)
+}
+
+fn serialize_repeated_mp_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "mp", s)
+}
+
+pub fn deserialize_repeated_net_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("net", deserializer)
+}
+
+fn serialize_repeated_net_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "net", s)
+}
+
+pub fn deserialize_repeated_unused_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("unused", deserializer)
+}
+
+fn serialize_repeated_unused_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "unused", s)
 }
 
 #[derive(Debug, Clone)]

@@ -165,7 +165,13 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub hookscript: Option<String>,
     #[doc = "Map host PCI devices into guest."]
-    #[serde(rename = "hostpci[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_hostpci_in_post_parameters",
+        serialize_with = "serialize_repeated_hostpci_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub hostpcis: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory', 'usb' and 'cloudinit'. Use '0' to disable hotplug completely. Using '1' as value is an alias for the default `network,disk,usb`. USB hotplugging is possible for guests with machine version >= 7.1 and ostype l26 or windows > 7."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -174,10 +180,22 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub hugepages: Option<String>,
     #[doc = "Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume."]
-    #[serde(rename = "ide[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_ide_in_post_parameters",
+        serialize_with = "serialize_repeated_ide_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub ides: std::collections::HashMap<u32, Option<String>>,
     #[doc = "cloud-init: Specify IP addresses and gateways for the corresponding interface.  IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.  The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided. For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires cloud-init 19.4 or newer.  If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4. "]
-    #[serde(rename = "ipconfig[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_ipconfig_in_post_parameters",
+        serialize_with = "serialize_repeated_ipconfig_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub ipconfigs: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Inter-VM shared memory. Useful for direct communication between VMs, or to the host."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -240,7 +258,13 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub nameserver: Option<String>,
     #[doc = "Specify network devices."]
-    #[serde(rename = "net[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_net_in_post_parameters",
+        serialize_with = "serialize_repeated_net_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub nets: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Enable/disable NUMA."]
     #[serde(
@@ -251,7 +275,13 @@ pub struct PostParameters {
     )]
     pub numa: Option<bool>,
     #[doc = "NUMA topology."]
-    #[serde(rename = "numa[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_numa_in_post_parameters",
+        serialize_with = "serialize_repeated_numa_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub numas: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Specifies whether a VM will be started during system bootup."]
     #[serde(
@@ -265,7 +295,13 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub ostype: Option<String>,
     #[doc = "Map host parallel devices (n is 0 to 2)."]
-    #[serde(rename = "parallel[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_parallel_in_post_parameters",
+        serialize_with = "serialize_repeated_parallel_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub parallels: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Add the VM to the specified pool."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -290,10 +326,22 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub rng0: Option<String>,
     #[doc = "Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume."]
-    #[serde(rename = "sata[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_sata_in_post_parameters",
+        serialize_with = "serialize_repeated_sata_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub satas: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume."]
-    #[serde(rename = "scsi[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_scsi_in_post_parameters",
+        serialize_with = "serialize_repeated_scsi_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub scsis: std::collections::HashMap<u32, Option<String>>,
     #[doc = "SCSI controller model"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -302,7 +350,13 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub searchdomain: Option<String>,
     #[doc = "Create a serial device inside the VM (n is 0 to 3)"]
-    #[serde(rename = "serial[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_serial_in_post_parameters",
+        serialize_with = "serialize_repeated_serial_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub serials: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -378,10 +432,22 @@ pub struct PostParameters {
     )]
     pub unique: Option<bool>,
     #[doc = "Reference to unused volumes. This is used internally, and should not be modified manually."]
-    #[serde(rename = "unused[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_unused_in_post_parameters",
+        serialize_with = "serialize_repeated_unused_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Configure an USB device (n is 0 to 4, for machine version >= 7.1 and ostype l26 or windows > 7, n can be up to 14)."]
-    #[serde(rename = "usb[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_usb_in_post_parameters",
+        serialize_with = "serialize_repeated_usb_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub usbs: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Number of hotplugged vcpus."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -390,7 +456,13 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub vga: Option<String>,
     #[doc = "Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume."]
-    #[serde(rename = "virtio[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_virtio_in_post_parameters",
+        serialize_with = "serialize_repeated_virtio_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub virtios: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Set VM Generation ID. Use '1' to autogenerate on create or update, pass '0' to disable explicitly."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -403,6 +475,257 @@ pub struct PostParameters {
     #[doc = "Create a virtual hardware watchdog device."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub watchdog: Option<String>,
+}
+pub fn deserialize_repeated_hostpci_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("hostpci", deserializer)
+}
+
+fn serialize_repeated_hostpci_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "hostpci", s)
+}
+
+pub fn deserialize_repeated_ide_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("ide", deserializer)
+}
+
+fn serialize_repeated_ide_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "ide", s)
+}
+
+pub fn deserialize_repeated_ipconfig_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("ipconfig", deserializer)
+}
+
+fn serialize_repeated_ipconfig_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "ipconfig", s)
+}
+
+pub fn deserialize_repeated_net_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("net", deserializer)
+}
+
+fn serialize_repeated_net_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "net", s)
+}
+
+pub fn deserialize_repeated_numa_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("numa", deserializer)
+}
+
+fn serialize_repeated_numa_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "numa", s)
+}
+
+pub fn deserialize_repeated_parallel_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("parallel", deserializer)
+}
+
+fn serialize_repeated_parallel_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "parallel", s)
+}
+
+pub fn deserialize_repeated_sata_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("sata", deserializer)
+}
+
+fn serialize_repeated_sata_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "sata", s)
+}
+
+pub fn deserialize_repeated_scsi_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("scsi", deserializer)
+}
+
+fn serialize_repeated_scsi_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "scsi", s)
+}
+
+pub fn deserialize_repeated_serial_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("serial", deserializer)
+}
+
+fn serialize_repeated_serial_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "serial", s)
+}
+
+pub fn deserialize_repeated_unused_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("unused", deserializer)
+}
+
+fn serialize_repeated_unused_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "unused", s)
+}
+
+pub fn deserialize_repeated_usb_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("usb", deserializer)
+}
+
+fn serialize_repeated_usb_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "usb", s)
+}
+
+pub fn deserialize_repeated_virtio_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("virtio", deserializer)
+}
+
+fn serialize_repeated_virtio_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "virtio", s)
 }
 
 #[derive(Debug, Clone)]
