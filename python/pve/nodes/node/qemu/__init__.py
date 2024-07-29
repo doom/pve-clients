@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 from . import vmid as _vmid
 
 
@@ -64,15 +68,15 @@ class PostParameters(BaseModel):
     # Script that will be executed during various steps in the vms lifetime.
     hookscript: Optional[str] = Field(default=None)
     # Map host PCI devices into guest.
-    hostpcis: dict[int, Optional[str]] = Field(alias="hostpci[n]", default=None)
+    hostpcis: dict[int, Optional[str]] = Field(default=None)
     # Selectively enable hotplug features. This is a comma separated list of hotplug features: 'network', 'disk', 'cpu', 'memory', 'usb' and 'cloudinit'. Use '0' to disable hotplug completely. Using '1' as value is an alias for the default `network,disk,usb`. USB hotplugging is possible for guests with machine version >= 7.1 and ostype l26 or windows > 7.
     hotplug: Optional[str] = Field(default=None)
     # Enable/disable hugepages memory.
     hugepages: Optional[str] = Field(default=None)
     # Use volume as IDE hard disk or CD-ROM (n is 0 to 3). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-    ides: dict[int, Optional[str]] = Field(alias="ide[n]", default=None)
+    ides: dict[int, Optional[str]] = Field(default=None)
     # cloud-init: Specify IP addresses and gateways for the corresponding interface.  IP addresses use CIDR notation, gateways are optional but need an IP of the same type specified.  The special string 'dhcp' can be used for IP addresses to use DHCP, in which case no explicit gateway should be provided. For IPv6 the special string 'auto' can be used to use stateless autoconfiguration. This requires cloud-init 19.4 or newer.  If cloud-init is enabled and neither an IPv4 nor an IPv6 address is specified, it defaults to using dhcp on IPv4.
-    ipconfigs: dict[int, Optional[str]] = Field(alias="ipconfig[n]", default=None)
+    ipconfigs: dict[int, Optional[str]] = Field(default=None)
     # Inter-VM shared memory. Useful for direct communication between VMs, or to the host.
     ivshmem: Optional[str] = Field(default=None)
     # Use together with hugepages. If enabled, hugepages will not not be deleted after VM shutdown and can be used for subsequent starts.
@@ -100,17 +104,17 @@ class PostParameters(BaseModel):
     # cloud-init: Sets DNS server IP address for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
     nameserver: Optional[str] = Field(default=None)
     # Specify network devices.
-    nets: dict[int, Optional[str]] = Field(alias="net[n]", default=None)
+    nets: dict[int, Optional[str]] = Field(default=None)
     # Enable/disable NUMA.
     numa: Optional[bool] = Field(default=None)
     # NUMA topology.
-    numas: dict[int, Optional[str]] = Field(alias="numa[n]", default=None)
+    numas: dict[int, Optional[str]] = Field(default=None)
     # Specifies whether a VM will be started during system bootup.
     onboot: Optional[bool] = Field(default=None)
     # Specify guest operating system.
     ostype: Optional[str] = Field(default=None)
     # Map host parallel devices (n is 0 to 2).
-    parallels: dict[int, Optional[str]] = Field(alias="parallel[n]", default=None)
+    parallels: dict[int, Optional[str]] = Field(default=None)
     # Add the VM to the specified pool.
     pool: Optional[str] = Field(default=None)
     # Sets the protection flag of the VM. This will disable the remove VM and remove disk operations.
@@ -120,15 +124,15 @@ class PostParameters(BaseModel):
     # Configure a VirtIO-based Random Number Generator.
     rng0: Optional[str] = Field(default=None)
     # Use volume as SATA hard disk or CD-ROM (n is 0 to 5). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-    satas: dict[int, Optional[str]] = Field(alias="sata[n]", default=None)
+    satas: dict[int, Optional[str]] = Field(default=None)
     # Use volume as SCSI hard disk or CD-ROM (n is 0 to 30). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-    scsis: dict[int, Optional[str]] = Field(alias="scsi[n]", default=None)
+    scsis: dict[int, Optional[str]] = Field(default=None)
     # SCSI controller model
     scsihw: Optional[str] = Field(default=None)
     # cloud-init: Sets DNS search domains for a container. Create will automatically use the setting from the host if neither searchdomain nor nameserver are set.
     searchdomain: Optional[str] = Field(default=None)
     # Create a serial device inside the VM (n is 0 to 3)
-    serials: dict[int, Optional[str]] = Field(alias="serial[n]", default=None)
+    serials: dict[int, Optional[str]] = Field(default=None)
     # Amount of memory shares for auto-ballooning. The larger the number is, the more memory this VM gets. Number is relative to weights of all other running VMs. Using zero disables auto-ballooning. Auto-ballooning is done by pvestatd.
     shares: Optional[int] = Field(default=None)
     # Specify SMBIOS type 1 fields.
@@ -162,15 +166,15 @@ class PostParameters(BaseModel):
     # Assign a unique random ethernet address.
     unique: Optional[bool] = Field(default=None)
     # Reference to unused volumes. This is used internally, and should not be modified manually.
-    unuseds: dict[int, Optional[str]] = Field(alias="unused[n]", default=None)
+    unuseds: dict[int, Optional[str]] = Field(default=None)
     # Configure an USB device (n is 0 to 4, for machine version >= 7.1 and ostype l26 or windows > 7, n can be up to 14).
-    usbs: dict[int, Optional[str]] = Field(alias="usb[n]", default=None)
+    usbs: dict[int, Optional[str]] = Field(default=None)
     # Number of hotplugged vcpus.
     vcpus: Optional[int] = Field(default=None)
     # Configure the VGA hardware.
     vga: Optional[str] = Field(default=None)
     # Use volume as VIRTIO hard disk (n is 0 to 15). Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume. Use STORAGE_ID:0 and the 'import-from' parameter to import from an existing volume.
-    virtios: dict[int, Optional[str]] = Field(alias="virtio[n]", default=None)
+    virtios: dict[int, Optional[str]] = Field(default=None)
     # Set VM Generation ID. Use '1' to autogenerate on create or update, pass '0' to disable explicitly.
     vmgenid: Optional[str] = Field(default=None)
     # The (unique) ID of the VM.
@@ -179,6 +183,46 @@ class PostParameters(BaseModel):
     vmstatestorage: Optional[str] = Field(default=None)
     # Create a virtual hardware watchdog device.
     watchdog: Optional[str] = Field(default=None)
+
+    @model_serializer(mode="wrap")
+    def _serialize_repeated(self, serializer):
+        data = serializer(self)
+        data = serialize_repeated_with_prefix(data, group="hostpcis", prefix="hostpci")
+        data = serialize_repeated_with_prefix(data, group="ides", prefix="ide")
+        data = serialize_repeated_with_prefix(
+            data, group="ipconfigs", prefix="ipconfig"
+        )
+        data = serialize_repeated_with_prefix(data, group="nets", prefix="net")
+        data = serialize_repeated_with_prefix(data, group="numas", prefix="numa")
+        data = serialize_repeated_with_prefix(
+            data, group="parallels", prefix="parallel"
+        )
+        data = serialize_repeated_with_prefix(data, group="satas", prefix="sata")
+        data = serialize_repeated_with_prefix(data, group="scsis", prefix="scsi")
+        data = serialize_repeated_with_prefix(data, group="serials", prefix="serial")
+        data = serialize_repeated_with_prefix(data, group="unuseds", prefix="unused")
+        data = serialize_repeated_with_prefix(data, group="usbs", prefix="usb")
+        data = serialize_repeated_with_prefix(data, group="virtios", prefix="virtio")
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def _extract_repeated(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+        data = extract_repeated_with_prefix(data, group="hostpcis", prefix="hostpci")
+        data = extract_repeated_with_prefix(data, group="ides", prefix="ide")
+        data = extract_repeated_with_prefix(data, group="ipconfigs", prefix="ipconfig")
+        data = extract_repeated_with_prefix(data, group="nets", prefix="net")
+        data = extract_repeated_with_prefix(data, group="numas", prefix="numa")
+        data = extract_repeated_with_prefix(data, group="parallels", prefix="parallel")
+        data = extract_repeated_with_prefix(data, group="satas", prefix="sata")
+        data = extract_repeated_with_prefix(data, group="scsis", prefix="scsi")
+        data = extract_repeated_with_prefix(data, group="serials", prefix="serial")
+        data = extract_repeated_with_prefix(data, group="unuseds", prefix="unused")
+        data = extract_repeated_with_prefix(data, group="usbs", prefix="usb")
+        data = extract_repeated_with_prefix(data, group="virtios", prefix="virtio")
+        return data
 
     class Config(CommonPydanticConfig):
         pass
