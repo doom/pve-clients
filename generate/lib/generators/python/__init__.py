@@ -102,6 +102,7 @@ class Generator(BaseGenerator):
                 return
 
             model_serializer_hooks = []
+            model_validator_hooks = []
             for k, v in type.attributes:
                 if v.doc:
                     self.output(f"# {_escape_doc(v.doc)}")
@@ -118,20 +119,11 @@ class Generator(BaseGenerator):
                 if v.repeated:
                     prefix = k.removesuffix("[n]")
                     del pydantic_opts["alias"]
-                    extra_snippets.append(
-                        dedent(
-                            f"""\
-                    @model_validator(mode='before')
-                    @classmethod
-                    def rewrite_for_{name}(cls, data: Any) -> Any:
-                        if isinstance(data, dict):
-                            data = extract_repeated_with_prefix(data, group="{name}", prefix="{prefix}")
-                        return data
-                    """
-                        )
-                    )
                     model_serializer_hooks.append(
                         f'serialize_repeated_with_prefix(data, group="{name}", prefix="{prefix}")'
+                    )
+                    model_validator_hooks.append(
+                        f'data = extract_repeated_with_prefix(data, group="{name}", prefix="{prefix}")'
                     )
                 field_attr = ""
                 if pydantic_opts:
@@ -148,9 +140,25 @@ class Generator(BaseGenerator):
                     dedent(
                         f"""\
                     @model_serializer(mode="wrap")
-                    def serialize(self, serializer):
+                    def _serialize_repeated(self, serializer):
                         data = serializer(self)
                         {newline.join(('data = ' + h) for h in model_serializer_hooks)}
+                        return data
+                """
+                    )
+                )
+
+            if model_validator_hooks:
+                newline = "\n" + "    " * 6
+                extra_snippets.append(
+                    dedent(
+                        f"""\
+                    @model_validator(mode="before")
+                    @classmethod
+                    def _extract_repeated(cls, data: Any) -> Any:
+                        if not isinstance(data, dict):
+                            return data
+                        {newline.join(('data = ' + h) for h in model_validator_hooks)}
                         return data
                 """
                     )
