@@ -92,6 +92,8 @@ class Generator(BaseGenerator):
 
     def output_type(self, type: Type):
         with self.struct(type.name, bases=["BaseModel"]):
+            extra_snippets = []
+
             if type.doc:
                 self.output(f'"""\n{type.doc}\n"""')
 
@@ -99,9 +101,12 @@ class Generator(BaseGenerator):
                 self.output("pass")
                 return
 
+            model_serializer_hooks = []
             for k, v in type.attributes:
                 if v.doc:
                     self.output(f"# {_escape_doc(v.doc)}")
+
+                name = _escape_ident(v.name)
 
                 pydantic_opts = {}
                 if _escape_ident(v.name) != v.name:
@@ -110,6 +115,24 @@ class Generator(BaseGenerator):
                     pydantic_opts["alias"] = f'"{v.original_name}"'
                 if v.type.optional:
                     pydantic_opts["default"] = "None"
+                if v.repeated:
+                    prefix = k.removesuffix("[n]")
+                    del pydantic_opts["alias"]
+                    extra_snippets.append(
+                        dedent(
+                            f"""\
+                    @model_validator(mode='before')
+                    @classmethod
+                    def rewrite_for_{name}(cls, data: Any) -> Any:
+                        if isinstance(data, dict):
+                            data = extract_repeated_with_prefix(data, group="{name}", prefix="{prefix}")
+                        return data
+                    """
+                        )
+                    )
+                    model_serializer_hooks.append(
+                        f'serialize_repeated_with_prefix(data, group="{name}", prefix="{prefix}")'
+                    )
                 field_attr = ""
                 if pydantic_opts:
                     field_attr = f"= Field({_format_annotation_kwargs(pydantic_opts)})"
@@ -117,11 +140,35 @@ class Generator(BaseGenerator):
                 python_type = _as_python_type(v.type)
                 if v.repeated:
                     python_type = f"dict[int, {python_type}]"
-                self.output(f"{_escape_ident(v.name)}: {python_type} {field_attr}")
+                self.output(f"{name}: {python_type} {field_attr}")
+
+            if model_serializer_hooks:
+                newline = "\n" + "    " * 6
+                extra_snippets.append(
+                    dedent(
+                        f"""\
+                    @model_serializer(mode="wrap")
+                    def serialize(self, serializer):
+                        data = serializer(self)
+                        {newline.join(('data = ' + h) for h in model_serializer_hooks)}
+                        return data
+                """
+                    )
+                )
+
+            extra_snippets.append(
+                dedent(
+                    f"""\
+            class Config(CommonPydanticConfig):
+                pass
+            """
+                )
+            )
 
             self.output_newline()
-            self.output("class Config(CommonPydanticConfig):")
-            self.output("    pass")
+            for s in extra_snippets:
+                self.output(s)
+                self.output_newline()
 
     def output_new_method(self, node: schema.Node, async_: bool = False):
         name, is_variable = schema.parse_path_component(node.text)
@@ -238,10 +285,12 @@ class Generator(BaseGenerator):
                 self.output("from dataclasses import dataclass")
                 self.output("from typing import Any, Optional")
                 self.output_newline()
-                self.output("from pydantic import BaseModel, Field")
+                self.output("from pydantic import BaseModel, Field, model_serializer, model_validator")
                 self.output_newline()
                 self.output(f"from {self.root_name}.client import AbstractClient, AsyncAbstractClient")
-                self.output(f"from {self.root_name}.common import CommonPydanticConfig")
+                self.output(
+                    f"from {self.root_name}.common import CommonPydanticConfig, extract_repeated_with_prefix, serialize_repeated_with_prefix"
+                )
                 if len(mods):
                     for mod in sorted(mods):
                         ident = _escape_ident(snake_ident(mod))
