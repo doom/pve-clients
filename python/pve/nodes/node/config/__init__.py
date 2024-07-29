@@ -1,17 +1,21 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 
 
 class PutParameters(BaseModel):
     # Node specific ACME settings.
     acme: Optional[str] = Field(default=None)
     # ACME domain and validation plugin
-    acmedomains: dict[int, Optional[str]] = Field(alias="acmedomain[n]", default=None)
+    acmedomains: dict[int, Optional[str]] = Field(default=None)
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
     # Description for the Node. Shown in the web-interface node notes panel. This is saved as comment inside the configuration file.
@@ -25,6 +29,23 @@ class PutParameters(BaseModel):
     # MAC address for wake on LAN
     wakeonlan: Optional[str] = Field(default=None)
 
+    @model_validator(mode="before")
+    @classmethod
+    def rewrite_for_acmedomains(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            data = extract_repeated_with_prefix(
+                data, group="acmedomains", prefix="acmedomain"
+            )
+        return data
+
+    @model_serializer(mode="wrap")
+    def serialize(self, serializer):
+        data = serializer(self)
+        data = serialize_repeated_with_prefix(
+            data, group="acmedomains", prefix="acmedomain"
+        )
+        return data
+
     class Config(CommonPydanticConfig):
         pass
 
@@ -33,7 +54,7 @@ class GetResponseItem(BaseModel):
     # Node specific ACME settings.
     acme: Optional[str] = Field(default=None)
     # ACME domain and validation plugin
-    acmedomains: dict[int, Optional[str]] = Field(alias="acmedomain[n]", default=None)
+    acmedomains: dict[int, Optional[str]] = Field(default=None)
     # Description for the Node. Shown in the web-interface node notes panel. This is saved as comment inside the configuration file.
     description: Optional[str] = Field(default=None)
     # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
@@ -44,6 +65,23 @@ class GetResponseItem(BaseModel):
     )
     # MAC address for wake on LAN
     wakeonlan: Optional[str] = Field(default=None)
+
+    @model_validator(mode="before")
+    @classmethod
+    def rewrite_for_acmedomains(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            data = extract_repeated_with_prefix(
+                data, group="acmedomains", prefix="acmedomain"
+            )
+        return data
+
+    @model_serializer(mode="wrap")
+    def serialize(self, serializer):
+        data = serializer(self)
+        data = serialize_repeated_with_prefix(
+            data, group="acmedomains", prefix="acmedomain"
+        )
+        return data
 
     class Config(CommonPydanticConfig):
         pass
