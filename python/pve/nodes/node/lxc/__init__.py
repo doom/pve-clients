@@ -1,10 +1,14 @@
 from dataclasses import dataclass
 from typing import Any, Optional
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_serializer, model_validator
 
 from pve.client import AbstractClient, AsyncAbstractClient
-from pve.common import CommonPydanticConfig
+from pve.common import (
+    CommonPydanticConfig,
+    extract_repeated_with_prefix,
+    serialize_repeated_with_prefix,
+)
 from . import vmid as _vmid
 
 
@@ -44,11 +48,11 @@ class PostParameters(BaseModel):
     # Amount of RAM for the container in MB.
     memory: Optional[int] = Field(default=None)
     # Use volume as container mount point. Use the special syntax STORAGE_ID:SIZE_IN_GiB to allocate a new volume.
-    mps: dict[int, Optional[str]] = Field(alias="mp[n]", default=None)
+    mps: dict[int, Optional[str]] = Field(default=None)
     # Sets DNS server IP address for a container. Create will automatically use the setting from the host if you neither set searchdomain nor nameserver.
     nameserver: Optional[str] = Field(default=None)
     # Specifies network interfaces for the container.
-    nets: dict[int, Optional[str]] = Field(alias="net[n]", default=None)
+    nets: dict[int, Optional[str]] = Field(default=None)
     # Specifies whether a container will be started during system bootup.
     onboot: Optional[bool] = Field(default=None)
     # The OS template or backup file.
@@ -90,9 +94,29 @@ class PostParameters(BaseModel):
     # Makes the container run as unprivileged user. (Should not be modified manually.)
     unprivileged: Optional[bool] = Field(default=None)
     # Reference to unused volumes. This is used internally, and should not be modified manually.
-    unuseds: dict[int, Optional[str]] = Field(alias="unused[n]", default=None)
+    unuseds: dict[int, Optional[str]] = Field(default=None)
     # The (unique) ID of the VM.
     vmid: int
+
+    @model_serializer(mode="wrap")
+    def _serialize_repeated(self, serializer):
+        data = serializer(self)
+        data = serialize_repeated_with_prefix(data, group="mps", prefix="mp")
+        data = serialize_repeated_with_prefix(data, group="nets", prefix="net")
+        data = serialize_repeated_with_prefix(data, group="unuseds", prefix="unused")
+        return data
+
+    @model_validator(mode="before")
+    @classmethod
+    def _extract_repeated(cls, data: Any) -> Any:
+        if not isinstance(data, dict):
+            return data
+        data = data = extract_repeated_with_prefix(data, group="mps", prefix="mp")
+        data = data = extract_repeated_with_prefix(data, group="nets", prefix="net")
+        data = data = extract_repeated_with_prefix(
+            data, group="unuseds", prefix="unused"
+        )
+        return data
 
     class Config(CommonPydanticConfig):
         pass
