@@ -48,7 +48,13 @@ pub struct PostParameters {
     #[doc = "Hostname (or IP) of an existing cluster member."]
     pub hostname: String,
     #[doc = "Address and priority information of a single corosync link. (up to 8 links supported; link0..link7)"]
-    #[serde(rename = "link[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_link_in_post_parameters",
+        serialize_with = "serialize_repeated_link_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub links: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Node id for this node."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -58,6 +64,26 @@ pub struct PostParameters {
     #[doc = "Number of votes for this node"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub votes: Option<u64>,
+}
+pub fn deserialize_repeated_link_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("link", deserializer)
+}
+
+fn serialize_repeated_link_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "link", s)
 }
 
 #[derive(Debug, Clone)]

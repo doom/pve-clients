@@ -2,19 +2,12 @@ pub mod name;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
-    #[doc = ""]
     pub alloc: u64,
-    #[doc = ""]
     pub dedup: f64,
-    #[doc = ""]
     pub frag: u64,
-    #[doc = ""]
     pub free: u64,
-    #[doc = ""]
     pub health: String,
-    #[doc = ""]
     pub name: String,
-    #[doc = ""]
     pub size: u64,
 }
 

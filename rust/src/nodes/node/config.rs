@@ -11,7 +11,13 @@ pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub acme: Option<String>,
     #[doc = "ACME domain and validation plugin"]
-    #[serde(rename = "acmedomain[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_acmedomain_in_get_response_item",
+        serialize_with = "serialize_repeated_acmedomain_in_get_response_item",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub acmedomains: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Description for the Node. Shown in the web-interface node notes panel. This is saved as comment inside the configuration file."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -30,6 +36,26 @@ pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
 }
+pub fn deserialize_repeated_acmedomain_in_get_response_item<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("acmedomain", deserializer)
+}
+
+fn serialize_repeated_acmedomain_in_get_response_item<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "acmedomain", s)
+}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
@@ -37,7 +63,13 @@ pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub acme: Option<String>,
     #[doc = "ACME domain and validation plugin"]
-    #[serde(rename = "acmedomain[n]")]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_acmedomain_in_put_parameters",
+        serialize_with = "serialize_repeated_acmedomain_in_put_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
     pub acmedomains: std::collections::HashMap<u32, Option<String>>,
     #[doc = "A list of settings you want to delete."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -58,6 +90,26 @@ pub struct PutParameters {
     #[doc = "MAC address for wake on LAN"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
+}
+pub fn deserialize_repeated_acmedomain_in_put_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("acmedomain", deserializer)
+}
+
+fn serialize_repeated_acmedomain_in_put_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "acmedomain", s)
 }
 
 #[derive(Debug, Clone)]
