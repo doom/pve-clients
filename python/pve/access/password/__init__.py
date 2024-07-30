@@ -12,6 +12,10 @@ from pve.common import (
 
 
 class PutParameters(BaseModel):
+    # The current password of the user performing the change.
+    confirmation_password: Optional[str] = Field(
+        alias="confirmation-password", default=None
+    )
     # The new password.
     password: str
     # Full User ID, in the `name@realm` format.

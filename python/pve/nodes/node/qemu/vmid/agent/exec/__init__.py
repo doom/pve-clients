@@ -20,8 +20,8 @@ class PostResponseItem(BaseModel):
 
 
 class PostParameters(BaseModel):
-    # The command as a list of program + arguments
-    command: Optional[str] = Field(default=None)
+    # The command as a list of program + arguments.
+    command: list[str]
     # Data to pass as 'input-data' to the guest. Usually treated as STDIN to 'command'.
     input_data: Optional[str] = Field(alias="input-data", default=None)
 

@@ -12,6 +12,8 @@ from pve.common import (
 
 
 class PostParameters(BaseModel):
+    # Try to abort active 'vzshutdown' tasks before stopping.
+    overrule_shutdown: Optional[bool] = Field(alias="overrule-shutdown", default=None)
     # Ignore locks - only root is allowed to use this option.
     skiplock: Optional[bool] = Field(default=None)
 

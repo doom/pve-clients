@@ -26,7 +26,7 @@ class PostParameters(BaseModel):
 class GetResponseItem(BaseModel):
     cidr: str
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: str
     name: str
 

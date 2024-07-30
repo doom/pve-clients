@@ -12,6 +12,7 @@ from pve.common import (
 from . import content as _content
 from . import download_url as _download_url
 from . import file_restore as _file_restore
+from . import import_metadata as _import_metadata
 from . import prunebackups as _prunebackups
 from . import rrd as _rrd
 from . import rrddata as _rrddata
@@ -83,6 +84,12 @@ class StorageClient:
             self.path,
         )
 
+    def import_metadata(self) -> _import_metadata.ImportMetadataClient:
+        return _import_metadata.ImportMetadataClient(
+            self.client,
+            self.path,
+        )
+
     def get(self) -> list[GetResponseItem]:
         return self.client.get(self.path, parse_as=list[GetResponseItem])
 
@@ -140,6 +147,12 @@ class AsyncStorageClient:
 
     def download_url(self) -> _download_url.AsyncDownloadUrlClient:
         return _download_url.AsyncDownloadUrlClient(
+            self.client,
+            self.path,
+        )
+
+    def import_metadata(self) -> _import_metadata.AsyncImportMetadataClient:
+        return _import_metadata.AsyncImportMetadataClient(
             self.client,
             self.path,
         )

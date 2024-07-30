@@ -16,7 +16,7 @@ class PutParameters(BaseModel):
     delete: Optional[str] = Field(default=None)
     # Enable DHCP.
     dhcp: Optional[bool] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Enable/disable firewall rules.
     enable: Optional[bool] = Field(default=None)

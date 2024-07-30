@@ -12,7 +12,7 @@ from pve.common import (
 
 
 class PostParameters(BaseModel):
-    # Send notification mail about new packages (to email address specified for user 'root@pam').
+    # Send notification about new packages.
     notify: Optional[bool] = Field(default=None)
     # Only produces output suitable for logging, omitting progress indicators.
     quiet: Optional[bool] = Field(default=None)

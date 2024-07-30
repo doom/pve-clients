@@ -12,6 +12,7 @@ from pve.common import (
 from . import account as _account
 from . import challenge_schema as _challenge_schema
 from . import directories as _directories
+from . import meta as _meta
 from . import plugins as _plugins
 from . import tos as _tos
 
@@ -43,6 +44,12 @@ class AcmeClient:
 
     def tos(self) -> _tos.TosClient:
         return _tos.TosClient(
+            self.client,
+            self.path,
+        )
+
+    def meta(self) -> _meta.MetaClient:
+        return _meta.MetaClient(
             self.client,
             self.path,
         )
@@ -89,6 +96,12 @@ class AsyncAcmeClient:
 
     def tos(self) -> _tos.AsyncTosClient:
         return _tos.AsyncTosClient(
+            self.client,
+            self.path,
+        )
+
+    def meta(self) -> _meta.AsyncMetaClient:
+        return _meta.AsyncMetaClient(
             self.client,
             self.path,
         )

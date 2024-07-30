@@ -20,7 +20,7 @@ class PostParameters(BaseModel):
     min_size: Optional[int] = Field(default=None)
     # Use specific network for all ceph related traffic
     network: Optional[str] = Field(default=None)
-    # Placement group bits, used to specify the default number of placement groups.  NOTE: 'osd pool default pg num' does not work for default pools.
+    # Placement group bits, used to specify the default number of placement groups.  Depreacted. This setting was deprecated in recent Ceph versions.
     pg_bits: Optional[int] = Field(default=None)
     # Targeted number of replicas per object
     size: Optional[int] = Field(default=None)

@@ -29,7 +29,7 @@ class PostParameters(BaseModel):
     challenge: Optional[str] = Field(default=None)
     # A description to distinguish multiple entries from one another
     description: Optional[str] = Field(default=None)
-    # The current password.
+    # The current password of the user performing the change.
     password: Optional[str] = Field(default=None)
     # A totp URI.
     totp: Optional[str] = Field(default=None)

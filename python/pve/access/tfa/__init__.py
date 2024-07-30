@@ -12,21 +12,6 @@ from pve.common import (
 from . import userid as _userid
 
 
-class PostResponseItem(BaseModel):
-    ticket: str
-
-    class Config(CommonPydanticConfig):
-        pass
-
-
-class PostParameters(BaseModel):
-    # The response to the current authentication challenge.
-    response: str
-
-    class Config(CommonPydanticConfig):
-        pass
-
-
 class GetResponseItemEntriesItem(BaseModel):
     """
     TFA Entry.
@@ -49,6 +34,10 @@ class GetResponseItemEntriesItem(BaseModel):
 
 class GetResponseItem(BaseModel):
     entries: list[GetResponseItemEntriesItem]
+    # Contains a timestamp until when a user is locked out of 2nd factors.
+    tfa_locked_until: Optional[int] = Field(alias="tfa-locked-until", default=None)
+    # True if the user is currently locked out of TOTP factors.
+    totp_locked: Optional[bool] = Field(alias="totp-locked", default=None)
     # User this entry belongs to.
     userid: str
 
@@ -78,12 +67,6 @@ class TfaClient:
         """
         return self.client.get(self.path, parse_as=list[GetResponseItem])
 
-    def post(self, parameters: PostParameters) -> PostResponseItem:
-        """
-        Finish a u2f challenge.
-        """
-        return self.client.post(self.path, parameters, parse_as=PostResponseItem)
-
 
 @dataclass
 class AsyncTfaClient:
@@ -106,9 +89,3 @@ class AsyncTfaClient:
         List TFA configurations of users.
         """
         return await self.client.get(self.path, parse_as=list[GetResponseItem])
-
-    async def post(self, parameters: PostParameters) -> PostResponseItem:
-        """
-        Finish a u2f challenge.
-        """
-        return await self.client.post(self.path, parameters, parse_as=PostResponseItem)

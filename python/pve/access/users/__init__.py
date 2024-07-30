@@ -60,7 +60,11 @@ class GetResponseItem(BaseModel):
     lastname: Optional[str] = Field(default=None)
     # The type of the users realm
     realm_type: Optional[str] = Field(alias="realm-type", default=None)
+    # Contains a timestamp until when a user is locked out of 2nd factors.
+    tfa_locked_until: Optional[int] = Field(alias="tfa-locked-until", default=None)
     tokens: Optional[list[GetResponseItemTokensItem]] = Field(default=None)
+    # True if the user is currently locked out of TOTP factors.
+    totp_locked: Optional[bool] = Field(alias="totp-locked", default=None)
     # Full User ID, in the `name@realm` format.
     userid: str
 

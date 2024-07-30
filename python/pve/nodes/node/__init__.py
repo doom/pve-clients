@@ -33,6 +33,7 @@ from . import report as _report
 from . import rrd as _rrd
 from . import rrddata as _rrddata
 from . import scan as _scan
+from . import sdn as _sdn
 from . import services as _services
 from . import spiceshell as _spiceshell
 from . import startall as _startall
@@ -40,6 +41,7 @@ from . import status as _status
 from . import stopall as _stopall
 from . import storage as _storage
 from . import subscription as _subscription
+from . import suspendall as _suspendall
 from . import syslog as _syslog
 from . import tasks as _tasks
 from . import termproxy as _termproxy
@@ -172,6 +174,12 @@ class NodeClient:
             self.path,
         )
 
+    def sdn(self) -> _sdn.SdnClient:
+        return _sdn.SdnClient(
+            self.client,
+            self.path,
+        )
+
     def version(self) -> _version.VersionClient:
         return _version.VersionClient(
             self.client,
@@ -288,6 +296,12 @@ class NodeClient:
 
     def stopall(self) -> _stopall.StopallClient:
         return _stopall.StopallClient(
+            self.client,
+            self.path,
+        )
+
+    def suspendall(self) -> _suspendall.SuspendallClient:
+        return _suspendall.SuspendallClient(
             self.client,
             self.path,
         )
@@ -428,6 +442,12 @@ class AsyncNodeClient:
             self.path,
         )
 
+    def sdn(self) -> _sdn.AsyncSdnClient:
+        return _sdn.AsyncSdnClient(
+            self.client,
+            self.path,
+        )
+
     def version(self) -> _version.AsyncVersionClient:
         return _version.AsyncVersionClient(
             self.client,
@@ -544,6 +564,12 @@ class AsyncNodeClient:
 
     def stopall(self) -> _stopall.AsyncStopallClient:
         return _stopall.AsyncStopallClient(
+            self.client,
+            self.path,
+        )
+
+    def suspendall(self) -> _suspendall.AsyncSuspendallClient:
+        return _suspendall.AsyncSuspendallClient(
             self.client,
             self.path,
         )

@@ -14,7 +14,7 @@ from pve.common import (
 class PutParameters(BaseModel):
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Enable host firewall rules.
     enable: Optional[bool] = Field(default=None)
@@ -36,6 +36,8 @@ class PutParameters(BaseModel):
     nf_conntrack_tcp_timeout_established: Optional[int] = Field(default=None)
     # Conntrack syn recv timeout.
     nf_conntrack_tcp_timeout_syn_recv: Optional[int] = Field(default=None)
+    # Enable nftables based firewall (tech preview)
+    nftables: Optional[bool] = Field(default=None)
     # Enable SMURFS filter.
     nosmurfs: Optional[bool] = Field(default=None)
     # Enable synflood protection
@@ -76,6 +78,8 @@ class GetResponseItem(BaseModel):
     nf_conntrack_tcp_timeout_established: Optional[int] = Field(default=None)
     # Conntrack syn recv timeout.
     nf_conntrack_tcp_timeout_syn_recv: Optional[int] = Field(default=None)
+    # Enable nftables based firewall (tech preview)
+    nftables: Optional[bool] = Field(default=None)
     # Enable SMURFS filter.
     nosmurfs: Optional[bool] = Field(default=None)
     # Enable synflood protection

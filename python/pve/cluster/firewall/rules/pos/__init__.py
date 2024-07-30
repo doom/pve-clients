@@ -20,7 +20,7 @@ class PutParameters(BaseModel):
     delete: Optional[str] = Field(default=None)
     # Restrict packet destination address. This can refer to a single IP address, an IP set ('+ipsetname') or an IP alias definition. You can also specify an address range like '20.34.101.207-201.3.9.99', or a list of IP addresses and networks (entries are separated by comma). Please do not mix IPv4 and IPv6 addresses inside such lists.
     dest: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Restrict TCP/UDP destination port. You can use service names or simple numbers (0-65535), as defined in '/etc/services'. Port ranges can be specified with '\\d+:\\d+', for example '80:85', and you can use comma separated list to match several ports or ranges.
     dport: Optional[str] = Field(default=None)
@@ -72,7 +72,7 @@ class GetResponseItem(BaseModel):
 
 
 class DeleteParameters(BaseModel):
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):

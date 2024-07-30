@@ -26,7 +26,7 @@ class PutParameters(BaseModel):
     startall_onboot_delay: Optional[int] = Field(
         alias="startall-onboot-delay", default=None
     )
-    # MAC address for wake on LAN
+    # Node specific wake on LAN settings.
     wakeonlan: Optional[str] = Field(default=None)
 
     @model_serializer(mode="wrap")
@@ -64,7 +64,7 @@ class GetResponseItem(BaseModel):
     startall_onboot_delay: Optional[int] = Field(
         alias="startall-onboot-delay", default=None
     )
-    # MAC address for wake on LAN
+    # Node specific wake on LAN settings.
     wakeonlan: Optional[str] = Field(default=None)
 
     @model_serializer(mode="wrap")

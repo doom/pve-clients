@@ -12,12 +12,14 @@ from pve.common import (
 
 
 class PutParameters(BaseModel):
+    # Allow adding a guest even if already in another pool. The guest will be removed from its current pool and added to this one.
+    allow_move: Optional[bool] = Field(alias="allow-move", default=None)
     comment: Optional[str] = Field(default=None)
-    # Remove vms/storage (instead of adding it).
+    # Remove the passed VMIDs and/or storage IDs instead of adding them.
     delete: Optional[bool] = Field(default=None)
-    # List of storage IDs.
+    # List of storage IDs to add or remove from this pool.
     storage: Optional[str] = Field(default=None)
-    # List of virtual machines.
+    # List of guest VMIDs to add or remove from this pool.
     vms: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):
@@ -61,7 +63,7 @@ class PoolidClient:
 
     def delete(self):
         """
-        Delete pool.
+        Delete pool (deprecated, no support for nested pools, use 'DELETE /pools/?poolid={poolid}').
         """
         return self.client.delete(
             self.path,
@@ -69,13 +71,13 @@ class PoolidClient:
 
     def get(self, parameters: GetParameters) -> GetResponseItem:
         """
-        Get pool configuration.
+        Get pool configuration (deprecated, no support for nested pools, use 'GET /pools/?poolid={poolid}').
         """
         return self.client.get(self.path, parameters, parse_as=GetResponseItem)
 
     def put(self, parameters: PutParameters):
         """
-        Update pool data.
+        Update pool data (deprecated, no support for nested pools - use 'PUT /pools/?poolid={poolid}' instead).
         """
         return self.client.put(self.path, parameters)
 
@@ -91,7 +93,7 @@ class AsyncPoolidClient:
 
     async def delete(self):
         """
-        Delete pool.
+        Delete pool (deprecated, no support for nested pools, use 'DELETE /pools/?poolid={poolid}').
         """
         return await self.client.delete(
             self.path,
@@ -99,12 +101,12 @@ class AsyncPoolidClient:
 
     async def get(self, parameters: GetParameters) -> GetResponseItem:
         """
-        Get pool configuration.
+        Get pool configuration (deprecated, no support for nested pools, use 'GET /pools/?poolid={poolid}').
         """
         return await self.client.get(self.path, parameters, parse_as=GetResponseItem)
 
     async def put(self, parameters: PutParameters):
         """
-        Update pool data.
+        Update pool data (deprecated, no support for nested pools - use 'PUT /pools/?poolid={poolid}' instead).
         """
         return await self.client.put(self.path, parameters)

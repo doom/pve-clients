@@ -19,8 +19,46 @@ class PostParameters(BaseModel):
         pass
 
 
+class CurrentKernel(BaseModel):
+    """
+    The uptime of the system in seconds.
+    """
+
+    # Hardware (architecture) type
+    machine: str
+    # OS kernel release (e.g., \"6.8.0\")
+    release: str
+    # OS kernel name (e.g., \"Linux\")
+    sysname: str
+    # OS kernel version with build info
+    version: str
+
+    class Config(CommonPydanticConfig):
+        pass
+
+
+class BootInfo(BaseModel):
+    """
+    Meta-information about the boot mode.
+    """
+
+    # Through which firmware the system got booted.
+    mode: str
+    # System is booted in secure mode, only applicable for the \"efi\" mode.
+    secureboot: Optional[bool] = Field(default=None)
+
+    class Config(CommonPydanticConfig):
+        pass
+
+
 class GetResponseItem(BaseModel):
-    pass
+    # Meta-information about the boot mode.
+    boot_info: BootInfo = Field(alias="boot-info")
+    # The uptime of the system in seconds.
+    current_kernel: CurrentKernel = Field(alias="current-kernel")
+
+    class Config(CommonPydanticConfig):
+        pass
 
 
 @dataclass

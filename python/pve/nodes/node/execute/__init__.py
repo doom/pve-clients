@@ -34,7 +34,7 @@ class ExecuteClient:
 
     def post(self, parameters: PostParameters) -> list[PostResponseItem]:
         """
-        Execute multiple commands in order.
+        Execute multiple commands in order, root only.
         """
         return self.client.post(self.path, parameters, parse_as=list[PostResponseItem])
 
@@ -50,7 +50,7 @@ class AsyncExecuteClient:
 
     async def post(self, parameters: PostParameters) -> list[PostResponseItem]:
         """
-        Execute multiple commands in order.
+        Execute multiple commands in order, root only.
         """
         return await self.client.post(
             self.path, parameters, parse_as=list[PostResponseItem]

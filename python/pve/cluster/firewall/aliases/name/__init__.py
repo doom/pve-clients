@@ -15,7 +15,7 @@ class PutParameters(BaseModel):
     # Network/IP specification in CIDR format.
     cidr: str
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Rename an existing alias.
     rename: Optional[str] = Field(default=None)
@@ -29,7 +29,7 @@ class GetResponseItem(BaseModel):
 
 
 class DeleteParameters(BaseModel):
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):

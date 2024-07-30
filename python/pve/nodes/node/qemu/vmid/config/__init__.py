@@ -42,6 +42,8 @@ class PutParameters(BaseModel):
     cipassword: Optional[str] = Field(default=None)
     # Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
     citype: Optional[str] = Field(default=None)
+    # cloud-init: do an automatic package upgrade after the first boot.
+    ciupgrade: Optional[bool] = Field(default=None)
     # cloud-init: User name to change ssh keys and password for instead of the image's configured default user.
     ciuser: Optional[str] = Field(default=None)
     # The number of cores per socket.
@@ -88,11 +90,11 @@ class PutParameters(BaseModel):
     localtime: Optional[bool] = Field(default=None)
     # Lock/unlock the VM.
     lock: Optional[str] = Field(default=None)
-    # Specifies the QEMU machine type.
+    # Specify the QEMU machine.
     machine: Optional[str] = Field(default=None)
-    # Amount of RAM for the VM in MiB. This is the maximum available memory when you use the balloon device.
-    memory: Optional[int] = Field(default=None)
-    # Set maximum tolerated downtime (in seconds) for migrations.
+    # Memory properties.
+    memory: Optional[str] = Field(default=None)
+    # Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge.
     migrate_downtime: Optional[float] = Field(default=None)
     # Set maximum speed (in MB/s) for migrations. Value 0 is no limit.
     migrate_speed: Optional[int] = Field(default=None)
@@ -252,6 +254,8 @@ class PostParameters(BaseModel):
     cipassword: Optional[str] = Field(default=None)
     # Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
     citype: Optional[str] = Field(default=None)
+    # cloud-init: do an automatic package upgrade after the first boot.
+    ciupgrade: Optional[bool] = Field(default=None)
     # cloud-init: User name to change ssh keys and password for instead of the image's configured default user.
     ciuser: Optional[str] = Field(default=None)
     # The number of cores per socket.
@@ -298,11 +302,11 @@ class PostParameters(BaseModel):
     localtime: Optional[bool] = Field(default=None)
     # Lock/unlock the VM.
     lock: Optional[str] = Field(default=None)
-    # Specifies the QEMU machine type.
+    # Specify the QEMU machine.
     machine: Optional[str] = Field(default=None)
-    # Amount of RAM for the VM in MiB. This is the maximum available memory when you use the balloon device.
-    memory: Optional[int] = Field(default=None)
-    # Set maximum tolerated downtime (in seconds) for migrations.
+    # Memory properties.
+    memory: Optional[str] = Field(default=None)
+    # Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge.
     migrate_downtime: Optional[float] = Field(default=None)
     # Set maximum speed (in MB/s) for migrations. Value 0 is no limit.
     migrate_speed: Optional[int] = Field(default=None)
@@ -464,6 +468,8 @@ class GetResponseItem(BaseModel):
     cipassword: Optional[str] = Field(default=None)
     # Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
     citype: Optional[str] = Field(default=None)
+    # cloud-init: do an automatic package upgrade after the first boot.
+    ciupgrade: Optional[bool] = Field(default=None)
     # cloud-init: User name to change ssh keys and password for instead of the image's configured default user.
     ciuser: Optional[str] = Field(default=None)
     # The number of cores per socket.
@@ -506,11 +512,11 @@ class GetResponseItem(BaseModel):
     localtime: Optional[bool] = Field(default=None)
     # Lock/unlock the VM.
     lock: Optional[str] = Field(default=None)
-    # Specifies the QEMU machine type.
+    # Specify the QEMU machine.
     machine: Optional[str] = Field(default=None)
-    # Amount of RAM for the VM in MiB. This is the maximum available memory when you use the balloon device.
-    memory: Optional[int] = Field(default=None)
-    # Set maximum tolerated downtime (in seconds) for migrations.
+    # Memory properties.
+    memory: Optional[str] = Field(default=None)
+    # Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge.
     migrate_downtime: Optional[float] = Field(default=None)
     # Set maximum speed (in MB/s) for migrations. Value 0 is no limit.
     migrate_speed: Optional[int] = Field(default=None)

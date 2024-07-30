@@ -16,6 +16,8 @@ class PostParameters(BaseModel):
     keep_active: Optional[bool] = Field(alias="keepActive", default=None)
     # The cluster node name.
     migratedfrom: Optional[str] = Field(default=None)
+    # Try to abort active 'qmshutdown' tasks before stopping.
+    overrule_shutdown: Optional[bool] = Field(alias="overrule-shutdown", default=None)
     # Ignore locks - only root is allowed to use this option.
     skiplock: Optional[bool] = Field(default=None)
     # Wait maximal timeout seconds.
@@ -36,7 +38,7 @@ class StopClient:
 
     def post(self, parameters: PostParameters) -> str:
         """
-        Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
+        Stop virtual machine. The qemu process will exit immediately. This is akin to pulling the power plug of a running computer and may damage the VM data.
         """
         return self.client.post(self.path, parameters, parse_as=str)
 
@@ -52,6 +54,6 @@ class AsyncStopClient:
 
     async def post(self, parameters: PostParameters) -> str:
         """
-        Stop virtual machine. The qemu process will exit immediately. Thisis akin to pulling the power plug of a running computer and may damage the VM data
+        Stop virtual machine. The qemu process will exit immediately. This is akin to pulling the power plug of a running computer and may damage the VM data.
         """
         return await self.client.post(self.path, parameters, parse_as=str)

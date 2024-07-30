@@ -38,7 +38,7 @@ class PutResponseItem(BaseModel):
 class PutParameters(BaseModel):
     # block size
     blocksize: Optional[str] = Field(default=None)
-    # Set bandwidth/io limits various operations.
+    # Set I/O bandwidth limit for various operations (in KiB/s).
     bwlimit: Optional[str] = Field(default=None)
     # host group for comstar views
     comstar_hg: Optional[str] = Field(default=None)
@@ -48,11 +48,15 @@ class PutParameters(BaseModel):
     content: Optional[str] = Field(default=None)
     # Overrides for default content type directories.
     content_dirs: Optional[str] = Field(alias="content-dirs", default=None)
+    # Create the base directory if it doesn't exist.
+    create_base_path: Optional[bool] = Field(alias="create-base-path", default=None)
+    # Populate the directory with the default structure.
+    create_subdirs: Optional[bool] = Field(alias="create-subdirs", default=None)
     # Data Pool (for erasure coding only)
     data_pool: Optional[str] = Field(alias="data-pool", default=None)
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Flag to disable the storage.
     disable: Optional[bool] = Field(default=None)
@@ -84,7 +88,7 @@ class PutParameters(BaseModel):
     )
     # Deprecated: use 'prune-backups' instead. Maximal number of backup files per VM. Use '0' for unlimited.
     maxfiles: Optional[int] = Field(default=None)
-    # Create the directory if it doesn't exist.
+    # Create the directory if it doesn't exist and populate it with default sub-dirs. NOTE: Deprecated, use the 'create-base-path' and 'create-subdirs' options instead.
     mkdir: Optional[bool] = Field(default=None)
     # IP addresses of monitors (for external clusters).
     monhost: Optional[str] = Field(default=None)
@@ -94,11 +98,11 @@ class PutParameters(BaseModel):
     namespace: Optional[str] = Field(default=None)
     # Set the NOCOW flag on files. Disables data checksumming and causes data errors to be unrecoverable from while allowing direct I/O. Only use this if data does not need to be any more safe than on a single ext4 formatted disk with no underlying raid system.
     nocow: Optional[bool] = Field(default=None)
-    # List of cluster node names.
+    # List of nodes for which the storage configuration applies.
     nodes: Optional[str] = Field(default=None)
     # disable write caching on the target
     nowritecache: Optional[bool] = Field(default=None)
-    # NFS mount options (see 'man nfs')
+    # NFS/CIFS mount options (see 'man nfs' or 'man mount.cifs')
     options: Optional[str] = Field(default=None)
     # Password for accessing the share/datastore.
     password: Optional[str] = Field(default=None)
@@ -118,8 +122,12 @@ class PutParameters(BaseModel):
     server: Optional[str] = Field(default=None)
     # Backup volfile server IP or DNS name.
     server2: Optional[str] = Field(default=None)
-    # Mark storage as shared.
+    # Indicate that this is a single storage with the same contents on all nodes (or all listed in the 'nodes' option). It will not make the contents of a local storage automatically accessible to other nodes, it just marks an already shared storage as such!
     shared: Optional[bool] = Field(default=None)
+    # Disable TLS certificate verification, only enable on fully trusted networks!
+    skip_cert_verification: Optional[bool] = Field(
+        alias="skip-cert-verification", default=None
+    )
     # SMB protocol version. 'default' if not set, negotiates the highest SMB2+ version supported by both the client and server.
     smbversion: Optional[str] = Field(default=None)
     # use sparse volumes

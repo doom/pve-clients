@@ -11,6 +11,7 @@ from pve.common import (
 )
 from . import db as _db
 from . import raw as _raw
+from . import value as _value
 
 
 class GetResponseItem(BaseModel):
@@ -34,6 +35,12 @@ class CfgClient:
 
     def db(self) -> _db.DbClient:
         return _db.DbClient(
+            self.client,
+            self.path,
+        )
+
+    def value(self) -> _value.ValueClient:
+        return _value.ValueClient(
             self.client,
             self.path,
         )
@@ -62,6 +69,12 @@ class AsyncCfgClient:
 
     def db(self) -> _db.AsyncDbClient:
         return _db.AsyncDbClient(
+            self.client,
+            self.path,
+        )
+
+    def value(self) -> _value.AsyncValueClient:
+        return _value.AsyncValueClient(
             self.client,
             self.path,
         )

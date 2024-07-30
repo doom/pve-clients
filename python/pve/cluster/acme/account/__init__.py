@@ -17,6 +17,10 @@ class PostParameters(BaseModel):
     contact: str
     # URL of ACME CA directory endpoint.
     directory: Optional[str] = Field(default=None)
+    # HMAC key for External Account Binding.
+    eab_hmac_key: Optional[str] = Field(alias="eab-hmac-key", default=None)
+    # Key Identifier for External Account Binding.
+    eab_kid: Optional[str] = Field(alias="eab-kid", default=None)
     # ACME account config file name.
     name: Optional[str] = Field(default=None)
     # URL of CA TermsOfService - setting this indicates agreement.
