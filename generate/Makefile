@@ -15,9 +15,9 @@ help:
 	/.*/ { help = "" }'
 
 DUMP_SCHEMA_DIR	:= dump-schema
-PROXMOX_VERSION	?= 7.2-1
+PROXMOX_VERSION	?= 8.2.0
 DUMP_SCHEMA	:= proxmox-dump-schema:$(PROXMOX_VERSION)
-DEBIAN_DISTRO	?= bullseye
+DEBIAN_DISTRO	?= bookworm
 SCHEMA_FILE	?= PVE-schema-$(PROXMOX_VERSION).json
 
 ## Dump the JSONSchema for the API

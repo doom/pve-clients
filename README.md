@@ -11,10 +11,10 @@ Proxmox VE API clients, generated from the [official JSONSchema spec](https://pv
 ## Supported Proxmox versions
 
 Current generated clients:
-- [x] 7.2-1
+- `8.2.0`
 
 Compatible with the current generators (see below for instructions on how to generate):
-- [x] 8.2.0
+- `7.2-1`
 
 ## Generating clients locally
 
@@ -35,5 +35,5 @@ make rust
 
 Run generation for a specific Proxmox version / Debian distribution:
 ```bash
-make PROXMOX_VERSION=8.2.0 DEBIAN_DISTRO=bookworm rust
+make PROXMOX_VERSION=7.2-1 DEBIAN_DISTRO=bullseye rust
 ```
