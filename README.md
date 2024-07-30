@@ -2,11 +2,14 @@
 
 Proxmox VE API clients, generated from the [official JSONSchema spec](https://pve.proxmox.com/wiki/Proxmox_VE_API#JSON_and_JSON_Schema).
 
+All the clients are I/O-agnostic, so it is up to you to bring your own underlying HTTP client.
+
 ## Supported languages
 
-- [ ] Go
-- [x] Python
-- [x] Rust
+- Python (sync and async)
+- Rust (sync and async)
+
+> At the time, potential planned languages include Golang and TypeScript.
 
 ## Supported Proxmox versions
 
