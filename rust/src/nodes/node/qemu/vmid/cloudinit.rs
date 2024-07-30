@@ -2,14 +2,17 @@ pub mod dump;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
+    #[doc = "Indicates a pending delete request if present and not 0. "]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub delete: Option<u64>,
     #[doc = "Configuration option name."]
     pub key: String,
     #[doc = "The new pending value."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub new: Option<String>,
+    pub pending: Option<String>,
     #[doc = "Value as it was used to generate the current cloudinit image."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub old: Option<String>,
+    pub value: Option<String>,
 }
 
 #[derive(Debug, Clone)]

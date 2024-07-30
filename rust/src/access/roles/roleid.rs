@@ -41,6 +41,30 @@ pub struct GetResponseItem {
     )]
     pub group_allocate: Option<bool>,
     #[serde(
+        rename = "Mapping.Audit",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub mapping_audit: Option<bool>,
+    #[serde(
+        rename = "Mapping.Modify",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub mapping_modify: Option<bool>,
+    #[serde(
+        rename = "Mapping.Use",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub mapping_use: Option<bool>,
+    #[serde(
         rename = "Permissions.Modify",
         skip_serializing_if = "Option::is_none",
         default,
@@ -104,6 +128,14 @@ pub struct GetResponseItem {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub sdn_use: Option<bool>,
+    #[serde(
+        rename = "Sys.AccessNetwork",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub sys_access_network: Option<bool>,
     #[serde(
         rename = "Sys.Audit",
         skip_serializing_if = "Option::is_none",

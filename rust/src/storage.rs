@@ -23,7 +23,7 @@ pub struct PostParameters {
     #[doc = "block size"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub blocksize: Option<String>,
-    #[doc = "Set bandwidth/io limits various operations."]
+    #[doc = "Set I/O bandwidth limit for various operations (in KiB/s)."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub bwlimit: Option<String>,
     #[doc = "host group for comstar views"]
@@ -42,6 +42,24 @@ pub struct PostParameters {
         default
     )]
     pub content_dirs: Option<String>,
+    #[doc = "Create the base directory if it doesn't exist."]
+    #[serde(
+        rename = "create-base-path",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub create_base_path: Option<bool>,
+    #[doc = "Populate the directory with the default structure."]
+    #[serde(
+        rename = "create-subdirs",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub create_subdirs: Option<bool>,
     #[doc = "Data Pool (for erasure coding only)"]
     #[serde(rename = "data-pool", skip_serializing_if = "Option::is_none", default)]
     pub data_pool: Option<String>,
@@ -123,7 +141,7 @@ pub struct PostParameters {
     #[doc = "Deprecated: use 'prune-backups' instead. Maximal number of backup files per VM. Use '0' for unlimited."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub maxfiles: Option<u64>,
-    #[doc = "Create the directory if it doesn't exist."]
+    #[doc = "Create the directory if it doesn't exist and populate it with default sub-dirs. NOTE: Deprecated, use the 'create-base-path' and 'create-subdirs' options instead."]
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -148,7 +166,7 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub nocow: Option<bool>,
-    #[doc = "List of cluster node names."]
+    #[doc = "List of nodes for which the storage configuration applies."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub nodes: Option<String>,
     #[doc = "disable write caching on the target"]
@@ -159,7 +177,7 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub nowritecache: Option<bool>,
-    #[doc = "NFS mount options (see 'man nfs')"]
+    #[doc = "NFS/CIFS mount options (see 'man nfs' or 'man mount.cifs')"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub options: Option<String>,
     #[doc = "Password for accessing the share/datastore."]
@@ -207,7 +225,7 @@ pub struct PostParameters {
     #[doc = "CIFS share."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub share: Option<String>,
-    #[doc = "Mark storage as shared."]
+    #[doc = "Indicate that this is a single storage with the same contents on all nodes (or all listed in the 'nodes' option). It will not make the contents of a local storage automatically accessible to other nodes, it just marks an already shared storage as such!"]
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -215,6 +233,15 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub shared: Option<bool>,
+    #[doc = "Disable TLS certificate verification, only enable on fully trusted networks!"]
+    #[serde(
+        rename = "skip-cert-verification",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub skip_cert_verification: Option<bool>,
     #[doc = "SMB protocol version. 'default' if not set, negotiates the highest SMB2+ version supported by both the client and server."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub smbversion: Option<String>,

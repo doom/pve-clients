@@ -28,7 +28,7 @@ impl<T> ExecuteClient<T>
 where
     T: crate::client::HttpClient,
 {
-    #[doc = "Execute multiple commands in order."]
+    #[doc = "Execute multiple commands in order, root only."]
     pub fn post(&self, parameters: PostParameters) -> Result<Vec<PostResponseItem>, T::Error> {
         self.client.post(&self.path, &parameters)
     }
@@ -54,7 +54,7 @@ impl<T> AsyncExecuteClient<T>
 where
     T: crate::client::AsyncHttpClient,
 {
-    #[doc = "Execute multiple commands in order."]
+    #[doc = "Execute multiple commands in order, root only."]
     pub async fn post(
         &self,
         parameters: PostParameters,

@@ -2,7 +2,7 @@
 pub struct GetResponseItem {
     #[doc = "The content of /etc/hosts."]
     pub data: String,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
 }
@@ -11,7 +11,7 @@ pub struct GetResponseItem {
 pub struct PostParameters {
     #[doc = "The target content of /etc/hosts."]
     pub data: String,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
 }

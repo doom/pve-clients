@@ -41,6 +41,8 @@ pub struct GetResponseItem {
     )]
     pub mounted: bool,
     pub osdid: u64,
+    #[serde(rename = "osdid-list")]
+    pub osdid_list: Vec<u64>,
     #[doc = "For partitions only. The device path of the disk the partition resides on."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub parent: Option<String>,

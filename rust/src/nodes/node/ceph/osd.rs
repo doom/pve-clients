@@ -28,6 +28,13 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub encrypted: Option<bool>,
+    #[doc = "OSD services per physical device. Only useful for fast NVMe devices\" 		    .\" to utilize their performance better."]
+    #[serde(
+        rename = "osds-per-device",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub osds_per_device: Option<u64>,
     #[doc = "Block device name for block.wal."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wal_dev: Option<String>,

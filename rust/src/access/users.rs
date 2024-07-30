@@ -53,8 +53,24 @@ pub struct GetResponseItem {
         default
     )]
     pub realm_type: Option<String>,
+    #[doc = "Contains a timestamp until when a user is locked out of 2nd factors."]
+    #[serde(
+        rename = "tfa-locked-until",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub tfa_locked_until: Option<u64>,
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub tokens: Option<Vec<GetResponseItemTokensItem>>,
+    #[doc = "True if the user is currently locked out of TOTP factors."]
+    #[serde(
+        rename = "totp-locked",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub totp_locked: Option<bool>,
     #[doc = "Full User ID, in the `name@realm` format."]
     pub userid: String,
 }

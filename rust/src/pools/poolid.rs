@@ -24,9 +24,18 @@ pub struct GetResponseMembersItem {
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
+    #[doc = "Allow adding a guest even if already in another pool. The guest will be removed from its current pool and added to this one."]
+    #[serde(
+        rename = "allow-move",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub allow_move: Option<bool>,
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
-    #[doc = "Remove vms/storage (instead of adding it)."]
+    #[doc = "Remove the passed VMIDs and/or storage IDs instead of adding them."]
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,
@@ -34,10 +43,10 @@ pub struct PutParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub delete: Option<bool>,
-    #[doc = "List of storage IDs."]
+    #[doc = "List of storage IDs to add or remove from this pool."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub storage: Option<String>,
-    #[doc = "List of virtual machines."]
+    #[doc = "List of guest VMIDs to add or remove from this pool."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub vms: Option<String>,
 }
@@ -63,17 +72,17 @@ impl<T> PoolidClient<T>
 where
     T: crate::client::HttpClient,
 {
-    #[doc = "Delete pool."]
+    #[doc = "Delete pool (deprecated, no support for nested pools, use 'DELETE /pools/?poolid={poolid}')."]
     pub fn delete(&self) -> Result<(), T::Error> {
         self.client.delete(&self.path, &())
     }
 
-    #[doc = "Get pool configuration."]
+    #[doc = "Get pool configuration (deprecated, no support for nested pools, use 'GET /pools/?poolid={poolid}')."]
     pub fn get(&self, parameters: GetParameters) -> Result<GetResponseItem, T::Error> {
         self.client.get(&self.path, &parameters)
     }
 
-    #[doc = "Update pool data."]
+    #[doc = "Update pool data (deprecated, no support for nested pools - use 'PUT /pools/?poolid={poolid}' instead)."]
     pub fn put(&self, parameters: PutParameters) -> Result<(), T::Error> {
         self.client.put(&self.path, &parameters)
     }
@@ -99,17 +108,17 @@ impl<T> AsyncPoolidClient<T>
 where
     T: crate::client::AsyncHttpClient,
 {
-    #[doc = "Delete pool."]
+    #[doc = "Delete pool (deprecated, no support for nested pools, use 'DELETE /pools/?poolid={poolid}')."]
     pub async fn delete(&self) -> Result<(), T::Error> {
         self.client.delete(&self.path, &()).await
     }
 
-    #[doc = "Get pool configuration."]
+    #[doc = "Get pool configuration (deprecated, no support for nested pools, use 'GET /pools/?poolid={poolid}')."]
     pub async fn get(&self, parameters: GetParameters) -> Result<GetResponseItem, T::Error> {
         self.client.get(&self.path, &parameters).await
     }
 
-    #[doc = "Update pool data."]
+    #[doc = "Update pool data (deprecated, no support for nested pools - use 'PUT /pools/?poolid={poolid}' instead)."]
     pub async fn put(&self, parameters: PutParameters) -> Result<(), T::Error> {
         self.client.put(&self.path, &parameters).await
     }

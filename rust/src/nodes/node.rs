@@ -22,6 +22,7 @@ pub mod report;
 pub mod rrd;
 pub mod rrddata;
 pub mod scan;
+pub mod sdn;
 pub mod services;
 pub mod spiceshell;
 pub mod startall;
@@ -29,6 +30,7 @@ pub mod status;
 pub mod stopall;
 pub mod storage;
 pub mod subscription;
+pub mod suspendall;
 pub mod syslog;
 pub mod tasks;
 pub mod termproxy;
@@ -131,6 +133,10 @@ where
         config::ConfigClient::<T>::new(self.client.clone(), &self.path)
     }
 
+    pub fn sdn(&self) -> sdn::SdnClient<T> {
+        sdn::SdnClient::<T>::new(self.client.clone(), &self.path)
+    }
+
     pub fn version(&self) -> version::VersionClient<T> {
         version::VersionClient::<T>::new(self.client.clone(), &self.path)
     }
@@ -209,6 +215,10 @@ where
 
     pub fn stopall(&self) -> stopall::StopallClient<T> {
         stopall::StopallClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn suspendall(&self) -> suspendall::SuspendallClient<T> {
+        suspendall::SuspendallClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn migrateall(&self) -> migrateall::MigrateallClient<T> {
@@ -317,6 +327,10 @@ where
         config::AsyncConfigClient::<T>::new(self.client.clone(), &self.path)
     }
 
+    pub fn sdn(&self) -> sdn::AsyncSdnClient<T> {
+        sdn::AsyncSdnClient::<T>::new(self.client.clone(), &self.path)
+    }
+
     pub fn version(&self) -> version::AsyncVersionClient<T> {
         version::AsyncVersionClient::<T>::new(self.client.clone(), &self.path)
     }
@@ -395,6 +409,10 @@ where
 
     pub fn stopall(&self) -> stopall::AsyncStopallClient<T> {
         stopall::AsyncStopallClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn suspendall(&self) -> suspendall::AsyncSuspendallClient<T> {
+        suspendall::AsyncSuspendallClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn migrateall(&self) -> migrateall::AsyncMigrateallClient<T> {

@@ -1,6 +1,6 @@
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct DeleteParameters {
-    #[doc = "The current password."]
+    #[doc = "The current password of the user performing the change."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub password: Option<String>,
 }
@@ -39,7 +39,7 @@ pub struct PutParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub enable: Option<bool>,
-    #[doc = "The current password."]
+    #[doc = "The current password of the user performing the change."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub password: Option<String>,
 }

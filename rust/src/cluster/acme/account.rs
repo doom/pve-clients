@@ -10,6 +10,16 @@ pub struct PostParameters {
     #[doc = "URL of ACME CA directory endpoint."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub directory: Option<String>,
+    #[doc = "HMAC key for External Account Binding."]
+    #[serde(
+        rename = "eab-hmac-key",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub eab_hmac_key: Option<String>,
+    #[doc = "Key Identifier for External Account Binding."]
+    #[serde(rename = "eab-kid", skip_serializing_if = "Option::is_none", default)]
+    pub eab_kid: Option<String>,
     #[doc = "ACME account config file name."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub name: Option<String>,

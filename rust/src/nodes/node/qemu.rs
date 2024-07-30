@@ -32,7 +32,7 @@ pub struct GetResponseItem {
     #[doc = "PID of running qemu process."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub pid: Option<u64>,
-    #[doc = "QEMU QMP agent status."]
+    #[doc = "VM run state from the 'query-status' QMP monitor command."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub qmpstatus: Option<String>,
     #[doc = "The currently running machine type (if running)."]
@@ -124,6 +124,14 @@ pub struct PostParameters {
     #[doc = "Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub citype: Option<String>,
+    #[doc = "cloud-init: do an automatic package upgrade after the first boot."]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub ciupgrade: Option<bool>,
     #[doc = "cloud-init: User name to change ssh keys and password for instead of the image's configured default user."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub ciuser: Option<String>,
@@ -219,7 +227,7 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub kvm: Option<bool>,
-    #[doc = "Start the VM immediately from the backup and restore in background. PBS only."]
+    #[doc = "Start the VM immediately while importing or restoring in the background."]
     #[serde(
         rename = "live-restore",
         skip_serializing_if = "Option::is_none",
@@ -239,13 +247,13 @@ pub struct PostParameters {
     #[doc = "Lock/unlock the VM."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub lock: Option<String>,
-    #[doc = "Specifies the QEMU machine type."]
+    #[doc = "Specify the QEMU machine."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub machine: Option<String>,
-    #[doc = "Amount of RAM for the VM in MiB. This is the maximum available memory when you use the balloon device."]
+    #[doc = "Memory properties."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub memory: Option<u64>,
-    #[doc = "Set maximum tolerated downtime (in seconds) for migrations."]
+    pub memory: Option<String>,
+    #[doc = "Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub migrate_downtime: Option<f64>,
     #[doc = "Set maximum speed (in MB/s) for migrations. Value 0 is no limit."]

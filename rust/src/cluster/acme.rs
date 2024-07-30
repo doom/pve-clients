@@ -1,6 +1,7 @@
 pub mod account;
 pub mod challenge_schema;
 pub mod directories;
+pub mod meta;
 pub mod plugins;
 pub mod tos;
 
@@ -34,6 +35,10 @@ where
 
     pub fn tos(&self) -> tos::TosClient<T> {
         tos::TosClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn meta(&self) -> meta::MetaClient<T> {
+        meta::MetaClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn directories(&self) -> directories::DirectoriesClient<T> {
@@ -80,6 +85,10 @@ where
 
     pub fn tos(&self) -> tos::AsyncTosClient<T> {
         tos::AsyncTosClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn meta(&self) -> meta::AsyncMetaClient<T> {
+        meta::AsyncMetaClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn directories(&self) -> directories::AsyncDirectoriesClient<T> {

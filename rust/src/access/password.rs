@@ -1,5 +1,12 @@
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PutParameters {
+    #[doc = "The current password of the user performing the change."]
+    #[serde(
+        rename = "confirmation-password",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub confirmation_password: Option<String>,
     #[doc = "The new password."]
     pub password: String,
     #[doc = "Full User ID, in the `name@realm` format."]

@@ -50,6 +50,14 @@ pub struct GetResponseItem {
     #[doc = "Conntrack syn recv timeout."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub nf_conntrack_tcp_timeout_syn_recv: Option<u64>,
+    #[doc = "Enable nftables based firewall (tech preview)"]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub nftables: Option<bool>,
     #[doc = "Enable SMURFS filter."]
     #[serde(
         skip_serializing_if = "Option::is_none",
@@ -93,7 +101,7 @@ pub struct PutParameters {
     #[doc = "A list of settings you want to delete."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub delete: Option<String>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
     #[doc = "Enable host firewall rules."]
@@ -146,6 +154,14 @@ pub struct PutParameters {
     #[doc = "Conntrack syn recv timeout."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub nf_conntrack_tcp_timeout_syn_recv: Option<u64>,
+    #[doc = "Enable nftables based firewall (tech preview)"]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub nftables: Option<bool>,
     #[doc = "Enable SMURFS filter."]
     #[serde(
         skip_serializing_if = "Option::is_none",

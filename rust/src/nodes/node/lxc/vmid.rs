@@ -2,6 +2,7 @@ pub mod clone;
 pub mod config;
 pub mod feature;
 pub mod firewall;
+pub mod interfaces;
 pub mod migrate;
 pub mod move_volume;
 pub mod mtunnel;
@@ -142,6 +143,10 @@ where
         pending::PendingClient::<T>::new(self.client.clone(), &self.path)
     }
 
+    pub fn interfaces(&self) -> interfaces::InterfacesClient<T> {
+        interfaces::InterfacesClient::<T>::new(self.client.clone(), &self.path)
+    }
+
     pub fn mtunnel(&self) -> mtunnel::MtunnelClient<T> {
         mtunnel::MtunnelClient::<T>::new(self.client.clone(), &self.path)
     }
@@ -251,6 +256,10 @@ where
 
     pub fn pending(&self) -> pending::AsyncPendingClient<T> {
         pending::AsyncPendingClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn interfaces(&self) -> interfaces::AsyncInterfacesClient<T> {
+        interfaces::AsyncInterfacesClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn mtunnel(&self) -> mtunnel::AsyncMtunnelClient<T> {

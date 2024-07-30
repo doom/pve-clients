@@ -71,6 +71,15 @@ pub struct PostParameters {
     #[doc = "Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub description: Option<String>,
+    #[doc = "Device to pass through to the container"]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_dev_in_post_parameters",
+        serialize_with = "serialize_repeated_dev_in_post_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
+    pub devs: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Allow containers access to advanced features."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub features: Option<String>,
@@ -234,6 +243,27 @@ pub struct PostParameters {
     #[doc = "The (unique) ID of the VM."]
     pub vmid: u64,
 }
+pub fn deserialize_repeated_dev_in_post_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("dev", deserializer)
+}
+
+fn serialize_repeated_dev_in_post_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "dev", s)
+}
+
 pub fn deserialize_repeated_mp_in_post_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

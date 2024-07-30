@@ -1,3 +1,4 @@
+pub mod realm_sync;
 pub mod schedule_analyze;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -21,6 +22,10 @@ where
             client,
             path: format!("{}/{}", parent_path, "jobs"),
         }
+    }
+
+    pub fn realm_sync(&self) -> realm_sync::RealmSyncClient<T> {
+        realm_sync::RealmSyncClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn schedule_analyze(&self) -> schedule_analyze::ScheduleAnalyzeClient<T> {
@@ -51,6 +56,10 @@ where
             client,
             path: format!("{}/{}", parent_path, "jobs"),
         }
+    }
+
+    pub fn realm_sync(&self) -> realm_sync::AsyncRealmSyncClient<T> {
+        realm_sync::AsyncRealmSyncClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn schedule_analyze(&self) -> schedule_analyze::AsyncScheduleAnalyzeClient<T> {

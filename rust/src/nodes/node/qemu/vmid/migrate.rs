@@ -14,6 +14,9 @@ pub struct GetResponseItem {
     pub local_disks: Vec<serde_json::Value>,
     #[doc = "List local resources e.g. pci, usb"]
     pub local_resources: Vec<serde_json::Value>,
+    #[doc = "List of mapped resources e.g. pci, usb"]
+    #[serde(rename = "mapped-resources")]
+    pub mapped_resources: Vec<serde_json::Value>,
     #[doc = "List not allowed nodes with additional informations, only passed if VM is offline"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub not_allowed_nodes: Option<NotAllowedNodes>,

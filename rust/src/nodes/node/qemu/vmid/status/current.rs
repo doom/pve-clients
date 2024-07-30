@@ -8,6 +8,9 @@ pub struct GetResponseItem {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub agent: Option<bool>,
+    #[doc = "Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub clipboard: Option<String>,
     #[doc = "Maximum usable CPUs."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub cpus: Option<f64>,
@@ -28,7 +31,7 @@ pub struct GetResponseItem {
     #[doc = "PID of running qemu process."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub pid: Option<u64>,
-    #[doc = "QEMU QMP agent status."]
+    #[doc = "VM run state from the 'query-status' QMP monitor command."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub qmpstatus: Option<String>,
     #[doc = "The currently running machine type (if running)."]

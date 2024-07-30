@@ -49,6 +49,15 @@ pub struct GetResponseItem {
     #[doc = "Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub description: Option<String>,
+    #[doc = "Device to pass through to the container"]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_dev_in_get_response_item",
+        serialize_with = "serialize_repeated_dev_in_get_response_item",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
+    pub devs: std::collections::HashMap<u32, Option<String>>,
     #[doc = "SHA1 digest of configuration file. This can be used to prevent concurrent modifications."]
     pub digest: String,
     #[doc = "Allow containers access to advanced features."]
@@ -156,6 +165,27 @@ pub struct GetResponseItem {
     )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
 }
+pub fn deserialize_repeated_dev_in_get_response_item<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("dev", deserializer)
+}
+
+fn serialize_repeated_dev_in_get_response_item<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "dev", s)
+}
+
 pub fn deserialize_repeated_mp_in_get_response_item<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -258,6 +288,15 @@ pub struct PutParameters {
     #[doc = "Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub description: Option<String>,
+    #[doc = "Device to pass through to the container"]
+    #[serde(
+        default,
+        flatten,
+        deserialize_with = "deserialize_repeated_dev_in_put_parameters",
+        serialize_with = "serialize_repeated_dev_in_put_parameters",
+        skip_serializing_if = "std::collections::HashMap::is_empty"
+    )]
+    pub devs: std::collections::HashMap<u32, Option<String>>,
     #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
@@ -366,6 +405,27 @@ pub struct PutParameters {
     )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
 }
+pub fn deserialize_repeated_dev_in_put_parameters<'de, D, V>(
+    deserializer: D,
+) -> Result<std::collections::HashMap<u32, V>, D::Error>
+where
+    D: serde::Deserializer<'de>,
+    V: serde::de::DeserializeOwned,
+{
+    crate::common::deserialize_repeated_with_prefix("dev", deserializer)
+}
+
+fn serialize_repeated_dev_in_put_parameters<V, S>(
+    value: &std::collections::HashMap<u32, V>,
+    s: S,
+) -> Result<S::Ok, S::Error>
+where
+    V: serde::Serialize,
+    S: serde::Serializer,
+{
+    crate::common::serialize_repeated_with_prefix(value, "dev", s)
+}
+
 pub fn deserialize_repeated_mp_in_put_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

@@ -75,7 +75,7 @@ pub struct PutParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub dhcp: Option<bool>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
     #[doc = "Enable/disable firewall rules."]

@@ -1,5 +1,6 @@
 pub mod db;
 pub mod raw;
+pub mod value;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
@@ -27,6 +28,10 @@ where
 
     pub fn db(&self) -> db::DbClient<T> {
         db::DbClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn value(&self) -> value::ValueClient<T> {
+        value::ValueClient::<T>::new(self.client.clone(), &self.path)
     }
 }
 impl<T> CfgClient<T>
@@ -61,6 +66,10 @@ where
 
     pub fn db(&self) -> db::AsyncDbClient<T> {
         db::AsyncDbClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn value(&self) -> value::AsyncValueClient<T> {
+        value::AsyncValueClient::<T>::new(self.client.clone(), &self.path)
     }
 }
 impl<T> AsyncCfgClient<T>
