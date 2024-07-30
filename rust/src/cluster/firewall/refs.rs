@@ -11,6 +11,7 @@ pub struct GetResponseItem {
     pub comment: Option<String>,
     pub name: String,
     pub r#ref: String,
+    pub scope: String,
     pub r#type: String,
 }
 

@@ -7,11 +7,14 @@ pub mod firewall;
 pub mod ha;
 pub mod jobs;
 pub mod log;
+pub mod mapping;
 pub mod metrics;
 pub mod nextid;
+pub mod notifications;
 pub mod options;
 pub mod replication;
 pub mod resources;
+pub mod sdn;
 pub mod status;
 pub mod tasks;
 
@@ -41,6 +44,10 @@ where
 
     pub fn metrics(&self) -> metrics::MetricsClient<T> {
         metrics::MetricsClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn notifications(&self) -> notifications::NotificationsClient<T> {
+        notifications::NotificationsClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn config(&self) -> config::ConfigClient<T> {
@@ -73,6 +80,14 @@ where
 
     pub fn jobs(&self) -> jobs::JobsClient<T> {
         jobs::JobsClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn mapping(&self) -> mapping::MappingClient<T> {
+        mapping::MappingClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn sdn(&self) -> sdn::SdnClient<T> {
+        sdn::SdnClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn log(&self) -> log::LogClient<T> {
@@ -133,6 +148,10 @@ where
         metrics::AsyncMetricsClient::<T>::new(self.client.clone(), &self.path)
     }
 
+    pub fn notifications(&self) -> notifications::AsyncNotificationsClient<T> {
+        notifications::AsyncNotificationsClient::<T>::new(self.client.clone(), &self.path)
+    }
+
     pub fn config(&self) -> config::AsyncConfigClient<T> {
         config::AsyncConfigClient::<T>::new(self.client.clone(), &self.path)
     }
@@ -163,6 +182,14 @@ where
 
     pub fn jobs(&self) -> jobs::AsyncJobsClient<T> {
         jobs::AsyncJobsClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn mapping(&self) -> mapping::AsyncMappingClient<T> {
+        mapping::AsyncMappingClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn sdn(&self) -> sdn::AsyncSdnClient<T> {
+        sdn::AsyncSdnClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn log(&self) -> log::AsyncLogClient<T> {

@@ -11,7 +11,7 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub all: Option<bool>,
-    #[doc = "Limit I/O bandwidth (KBytes per second)."]
+    #[doc = "Limit I/O bandwidth (in KiB/s)."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub bwlimit: Option<u64>,
     #[doc = "Compress dump file."]
@@ -23,23 +23,26 @@ pub struct PostParameters {
     #[doc = "Exclude specified guest systems (assumes --all)"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub exclude: Option<String>,
-    #[doc = "Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root,  other paths match relative to each subdirectory."]
+    #[doc = "Exclude certain files/directories (shell globs). Paths starting with '/' are anchored to the container's root, other paths match relative to each subdirectory."]
     #[serde(
         rename = "exclude-path",
         skip_serializing_if = "Option::is_none",
         default
     )]
-    pub exclude_path: Option<String>,
-    #[doc = "Set CFQ ionice priority."]
+    pub exclude_path: Option<Vec<String>>,
+    #[doc = "Options for backup fleecing (VM only)."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub fleecing: Option<String>,
+    #[doc = "Set IO priority when using the BFQ scheduler. For snapshot and suspend mode backups of VMs, this only affects the compressor. A value of 8 means the idle priority is used, otherwise the best-effort priority is used with the specified value."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub ionice: Option<u64>,
     #[doc = "Maximal time to wait for the global lock (minutes)."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub lockwait: Option<u64>,
-    #[doc = "Specify when to send an email"]
+    #[doc = "Deprecated: use notification targets/matchers instead. Specify when to send a notification mail"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub mailnotification: Option<String>,
-    #[doc = "Comma-separated list of email addresses or users that should receive email notifications."]
+    #[doc = "Deprecated: Use notification targets/matchers instead. Comma-separated list of email addresses or users that should receive email notifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub mailto: Option<String>,
     #[doc = "Deprecated: use 'prune-backups' instead. Maximal number of backup files per guest system."]
@@ -55,6 +58,34 @@ pub struct PostParameters {
         default
     )]
     pub notes_template: Option<String>,
+    #[doc = "Determine which notification system to use. If set to 'legacy-sendmail', vzdump will consider the mailto/mailnotification parameters and send emails to the specified address(es) via the 'sendmail' command. If set to 'notification-system', a notification will be sent via PVE's notification system, and the mailto and mailnotification will be ignored. If set to 'auto' (default setting), an email will be sent if mailto is set, and the notification system will be used if not."]
+    #[serde(
+        rename = "notification-mode",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub notification_mode: Option<String>,
+    #[doc = "Deprecated: Do not use"]
+    #[serde(
+        rename = "notification-policy",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub notification_policy: Option<String>,
+    #[doc = "Deprecated: Do not use"]
+    #[serde(
+        rename = "notification-target",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub notification_target: Option<String>,
+    #[doc = "EXPERIMENTAL: PBS mode used to detect file changes and switch encoding format for container backups."]
+    #[serde(
+        rename = "pbs-change-detection-mode",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
+    pub pbs_change_detection_mode: Option<String>,
     #[doc = "Other performance-related settings."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub performance: Option<String>,
@@ -134,7 +165,7 @@ pub struct PostParameters {
     #[doc = "The ID of the guest system you want to backup."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub vmid: Option<String>,
-    #[doc = "Zstd threads. N=0 uses half of the available cores, N>0 uses N as thread count."]
+    #[doc = "Zstd threads. N=0 uses half of the available cores, if N is set to a value bigger than 0, N is used as thread count."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub zstd: Option<u64>,
 }

@@ -32,7 +32,7 @@ pub struct GetResponseItem {
         default
     )]
     pub startall_onboot_delay: Option<u64>,
-    #[doc = "MAC address for wake on LAN"]
+    #[doc = "Node specific wake on LAN settings."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
 }
@@ -87,7 +87,7 @@ pub struct PutParameters {
         default
     )]
     pub startall_onboot_delay: Option<u64>,
-    #[doc = "MAC address for wake on LAN"]
+    #[doc = "Node specific wake on LAN settings."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
 }

@@ -1,7 +1,5 @@
 pub mod cfg;
 pub mod cmd_safety;
-pub mod config;
-pub mod configdb;
 pub mod crush;
 pub mod fs;
 pub mod init;
@@ -11,7 +9,6 @@ pub mod mgr;
 pub mod mon;
 pub mod osd;
 pub mod pool;
-pub mod pools;
 pub mod restart;
 pub mod rules;
 pub mod start;
@@ -64,18 +61,6 @@ where
 
     pub fn pool(&self) -> pool::PoolClient<T> {
         pool::PoolClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn pools(&self) -> pools::PoolsClient<T> {
-        pools::PoolsClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn config(&self) -> config::ConfigClient<T> {
-        config::ConfigClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn configdb(&self) -> configdb::ConfigdbClient<T> {
-        configdb::ConfigdbClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn init(&self) -> init::InitClient<T> {
@@ -166,18 +151,6 @@ where
 
     pub fn pool(&self) -> pool::AsyncPoolClient<T> {
         pool::AsyncPoolClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn pools(&self) -> pools::AsyncPoolsClient<T> {
-        pools::AsyncPoolsClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn config(&self) -> config::AsyncConfigClient<T> {
-        config::AsyncConfigClient::<T>::new(self.client.clone(), &self.path)
-    }
-
-    pub fn configdb(&self) -> configdb::AsyncConfigdbClient<T> {
-        configdb::AsyncConfigdbClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn init(&self) -> init::AsyncInitClient<T> {

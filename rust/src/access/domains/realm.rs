@@ -41,6 +41,15 @@ pub struct PutParameters {
     #[doc = "Path to the client certificate key"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub certkey: Option<String>,
+    #[doc = "Check bind connection to the server."]
+    #[serde(
+        rename = "check-connection",
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub check_connection: Option<bool>,
     #[doc = "OpenID Client ID"]
     #[serde(rename = "client-id", skip_serializing_if = "Option::is_none", default)]
     pub client_id: Option<String>,
@@ -65,7 +74,7 @@ pub struct PutParameters {
     #[doc = "A list of settings you want to delete."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub delete: Option<String>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
     #[doc = "AD domain name"]

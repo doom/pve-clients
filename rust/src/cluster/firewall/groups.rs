@@ -4,7 +4,7 @@ pub mod group;
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     pub digest: String,
     #[doc = "Security Group name."]
     pub group: String,
@@ -14,7 +14,7 @@ pub struct GetResponseItem {
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
     #[doc = "Security Group name."]

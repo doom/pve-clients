@@ -1,6 +1,6 @@
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
-    #[doc = "Run specific command or default to login."]
+    #[doc = "Run specific command or default to login (requires 'root@pam')"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub cmd: Option<String>,
     #[doc = "Add parameters to a command. Encoded as null terminated strings."]

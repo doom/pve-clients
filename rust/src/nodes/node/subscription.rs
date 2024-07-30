@@ -3,7 +3,7 @@ pub struct GetResponseItem {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
-    #[doc = "Always connect to server, even if we have up to date info inside local cache."]
+    #[doc = "Always connect to server, even if local cache is still valid."]
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,

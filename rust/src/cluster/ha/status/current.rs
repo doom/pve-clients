@@ -1,3 +1,44 @@
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
+pub struct GetResponseItem {
+    #[doc = "For type 'service'. Service state as seen by the CRM."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub crm_state: Option<String>,
+    #[doc = "Status entry ID (quorum, master, lrm:<node>, service:<sid>)."]
+    pub id: String,
+    #[doc = "For type 'service'."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub max_relocate: Option<u64>,
+    #[doc = "For type 'service'."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub max_restart: Option<u64>,
+    #[doc = "Node associated to status entry."]
+    pub node: String,
+    #[doc = "For type 'quorum'. Whether the cluster is quorate or not."]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub quorate: Option<bool>,
+    #[doc = "For type 'service'. Requested service state."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub request_state: Option<String>,
+    #[doc = "For type 'service'. Service ID."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub sid: Option<String>,
+    #[doc = "For type 'service'. Verbose service state."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub state: Option<String>,
+    #[doc = "Status of the entry (value depends on type)."]
+    pub status: String,
+    #[doc = "For type 'lrm','master'. Timestamp of the status information."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub timestamp: Option<u64>,
+    #[doc = "Type of status entry."]
+    pub r#type: serde_json::Value,
+}
+
 #[derive(Debug, Clone)]
 pub struct CurrentClient<T> {
     client: T,
@@ -20,7 +61,7 @@ where
     T: crate::client::HttpClient,
 {
     #[doc = "Get HA manger status."]
-    pub fn get(&self) -> Result<Vec<serde_json::Value>, T::Error> {
+    pub fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &())
     }
 }
@@ -46,7 +87,7 @@ where
     T: crate::client::AsyncHttpClient,
 {
     #[doc = "Get HA manger status."]
-    pub async fn get(&self) -> Result<Vec<serde_json::Value>, T::Error> {
+    pub async fn get(&self) -> Result<Vec<GetResponseItem>, T::Error> {
         self.client.get(&self.path, &()).await
     }
 }

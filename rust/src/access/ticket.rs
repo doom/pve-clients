@@ -1,6 +1,6 @@
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
-    #[doc = "With webauthn the format of half-authenticated tickts changed. New clients should pass 1 here and not worry about the old format. The old format is deprecated and will be retired with PVE-8.0"]
+    #[doc = "This parameter is now ignored and assumed to be 1."]
     #[serde(
         rename = "new-format",
         skip_serializing_if = "Option::is_none",

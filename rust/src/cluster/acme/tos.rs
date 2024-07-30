@@ -26,7 +26,7 @@ impl<T> TosClient<T>
 where
     T: crate::client::HttpClient,
 {
-    #[doc = "Retrieve ACME TermsOfService URL from CA."]
+    #[doc = "Retrieve ACME TermsOfService URL from CA. Deprecated, please use /cluster/acme/meta."]
     pub fn get(&self, parameters: GetParameters) -> Result<Option<String>, T::Error> {
         self.client.get(&self.path, &parameters)
     }
@@ -52,7 +52,7 @@ impl<T> AsyncTosClient<T>
 where
     T: crate::client::AsyncHttpClient,
 {
-    #[doc = "Retrieve ACME TermsOfService URL from CA."]
+    #[doc = "Retrieve ACME TermsOfService URL from CA. Deprecated, please use /cluster/acme/meta."]
     pub async fn get(&self, parameters: GetParameters) -> Result<Option<String>, T::Error> {
         self.client.get(&self.path, &parameters).await
     }

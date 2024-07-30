@@ -3,7 +3,7 @@ pub struct GetResponseItem {}
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostParameters {
-    #[doc = "Send notification mail about new packages (to email address specified for user 'root@pam')."]
+    #[doc = "Send notification about new packages."]
     #[serde(
         skip_serializing_if = "Option::is_none",
         default,

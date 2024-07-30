@@ -21,7 +21,7 @@ pub struct PostParameters {
     #[doc = "Use specific network for all ceph related traffic"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub network: Option<String>,
-    #[doc = "Placement group bits, used to specify the default number of placement groups.  NOTE: 'osd pool default pg num' does not work for default pools."]
+    #[doc = "Placement group bits, used to specify the default number of placement groups.  Depreacted. This setting was deprecated in recent Ceph versions."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub pg_bits: Option<u64>,
     #[doc = "Targeted number of replicas per object"]

@@ -3,7 +3,7 @@ pub struct PostParameters {
     #[doc = "Override QEMU's -cpu argument with the given string."]
     #[serde(rename = "force-cpu", skip_serializing_if = "Option::is_none", default)]
     pub force_cpu: Option<String>,
-    #[doc = "Specifies the QEMU machine type."]
+    #[doc = "Specify the QEMU machine."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub machine: Option<String>,
     #[doc = "The cluster node name."]

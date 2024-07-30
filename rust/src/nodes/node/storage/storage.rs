@@ -1,6 +1,7 @@
 pub mod content;
 pub mod download_url;
 pub mod file_restore;
+pub mod import_metadata;
 pub mod prunebackups;
 pub mod rrd;
 pub mod rrddata;
@@ -60,6 +61,10 @@ where
     pub fn download_url(&self) -> download_url::DownloadUrlClient<T> {
         download_url::DownloadUrlClient::<T>::new(self.client.clone(), &self.path)
     }
+
+    pub fn import_metadata(&self) -> import_metadata::ImportMetadataClient<T> {
+        import_metadata::ImportMetadataClient::<T>::new(self.client.clone(), &self.path)
+    }
 }
 impl<T> StorageClient<T>
 where
@@ -116,6 +121,10 @@ where
 
     pub fn download_url(&self) -> download_url::AsyncDownloadUrlClient<T> {
         download_url::AsyncDownloadUrlClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn import_metadata(&self) -> import_metadata::AsyncImportMetadataClient<T> {
+        import_metadata::AsyncImportMetadataClient::<T>::new(self.client.clone(), &self.path)
     }
 }
 impl<T> AsyncStorageClient<T>

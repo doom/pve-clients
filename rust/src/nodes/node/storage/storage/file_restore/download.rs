@@ -2,6 +2,14 @@
 pub struct GetParameters {
     #[doc = "base64-path to the directory or file to download."]
     pub filepath: String,
+    #[doc = "Download dirs as 'tar.zst' instead of 'zip'."]
+    #[serde(
+        skip_serializing_if = "Option::is_none",
+        default,
+        deserialize_with = "crate::common::deserialize_option_bool_lax",
+        serialize_with = "crate::common::serialize_option_bool_as_u64"
+    )]
+    pub tar: Option<bool>,
     #[doc = "Backup volume ID or name. Currently only PBS snapshots are supported."]
     pub volume: String,
 }

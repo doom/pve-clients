@@ -6,7 +6,7 @@ pub struct PutParameters {
     #[doc = "A list of settings you want to delete."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub delete: Option<String>,
-    #[doc = "Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications."]
+    #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
     #[doc = "List of cluster node names with optional priority."]

@@ -10,6 +10,8 @@ pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
     pub name: String,
+    pub r#ref: String,
+    pub scope: String,
     pub r#type: String,
 }
 

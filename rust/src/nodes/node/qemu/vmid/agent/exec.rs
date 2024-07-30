@@ -1,8 +1,7 @@
-#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
+#[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
-    #[doc = "The command as a list of program + arguments"]
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub command: Option<String>,
+    #[doc = "The command as a list of program + arguments."]
+    pub command: Vec<String>,
     #[doc = "Data to pass as 'input-data' to the guest. Usually treated as STDIN to 'command'."]
     #[serde(
         rename = "input-data",

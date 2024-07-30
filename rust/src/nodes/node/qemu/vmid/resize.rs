@@ -39,7 +39,7 @@ where
     T: crate::client::HttpClient,
 {
     #[doc = "Extend volume size."]
-    pub fn put(&self, parameters: PutParameters) -> Result<(), T::Error> {
+    pub fn put(&self, parameters: PutParameters) -> Result<String, T::Error> {
         self.client.put(&self.path, &parameters)
     }
 }
@@ -65,7 +65,7 @@ where
     T: crate::client::AsyncHttpClient,
 {
     #[doc = "Extend volume size."]
-    pub async fn put(&self, parameters: PutParameters) -> Result<(), T::Error> {
+    pub async fn put(&self, parameters: PutParameters) -> Result<String, T::Error> {
         self.client.put(&self.path, &parameters).await
     }
 }

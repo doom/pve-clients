@@ -1,5 +1,6 @@
 pub mod tfa;
 pub mod token;
+pub mod unlock_tfa;
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
@@ -90,6 +91,10 @@ where
         tfa::TfaClient::<T>::new(self.client.clone(), &self.path)
     }
 
+    pub fn unlock_tfa(&self) -> unlock_tfa::UnlockTfaClient<T> {
+        unlock_tfa::UnlockTfaClient::<T>::new(self.client.clone(), &self.path)
+    }
+
     pub fn token(&self) -> token::TokenClient<T> {
         token::TokenClient::<T>::new(self.client.clone(), &self.path)
     }
@@ -132,6 +137,10 @@ where
 
     pub fn tfa(&self) -> tfa::AsyncTfaClient<T> {
         tfa::AsyncTfaClient::<T>::new(self.client.clone(), &self.path)
+    }
+
+    pub fn unlock_tfa(&self) -> unlock_tfa::AsyncUnlockTfaClient<T> {
+        unlock_tfa::AsyncUnlockTfaClient::<T>::new(self.client.clone(), &self.path)
     }
 
     pub fn token(&self) -> token::AsyncTokenClient<T> {

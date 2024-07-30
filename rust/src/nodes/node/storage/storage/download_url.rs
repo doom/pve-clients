@@ -10,6 +10,9 @@ pub struct PostParameters {
         default
     )]
     pub checksum_algorithm: Option<String>,
+    #[doc = "Decompress the downloaded file using the specified compression algorithm."]
+    #[serde(skip_serializing_if = "Option::is_none", default)]
+    pub compression: Option<String>,
     #[doc = "Content type."]
     pub content: String,
     #[doc = "The name of the file to create. Caution: This will be normalized!"]

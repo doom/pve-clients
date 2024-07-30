@@ -52,7 +52,7 @@ impl<T> ShutdownClient<T>
 where
     T: crate::client::HttpClient,
 {
-    #[doc = "Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown."]
+    #[doc = "Shutdown virtual machine. This is similar to pressing the power button on a physical machine. This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown."]
     pub fn post(&self, parameters: PostParameters) -> Result<String, T::Error> {
         self.client.post(&self.path, &parameters)
     }
@@ -78,7 +78,7 @@ impl<T> AsyncShutdownClient<T>
 where
     T: crate::client::AsyncHttpClient,
 {
-    #[doc = "Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown."]
+    #[doc = "Shutdown virtual machine. This is similar to pressing the power button on a physical machine. This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown."]
     pub async fn post(&self, parameters: PostParameters) -> Result<String, T::Error> {
         self.client.post(&self.path, &parameters).await
     }
