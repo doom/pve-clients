@@ -24,7 +24,7 @@ class PostResponseItem(BaseModel):
 
 
 class PostParameters(BaseModel):
-    # With webauthn the format of half-authenticated tickts changed. New clients should pass 1 here and not worry about the old format. The old format is deprecated and will be retired with PVE-8.0
+    # This parameter is now ignored and assumed to be 1.
     new_format: Optional[bool] = Field(alias="new-format", default=None)
     # One-time password for Two-factor authentication.
     otp: Optional[str] = Field(default=None)

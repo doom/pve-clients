@@ -14,7 +14,7 @@ from pve.common import (
 class PostParameters(BaseModel):
     # The target content of /etc/hosts.
     data: str
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):
@@ -24,7 +24,7 @@ class PostParameters(BaseModel):
 class GetResponseItem(BaseModel):
     # The content of /etc/hosts.
     data: str
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):

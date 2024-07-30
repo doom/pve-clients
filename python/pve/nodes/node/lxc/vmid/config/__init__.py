@@ -30,6 +30,8 @@ class PutParameters(BaseModel):
     delete: Optional[str] = Field(default=None)
     # Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file.
     description: Optional[str] = Field(default=None)
+    # Device to pass through to the container
+    devs: dict[int, Optional[str]] = Field(default=None)
     # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Allow containers access to advanced features.
@@ -80,6 +82,7 @@ class PutParameters(BaseModel):
     @model_serializer(mode="wrap")
     def _serialize_repeated(self, serializer):
         data = serializer(self)
+        data = serialize_repeated_with_prefix(data, group="devs", prefix="dev")
         data = serialize_repeated_with_prefix(data, group="mps", prefix="mp")
         data = serialize_repeated_with_prefix(data, group="nets", prefix="net")
         data = serialize_repeated_with_prefix(data, group="unuseds", prefix="unused")
@@ -90,6 +93,7 @@ class PutParameters(BaseModel):
     def _extract_repeated(cls, data: Any) -> Any:
         if not isinstance(data, dict):
             return data
+        data = extract_repeated_with_prefix(data, group="devs", prefix="dev")
         data = extract_repeated_with_prefix(data, group="mps", prefix="mp")
         data = extract_repeated_with_prefix(data, group="nets", prefix="net")
         data = extract_repeated_with_prefix(data, group="unuseds", prefix="unused")
@@ -116,6 +120,8 @@ class GetResponseItem(BaseModel):
     debug: Optional[bool] = Field(default=None)
     # Description for the Container. Shown in the web-interface CT's summary. This is saved as comment inside the configuration file.
     description: Optional[str] = Field(default=None)
+    # Device to pass through to the container
+    devs: dict[int, Optional[str]] = Field(default=None)
     # SHA1 digest of configuration file. This can be used to prevent concurrent modifications.
     digest: str
     # Allow containers access to advanced features.
@@ -166,6 +172,7 @@ class GetResponseItem(BaseModel):
     @model_serializer(mode="wrap")
     def _serialize_repeated(self, serializer):
         data = serializer(self)
+        data = serialize_repeated_with_prefix(data, group="devs", prefix="dev")
         data = serialize_repeated_with_prefix(data, group="mps", prefix="mp")
         data = serialize_repeated_with_prefix(data, group="nets", prefix="net")
         data = serialize_repeated_with_prefix(data, group="unuseds", prefix="unused")
@@ -176,6 +183,7 @@ class GetResponseItem(BaseModel):
     def _extract_repeated(cls, data: Any) -> Any:
         if not isinstance(data, dict):
             return data
+        data = extract_repeated_with_prefix(data, group="devs", prefix="dev")
         data = extract_repeated_with_prefix(data, group="mps", prefix="mp")
         data = extract_repeated_with_prefix(data, group="nets", prefix="net")
         data = extract_repeated_with_prefix(data, group="unuseds", prefix="unused")

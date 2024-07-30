@@ -13,6 +13,7 @@ from . import clone as _clone
 from . import config as _config
 from . import feature as _feature
 from . import firewall as _firewall
+from . import interfaces as _interfaces
 from . import migrate as _migrate
 from . import move_volume as _move_volume
 from . import mtunnel as _mtunnel
@@ -169,6 +170,12 @@ class VmidClient:
             self.path,
         )
 
+    def interfaces(self) -> _interfaces.InterfacesClient:
+        return _interfaces.InterfacesClient(
+            self.client,
+            self.path,
+        )
+
     def mtunnel(self) -> _mtunnel.MtunnelClient:
         return _mtunnel.MtunnelClient(
             self.client,
@@ -307,6 +314,12 @@ class AsyncVmidClient:
 
     def pending(self) -> _pending.AsyncPendingClient:
         return _pending.AsyncPendingClient(
+            self.client,
+            self.path,
+        )
+
+    def interfaces(self) -> _interfaces.AsyncInterfacesClient:
+        return _interfaces.AsyncInterfacesClient(
             self.client,
             self.path,
         )

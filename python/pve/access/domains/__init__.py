@@ -29,6 +29,8 @@ class PostParameters(BaseModel):
     cert: Optional[str] = Field(default=None)
     # Path to the client certificate key
     certkey: Optional[str] = Field(default=None)
+    # Check bind connection to the server.
+    check_connection: Optional[bool] = Field(alias="check-connection", default=None)
     # OpenID Client ID
     client_id: Optional[str] = Field(alias="client-id", default=None)
     # OpenID Client Key

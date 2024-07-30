@@ -34,11 +34,11 @@ class ResizeClient:
         self.client = client
         self.path = f"{parent_path}/{'resize'}"
 
-    def put(self, parameters: PutParameters):
+    def put(self, parameters: PutParameters) -> str:
         """
         Extend volume size.
         """
-        return self.client.put(self.path, parameters)
+        return self.client.put(self.path, parameters, parse_as=str)
 
 
 @dataclass
@@ -50,8 +50,8 @@ class AsyncResizeClient:
         self.client = client
         self.path = f"{parent_path}/{'resize'}"
 
-    async def put(self, parameters: PutParameters):
+    async def put(self, parameters: PutParameters) -> str:
         """
         Extend volume size.
         """
-        return await self.client.put(self.path, parameters)
+        return await self.client.put(self.path, parameters, parse_as=str)

@@ -16,7 +16,7 @@ class PutParameters(BaseModel):
     description: Optional[str] = Field(default=None)
     # Whether the entry should be enabled for login.
     enable: Optional[bool] = Field(default=None)
-    # The current password.
+    # The current password of the user performing the change.
     password: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):
@@ -44,7 +44,7 @@ class GetResponseItem(BaseModel):
 
 
 class DeleteParameters(BaseModel):
-    # The current password.
+    # The current password of the user performing the change.
     password: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):

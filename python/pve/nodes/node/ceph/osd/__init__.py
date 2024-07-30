@@ -23,6 +23,8 @@ class PostParameters(BaseModel):
     dev: str
     # Enables encryption of the OSD.
     encrypted: Optional[bool] = Field(default=None)
+    # OSD services per physical device. Only useful for fast NVMe devices\" 		    .\" to utilize their performance better.
+    osds_per_device: Optional[int] = Field(alias="osds-per-device", default=None)
     # Block device name for block.wal.
     wal_dev: Optional[str] = Field(default=None)
     # Size in GiB for block.wal.

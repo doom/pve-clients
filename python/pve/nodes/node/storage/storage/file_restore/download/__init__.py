@@ -14,6 +14,8 @@ from pve.common import (
 class GetParameters(BaseModel):
     # base64-path to the directory or file to download.
     filepath: str
+    # Download dirs as 'tar.zst' instead of 'zip'.
+    tar: Optional[bool] = Field(default=None)
     # Backup volume ID or name. Currently only PBS snapshots are supported.
     volume: str
 

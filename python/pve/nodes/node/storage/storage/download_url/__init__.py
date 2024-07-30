@@ -16,6 +16,8 @@ class PostParameters(BaseModel):
     checksum: Optional[str] = Field(default=None)
     # The algorithm to calculate the checksum of the file.
     checksum_algorithm: Optional[str] = Field(alias="checksum-algorithm", default=None)
+    # Decompress the downloaded file using the specified compression algorithm.
+    compression: Optional[str] = Field(default=None)
     # Content type.
     content: str
     # The name of the file to create. Caution: This will be normalized!

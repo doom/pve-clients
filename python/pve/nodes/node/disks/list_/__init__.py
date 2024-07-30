@@ -19,6 +19,7 @@ class GetResponseItem(BaseModel):
     model: Optional[str] = Field(default=None)
     mounted: bool
     osdid: int
+    osdid_list: list[int] = Field(alias="osdid-list")
     # For partitions only. The device path of the disk the partition resides on.
     parent: Optional[str] = Field(default=None)
     serial: Optional[str] = Field(default=None)

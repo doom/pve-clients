@@ -48,6 +48,8 @@ class GetResponseItem(BaseModel):
     local_disks: list[dict[str, Any]]
     # List local resources e.g. pci, usb
     local_resources: list[dict[str, Any]]
+    # List of mapped resources e.g. pci, usb
+    mapped_resources: list[dict[str, Any]] = Field(alias="mapped-resources")
     # List not allowed nodes with additional informations, only passed if VM is offline
     not_allowed_nodes: Optional[NotAllowedNodes] = Field(default=None)
     running: bool

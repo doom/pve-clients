@@ -11,8 +11,6 @@ from pve.common import (
 )
 from . import cfg as _cfg
 from . import cmd_safety as _cmd_safety
-from . import config as _config
-from . import configdb as _configdb
 from . import crush as _crush
 from . import fs as _fs
 from . import init as _init
@@ -22,7 +20,6 @@ from . import mgr as _mgr
 from . import mon as _mon
 from . import osd as _osd
 from . import pool as _pool
-from . import pools as _pools
 from . import restart as _restart
 from . import rules as _rules
 from . import start as _start
@@ -81,24 +78,6 @@ class CephClient:
 
     def pool(self) -> _pool.PoolClient:
         return _pool.PoolClient(
-            self.client,
-            self.path,
-        )
-
-    def pools(self) -> _pools.PoolsClient:
-        return _pools.PoolsClient(
-            self.client,
-            self.path,
-        )
-
-    def config(self) -> _config.ConfigClient:
-        return _config.ConfigClient(
-            self.client,
-            self.path,
-        )
-
-    def configdb(self) -> _configdb.ConfigdbClient:
-        return _configdb.ConfigdbClient(
             self.client,
             self.path,
         )
@@ -211,24 +190,6 @@ class AsyncCephClient:
 
     def pool(self) -> _pool.AsyncPoolClient:
         return _pool.AsyncPoolClient(
-            self.client,
-            self.path,
-        )
-
-    def pools(self) -> _pools.AsyncPoolsClient:
-        return _pools.AsyncPoolsClient(
-            self.client,
-            self.path,
-        )
-
-    def config(self) -> _config.AsyncConfigClient:
-        return _config.AsyncConfigClient(
-            self.client,
-            self.path,
-        )
-
-    def configdb(self) -> _configdb.AsyncConfigdbClient:
-        return _configdb.AsyncConfigdbClient(
             self.client,
             self.path,
         )

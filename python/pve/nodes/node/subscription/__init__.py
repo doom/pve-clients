@@ -20,7 +20,7 @@ class PutParameters(BaseModel):
 
 
 class PostParameters(BaseModel):
-    # Always connect to server, even if we have up to date info inside local cache.
+    # Always connect to server, even if local cache is still valid.
     force: Optional[bool] = Field(default=None)
 
     class Config(CommonPydanticConfig):

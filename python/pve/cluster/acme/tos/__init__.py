@@ -30,7 +30,7 @@ class TosClient:
 
     def get(self, parameters: GetParameters) -> Optional[str]:
         """
-        Retrieve ACME TermsOfService URL from CA.
+        Retrieve ACME TermsOfService URL from CA. Deprecated, please use /cluster/acme/meta.
         """
         return self.client.get(self.path, parameters, parse_as=Optional[str])
 
@@ -46,6 +46,6 @@ class AsyncTosClient:
 
     async def get(self, parameters: GetParameters) -> Optional[str]:
         """
-        Retrieve ACME TermsOfService URL from CA.
+        Retrieve ACME TermsOfService URL from CA. Deprecated, please use /cluster/acme/meta.
         """
         return await self.client.get(self.path, parameters, parse_as=Optional[str])

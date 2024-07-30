@@ -29,6 +29,8 @@ class PutParameters(BaseModel):
     cert: Optional[str] = Field(default=None)
     # Path to the client certificate key
     certkey: Optional[str] = Field(default=None)
+    # Check bind connection to the server.
+    check_connection: Optional[bool] = Field(alias="check-connection", default=None)
     # OpenID Client ID
     client_id: Optional[str] = Field(alias="client-id", default=None)
     # OpenID Client Key
@@ -39,7 +41,7 @@ class PutParameters(BaseModel):
     default: Optional[bool] = Field(default=None)
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # AD domain name
     domain: Optional[str] = Field(default=None)

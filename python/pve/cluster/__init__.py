@@ -18,11 +18,14 @@ from . import firewall as _firewall
 from . import ha as _ha
 from . import jobs as _jobs
 from . import log as _log
+from . import mapping as _mapping
 from . import metrics as _metrics
 from . import nextid as _nextid
+from . import notifications as _notifications
 from . import options as _options
 from . import replication as _replication
 from . import resources as _resources
+from . import sdn as _sdn
 from . import status as _status
 from . import tasks as _tasks
 
@@ -48,6 +51,12 @@ class ClusterClient:
 
     def metrics(self) -> _metrics.MetricsClient:
         return _metrics.MetricsClient(
+            self.client,
+            self.path,
+        )
+
+    def notifications(self) -> _notifications.NotificationsClient:
+        return _notifications.NotificationsClient(
             self.client,
             self.path,
         )
@@ -96,6 +105,18 @@ class ClusterClient:
 
     def jobs(self) -> _jobs.JobsClient:
         return _jobs.JobsClient(
+            self.client,
+            self.path,
+        )
+
+    def mapping(self) -> _mapping.MappingClient:
+        return _mapping.MappingClient(
+            self.client,
+            self.path,
+        )
+
+    def sdn(self) -> _sdn.SdnClient:
+        return _sdn.SdnClient(
             self.client,
             self.path,
         )
@@ -164,6 +185,12 @@ class AsyncClusterClient:
             self.path,
         )
 
+    def notifications(self) -> _notifications.AsyncNotificationsClient:
+        return _notifications.AsyncNotificationsClient(
+            self.client,
+            self.path,
+        )
+
     def config(self) -> _config.AsyncConfigClient:
         return _config.AsyncConfigClient(
             self.client,
@@ -208,6 +235,18 @@ class AsyncClusterClient:
 
     def jobs(self) -> _jobs.AsyncJobsClient:
         return _jobs.AsyncJobsClient(
+            self.client,
+            self.path,
+        )
+
+    def mapping(self) -> _mapping.AsyncMappingClient:
+        return _mapping.AsyncMappingClient(
+            self.client,
+            self.path,
+        )
+
+    def sdn(self) -> _sdn.AsyncSdnClient:
+        return _sdn.AsyncSdnClient(
             self.client,
             self.path,
         )

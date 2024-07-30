@@ -13,12 +13,14 @@ from . import dump as _dump
 
 
 class GetResponseItem(BaseModel):
+    # Indicates a pending delete request if present and not 0.
+    delete: Optional[int] = Field(default=None)
     # Configuration option name.
     key: str
     # The new pending value.
-    new: Optional[str] = Field(default=None)
+    pending: Optional[str] = Field(default=None)
     # Value as it was used to generate the current cloudinit image.
-    old: Optional[str] = Field(default=None)
+    value: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):
         pass

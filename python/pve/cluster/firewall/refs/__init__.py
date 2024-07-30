@@ -15,6 +15,7 @@ class GetResponseItem(BaseModel):
     comment: Optional[str] = Field(default=None)
     name: str
     ref: str
+    scope: str
     type: str
 
     class Config(CommonPydanticConfig):

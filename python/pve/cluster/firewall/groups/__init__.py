@@ -14,7 +14,7 @@ from . import group as _group
 
 class PostParameters(BaseModel):
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Security Group name.
     group: str
@@ -27,7 +27,7 @@ class PostParameters(BaseModel):
 
 class GetResponseItem(BaseModel):
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: str
     # Security Group name.
     group: str

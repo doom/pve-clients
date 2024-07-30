@@ -27,7 +27,7 @@ class PostResponseItem(BaseModel):
 
 
 class PostParameters(BaseModel):
-    # Run specific command or default to login.
+    # Run specific command or default to login (requires 'root@pam')
     cmd: Optional[str] = Field(default=None)
     # Add parameters to a command. Encoded as null terminated strings.
     cmd_opts: Optional[str] = Field(alias="cmd-opts", default=None)

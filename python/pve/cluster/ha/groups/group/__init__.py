@@ -16,7 +16,7 @@ class PutParameters(BaseModel):
     comment: Optional[str] = Field(default=None)
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # List of cluster node names with optional priority.
     nodes: Optional[str] = Field(default=None)

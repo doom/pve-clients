@@ -22,6 +22,8 @@ class Ha(BaseModel):
 class GetResponseItem(BaseModel):
     # QEMU Guest Agent is enabled in config.
     agent: Optional[bool] = Field(default=None)
+    # Enable a specific clipboard. If not set, depending on the display type the SPICE one will be added.
+    clipboard: Optional[str] = Field(default=None)
     # Maximum usable CPUs.
     cpus: Optional[float] = Field(default=None)
     # HA manager service status.
@@ -36,7 +38,7 @@ class GetResponseItem(BaseModel):
     name: Optional[str] = Field(default=None)
     # PID of running qemu process.
     pid: Optional[int] = Field(default=None)
-    # QEMU QMP agent status.
+    # VM run state from the 'query-status' QMP monitor command.
     qmpstatus: Optional[str] = Field(default=None)
     # The currently running machine type (if running).
     running_machine: Optional[str] = Field(alias="running-machine", default=None)

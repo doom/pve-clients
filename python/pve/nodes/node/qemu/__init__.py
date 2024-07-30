@@ -47,6 +47,8 @@ class PostParameters(BaseModel):
     cipassword: Optional[str] = Field(default=None)
     # Specifies the cloud-init configuration format. The default depends on the configured operating system type (`ostype`. We use the `nocloud` format for Linux, and `configdrive2` for windows.
     citype: Optional[str] = Field(default=None)
+    # cloud-init: do an automatic package upgrade after the first boot.
+    ciupgrade: Optional[bool] = Field(default=None)
     # cloud-init: User name to change ssh keys and password for instead of the image's configured default user.
     ciuser: Optional[str] = Field(default=None)
     # The number of cores per socket.
@@ -85,17 +87,17 @@ class PostParameters(BaseModel):
     keyboard: Optional[str] = Field(default=None)
     # Enable/disable KVM hardware virtualization.
     kvm: Optional[bool] = Field(default=None)
-    # Start the VM immediately from the backup and restore in background. PBS only.
+    # Start the VM immediately while importing or restoring in the background.
     live_restore: Optional[bool] = Field(alias="live-restore", default=None)
     # Set the real time clock (RTC) to local time. This is enabled by default if the `ostype` indicates a Microsoft Windows OS.
     localtime: Optional[bool] = Field(default=None)
     # Lock/unlock the VM.
     lock: Optional[str] = Field(default=None)
-    # Specifies the QEMU machine type.
+    # Specify the QEMU machine.
     machine: Optional[str] = Field(default=None)
-    # Amount of RAM for the VM in MiB. This is the maximum available memory when you use the balloon device.
-    memory: Optional[int] = Field(default=None)
-    # Set maximum tolerated downtime (in seconds) for migrations.
+    # Memory properties.
+    memory: Optional[str] = Field(default=None)
+    # Set maximum tolerated downtime (in seconds) for migrations. Should the migration not be able to converge in the very end, because too much newly dirtied RAM needs to be transferred, the limit will be increased automatically step-by-step until migration can converge.
     migrate_downtime: Optional[float] = Field(default=None)
     # Set maximum speed (in MB/s) for migrations. Value 0 is no limit.
     migrate_speed: Optional[int] = Field(default=None)
@@ -241,7 +243,7 @@ class GetResponseItem(BaseModel):
     name: Optional[str] = Field(default=None)
     # PID of running qemu process.
     pid: Optional[int] = Field(default=None)
-    # QEMU QMP agent status.
+    # VM run state from the 'query-status' QMP monitor command.
     qmpstatus: Optional[str] = Field(default=None)
     # The currently running machine type (if running).
     running_machine: Optional[str] = Field(alias="running-machine", default=None)

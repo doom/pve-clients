@@ -14,7 +14,7 @@ from . import name as _name
 
 class PostParameters(BaseModel):
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # IP set name.
     name: str
@@ -27,7 +27,7 @@ class PostParameters(BaseModel):
 
 class GetResponseItem(BaseModel):
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: str
     # IP set name.
     name: str

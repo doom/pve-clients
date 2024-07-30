@@ -11,6 +11,7 @@ from pve.common import (
 )
 from . import tfa as _tfa
 from . import token as _token
+from . import unlock_tfa as _unlock_tfa
 
 
 class PutParameters(BaseModel):
@@ -68,6 +69,12 @@ class UseridClient:
             self.path,
         )
 
+    def unlock_tfa(self) -> _unlock_tfa.UnlockTfaClient:
+        return _unlock_tfa.UnlockTfaClient(
+            self.client,
+            self.path,
+        )
+
     def token(self) -> _token.TokenClient:
         return _token.TokenClient(
             self.client,
@@ -106,6 +113,12 @@ class AsyncUseridClient:
 
     def tfa(self) -> _tfa.AsyncTfaClient:
         return _tfa.AsyncTfaClient(
+            self.client,
+            self.path,
+        )
+
+    def unlock_tfa(self) -> _unlock_tfa.AsyncUnlockTfaClient:
+        return _unlock_tfa.AsyncUnlockTfaClient(
             self.client,
             self.path,
         )

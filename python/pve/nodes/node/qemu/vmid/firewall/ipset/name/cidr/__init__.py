@@ -13,7 +13,7 @@ from pve.common import (
 
 class PutParameters(BaseModel):
     comment: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     nomatch: Optional[bool] = Field(default=None)
 
@@ -26,7 +26,7 @@ class GetResponseItem(BaseModel):
 
 
 class DeleteParameters(BaseModel):
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
 
     class Config(CommonPydanticConfig):

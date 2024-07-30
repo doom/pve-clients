@@ -36,7 +36,7 @@ class ShutdownClient:
 
     def post(self, parameters: PostParameters) -> str:
         """
-        Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
+        Shutdown virtual machine. This is similar to pressing the power button on a physical machine. This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
         """
         return self.client.post(self.path, parameters, parse_as=str)
 
@@ -52,6 +52,6 @@ class AsyncShutdownClient:
 
     async def post(self, parameters: PostParameters) -> str:
         """
-        Shutdown virtual machine. This is similar to pressing the power button on a physical machine.This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
+        Shutdown virtual machine. This is similar to pressing the power button on a physical machine. This will send an ACPI event for the guest OS, which should then proceed to a clean shutdown.
         """
         return await self.client.post(self.path, parameters, parse_as=str)

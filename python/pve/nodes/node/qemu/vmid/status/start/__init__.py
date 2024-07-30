@@ -14,7 +14,7 @@ from pve.common import (
 class PostParameters(BaseModel):
     # Override QEMU's -cpu argument with the given string.
     force_cpu: Optional[str] = Field(alias="force-cpu", default=None)
-    # Specifies the QEMU machine type.
+    # Specify the QEMU machine.
     machine: Optional[str] = Field(default=None)
     # The cluster node name.
     migratedfrom: Optional[str] = Field(default=None)

@@ -14,7 +14,7 @@ from pve.common import (
 class PutParameters(BaseModel):
     # A list of settings you want to delete.
     delete: Optional[str] = Field(default=None)
-    # Prevent changes if current configuration file has different SHA1 digest. This can be used to prevent concurrent modifications.
+    # Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications.
     digest: Optional[str] = Field(default=None)
     # Enable ebtables rules cluster wide.
     ebtables: Optional[bool] = Field(default=None)
