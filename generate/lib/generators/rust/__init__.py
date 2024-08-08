@@ -68,6 +68,7 @@ class Generator(BaseGenerator):
                 yield
         finally:
             self.output(f"}}")
+            self.output_newline()
 
     @contextmanager
     def impl(self, name: str, generics: list[str] = None, constraints: list[str] = None):
@@ -140,7 +141,9 @@ class Generator(BaseGenerator):
                     serde_opts["deserialize_with"] = f'"{deserialize_function}"'
                     serde_opts["serialize_with"] = f'"{serialize_function }"'
                     serde_opts["skip_serializing_if"] = '"std::collections::HashMap::is_empty"'
-                    extra_snippets.append(dedent(f"""\
+                    extra_snippets.append(
+                        dedent(
+                            f"""\
                         pub fn {deserialize_function}<'de, D, V>(deserializer: D) -> Result<std::collections::HashMap<u32, V>, D::Error>
                         where
                             D: serde::Deserializer<'de>,
@@ -156,7 +159,9 @@ class Generator(BaseGenerator):
                         {{
                             crate::common::serialize_repeated_with_prefix(value, "{prefix}", s)
                         }}
-                    """))
+                    """
+                        )
+                    )
                 if serde_opts:
                     self.output(f"#[serde({_format_annotation_kwargs(serde_opts)})]")
 
@@ -164,6 +169,29 @@ class Generator(BaseGenerator):
                 if v.repeated:
                     rust_type = f"std::collections::HashMap<u32, {rust_type}>"
                 self.output(f"pub {_escape_ident(v.name)}: {rust_type},")
+
+        required, optional = (
+            [v for _, v in type.attributes if not v.type.optional],
+            [v for _, v in type.attributes if v.type.optional],
+        )
+        if required and optional:
+            params = [f"{_escape_ident(v.name)}: {_as_rust_type(v.type)}" for v in required]
+            from_params = [f"{_escape_ident(v.name)}" for v in required]
+            defaulted = [f"{_escape_ident(v.name)}: Default::default()" for v in optional]
+            extra_snippets.append(
+                dedent(
+                    f"""\
+            impl {type.name} {{
+                pub fn new({', '.join(params)}) -> Self {{
+                    Self {{
+                    {', '.join(from_params)},
+                    {', '.join(defaulted)}
+                    }}
+                }}
+            }}
+            """
+                )
+            )
 
         for s in extra_snippets:
             self.output(s)
