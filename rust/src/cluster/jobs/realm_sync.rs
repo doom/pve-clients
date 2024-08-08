@@ -35,6 +35,22 @@ pub struct GetResponseItem {
     pub scope: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(enabled: bool, id: String, realm: String, schedule: String) -> Self {
+        Self {
+            enabled,
+            id,
+            realm,
+            schedule,
+            comment: Default::default(),
+            last_run: Default::default(),
+            next_run: Default::default(),
+            remove_vanished: Default::default(),
+            scope: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct RealmSyncClient<T> {
     client: T,

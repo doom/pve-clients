@@ -165,6 +165,7 @@ pub struct GetResponseItem {
     )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
 }
+
 pub fn deserialize_repeated_dev_in_get_response_item<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -247,6 +248,45 @@ where
     S: serde::Serializer,
 {
     crate::common::serialize_repeated_with_prefix(value, "unused", s)
+}
+
+impl GetResponseItem {
+    pub fn new(digest: String) -> Self {
+        Self {
+            digest,
+            arch: Default::default(),
+            cmode: Default::default(),
+            console: Default::default(),
+            cores: Default::default(),
+            cpulimit: Default::default(),
+            cpuunits: Default::default(),
+            debug: Default::default(),
+            description: Default::default(),
+            devs: Default::default(),
+            features: Default::default(),
+            hookscript: Default::default(),
+            hostname: Default::default(),
+            lock: Default::default(),
+            lxc: Default::default(),
+            memory: Default::default(),
+            mps: Default::default(),
+            nameserver: Default::default(),
+            nets: Default::default(),
+            onboot: Default::default(),
+            ostype: Default::default(),
+            protection: Default::default(),
+            rootfs: Default::default(),
+            searchdomain: Default::default(),
+            startup: Default::default(),
+            swap: Default::default(),
+            tags: Default::default(),
+            template: Default::default(),
+            timezone: Default::default(),
+            tty: Default::default(),
+            unprivileged: Default::default(),
+            unuseds: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
@@ -405,6 +445,7 @@ pub struct PutParameters {
     )]
     pub unuseds: std::collections::HashMap<u32, Option<String>>,
 }
+
 pub fn deserialize_repeated_dev_in_put_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

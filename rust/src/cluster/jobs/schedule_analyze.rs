@@ -10,6 +10,16 @@ pub struct GetParameters {
     pub starttime: Option<u64>,
 }
 
+impl GetParameters {
+    pub fn new(schedule: String) -> Self {
+        Self {
+            schedule,
+            iterations: Default::default(),
+            starttime: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     #[doc = "UNIX timestamp for the run."]

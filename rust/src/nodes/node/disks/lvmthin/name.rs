@@ -23,6 +23,16 @@ pub struct DeleteParameters {
     pub volume_group: String,
 }
 
+impl DeleteParameters {
+    pub fn new(volume_group: String) -> Self {
+        Self {
+            volume_group,
+            cleanup_config: Default::default(),
+            cleanup_disks: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct NameClient<T> {
     client: T,

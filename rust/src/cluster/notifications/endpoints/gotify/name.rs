@@ -20,6 +20,18 @@ pub struct GetResponseItem {
     pub server: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, server: String) -> Self {
+        Self {
+            name,
+            server,
+            comment: Default::default(),
+            digest: Default::default(),
+            disable: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Comment"]

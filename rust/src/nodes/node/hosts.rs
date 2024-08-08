@@ -7,6 +7,15 @@ pub struct GetResponseItem {
     pub digest: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(data: String) -> Self {
+        Self {
+            data,
+            digest: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "The target content of /etc/hosts."]
@@ -14,6 +23,15 @@ pub struct PostParameters {
     #[doc = "Prevent changes if current configuration file has a different digest. This can be used to prevent concurrent modifications."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub digest: Option<String>,
+}
+
+impl PostParameters {
+    pub fn new(data: String) -> Self {
+        Self {
+            data,
+            digest: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

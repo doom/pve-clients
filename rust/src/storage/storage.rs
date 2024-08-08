@@ -254,6 +254,16 @@ pub struct PutResponseItem {
     pub r#type: String,
 }
 
+impl PutResponseItem {
+    pub fn new(storage: String, r#type: String) -> Self {
+        Self {
+            storage,
+            r#type,
+            config: Default::default(),
+        }
+    }
+}
+
 #[doc = "Partial, possible server generated, configuration properties."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Config {

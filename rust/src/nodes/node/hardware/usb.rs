@@ -18,6 +18,34 @@ pub struct GetResponseItem {
     pub vendid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        busnum: u64,
+        class: u64,
+        devnum: u64,
+        level: u64,
+        port: u64,
+        prodid: String,
+        speed: String,
+        vendid: String,
+    ) -> Self {
+        Self {
+            busnum,
+            class,
+            devnum,
+            level,
+            port,
+            prodid,
+            speed,
+            vendid,
+            manufacturer: Default::default(),
+            product: Default::default(),
+            serial: Default::default(),
+            usbpath: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct UsbClient<T> {
     client: T,

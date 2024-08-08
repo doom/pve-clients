@@ -27,6 +27,7 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub votes: Option<u64>,
 }
+
 pub fn deserialize_repeated_link_in_post_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -46,6 +47,17 @@ where
     S: serde::Serializer,
 {
     crate::common::serialize_repeated_with_prefix(value, "link", s)
+}
+
+impl PostParameters {
+    pub fn new(clustername: String) -> Self {
+        Self {
+            clustername,
+            links: Default::default(),
+            nodeid: Default::default(),
+            votes: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

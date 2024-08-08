@@ -70,6 +70,33 @@ pub struct GetResponseItem {
     pub vmid: Option<u64>,
 }
 
+impl GetResponseItem {
+    pub fn new(id: String, r#type: String) -> Self {
+        Self {
+            id,
+            r#type,
+            cgroup_mode: Default::default(),
+            content: Default::default(),
+            cpu: Default::default(),
+            disk: Default::default(),
+            hastate: Default::default(),
+            level: Default::default(),
+            maxcpu: Default::default(),
+            maxdisk: Default::default(),
+            maxmem: Default::default(),
+            mem: Default::default(),
+            name: Default::default(),
+            node: Default::default(),
+            plugintype: Default::default(),
+            pool: Default::default(),
+            status: Default::default(),
+            storage: Default::default(),
+            uptime: Default::default(),
+            vmid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ResourcesClient<T> {
     client: T,

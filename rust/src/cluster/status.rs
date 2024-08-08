@@ -45,6 +45,24 @@ pub struct GetResponseItem {
     pub version: Option<u64>,
 }
 
+impl GetResponseItem {
+    pub fn new(id: String, name: String, r#type: String) -> Self {
+        Self {
+            id,
+            name,
+            r#type,
+            ip: Default::default(),
+            level: Default::default(),
+            local: Default::default(),
+            nodeid: Default::default(),
+            nodes: Default::default(),
+            online: Default::default(),
+            quorate: Default::default(),
+            version: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct StatusClient<T> {
     client: T,

@@ -21,6 +21,15 @@ pub struct GetResponseItem {
     pub status: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(safe: bool) -> Self {
+        Self {
+            safe,
+            status: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct CmdSafetyClient<T> {
     client: T,

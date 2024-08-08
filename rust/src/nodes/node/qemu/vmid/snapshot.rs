@@ -22,6 +22,18 @@ pub struct GetResponseItem {
     pub vmstate: Option<bool>,
 }
 
+impl GetResponseItem {
+    pub fn new(description: String, name: String) -> Self {
+        Self {
+            description,
+            name,
+            parent: Default::default(),
+            snaptime: Default::default(),
+            vmstate: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "A textual description or comment."]
@@ -37,6 +49,16 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub vmstate: Option<bool>,
+}
+
+impl PostParameters {
+    pub fn new(snapname: String) -> Self {
+        Self {
+            snapname,
+            description: Default::default(),
+            vmstate: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

@@ -32,6 +32,23 @@ pub struct GetResponseItem {
     pub vmid: u64,
 }
 
+impl GetResponseItem {
+    pub fn new(status: String, vmid: u64) -> Self {
+        Self {
+            status,
+            vmid,
+            cpus: Default::default(),
+            lock: Default::default(),
+            maxdisk: Default::default(),
+            maxmem: Default::default(),
+            maxswap: Default::default(),
+            name: Default::default(),
+            tags: Default::default(),
+            uptime: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "OS architecture type."]
@@ -243,6 +260,7 @@ pub struct PostParameters {
     #[doc = "The (unique) ID of the VM."]
     pub vmid: u64,
 }
+
 pub fn deserialize_repeated_dev_in_post_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -325,6 +343,55 @@ where
     S: serde::Serializer,
 {
     crate::common::serialize_repeated_with_prefix(value, "unused", s)
+}
+
+impl PostParameters {
+    pub fn new(ostemplate: String, vmid: u64) -> Self {
+        Self {
+            ostemplate,
+            vmid,
+            arch: Default::default(),
+            bwlimit: Default::default(),
+            cmode: Default::default(),
+            console: Default::default(),
+            cores: Default::default(),
+            cpulimit: Default::default(),
+            cpuunits: Default::default(),
+            debug: Default::default(),
+            description: Default::default(),
+            devs: Default::default(),
+            features: Default::default(),
+            force: Default::default(),
+            hookscript: Default::default(),
+            hostname: Default::default(),
+            ignore_unpack_errors: Default::default(),
+            lock: Default::default(),
+            memory: Default::default(),
+            mps: Default::default(),
+            nameserver: Default::default(),
+            nets: Default::default(),
+            onboot: Default::default(),
+            ostype: Default::default(),
+            password: Default::default(),
+            pool: Default::default(),
+            protection: Default::default(),
+            restore: Default::default(),
+            rootfs: Default::default(),
+            searchdomain: Default::default(),
+            ssh_public_keys: Default::default(),
+            start: Default::default(),
+            startup: Default::default(),
+            storage: Default::default(),
+            swap: Default::default(),
+            tags: Default::default(),
+            template: Default::default(),
+            timezone: Default::default(),
+            tty: Default::default(),
+            unique: Default::default(),
+            unprivileged: Default::default(),
+            unuseds: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

@@ -27,6 +27,18 @@ pub struct PostParameters {
     pub url: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(ipam: String, r#type: String) -> Self {
+        Self {
+            ipam,
+            r#type,
+            section: Default::default(),
+            token: Default::default(),
+            url: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct IpamsClient<T> {
     client: T,

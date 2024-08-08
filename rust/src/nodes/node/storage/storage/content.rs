@@ -49,6 +49,24 @@ pub struct GetResponseItem {
     pub volid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(format: String, size: u64, volid: String) -> Self {
+        Self {
+            format,
+            size,
+            volid,
+            ctime: Default::default(),
+            encrypted: Default::default(),
+            notes: Default::default(),
+            parent: Default::default(),
+            protected: Default::default(),
+            used: Default::default(),
+            verification: Default::default(),
+            vmid: Default::default(),
+        }
+    }
+}
+
 #[doc = "Last backup verification result, only useful for PBS storages."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct Verification {
@@ -68,6 +86,17 @@ pub struct PostParameters {
     pub size: String,
     #[doc = "Specify owner VM"]
     pub vmid: u64,
+}
+
+impl PostParameters {
+    pub fn new(filename: String, size: String, vmid: u64) -> Self {
+        Self {
+            filename,
+            size,
+            vmid,
+            format: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

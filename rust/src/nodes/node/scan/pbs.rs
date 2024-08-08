@@ -14,6 +14,18 @@ pub struct GetParameters {
     pub username: String,
 }
 
+impl GetParameters {
+    pub fn new(password: String, server: String, username: String) -> Self {
+        Self {
+            password,
+            server,
+            username,
+            fingerprint: Default::default(),
+            port: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     #[doc = "Comment from server."]
@@ -21,6 +33,15 @@ pub struct GetResponseItem {
     pub comment: Option<String>,
     #[doc = "The datastore name."]
     pub store: String,
+}
+
+impl GetResponseItem {
+    pub fn new(store: String) -> Self {
+        Self {
+            store,
+            comment: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

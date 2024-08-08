@@ -43,6 +43,21 @@ pub struct PostParameters {
     pub wal_dev_size: Option<f64>,
 }
 
+impl PostParameters {
+    pub fn new(dev: String) -> Self {
+        Self {
+            dev,
+            crush_device_class: Default::default(),
+            db_dev: Default::default(),
+            db_dev_size: Default::default(),
+            encrypted: Default::default(),
+            osds_per_device: Default::default(),
+            wal_dev: Default::default(),
+            wal_dev_size: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct OsdClient<T> {
     client: T,

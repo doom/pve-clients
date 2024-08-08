@@ -20,6 +20,18 @@ pub struct PostResponseItem {
     pub username: String,
 }
 
+impl PostResponseItem {
+    pub fn new(csrfprevention_token: String, cap: Cap, ticket: String, username: String) -> Self {
+        Self {
+            csrfprevention_token,
+            cap,
+            ticket,
+            username,
+            clustername: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Cap {}
 

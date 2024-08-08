@@ -14,6 +14,16 @@ pub struct GetParameters {
     pub volume: String,
 }
 
+impl GetParameters {
+    pub fn new(filepath: String, volume: String) -> Self {
+        Self {
+            filepath,
+            volume,
+            tar: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct DownloadClient<T> {
     client: T,

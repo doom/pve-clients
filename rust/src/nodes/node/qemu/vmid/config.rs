@@ -392,6 +392,7 @@ pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub watchdog: Option<String>,
 }
+
 pub fn deserialize_repeated_hostpci_in_get_response_item<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -642,6 +643,91 @@ where
     S: serde::Serializer,
 {
     crate::common::serialize_repeated_with_prefix(value, "virtio", s)
+}
+
+impl GetResponseItem {
+    pub fn new(digest: String) -> Self {
+        Self {
+            digest,
+            acpi: Default::default(),
+            affinity: Default::default(),
+            agent: Default::default(),
+            arch: Default::default(),
+            args: Default::default(),
+            audio0: Default::default(),
+            autostart: Default::default(),
+            balloon: Default::default(),
+            bios: Default::default(),
+            boot: Default::default(),
+            bootdisk: Default::default(),
+            cdrom: Default::default(),
+            cicustom: Default::default(),
+            cipassword: Default::default(),
+            citype: Default::default(),
+            ciupgrade: Default::default(),
+            ciuser: Default::default(),
+            cores: Default::default(),
+            cpu: Default::default(),
+            cpulimit: Default::default(),
+            cpuunits: Default::default(),
+            description: Default::default(),
+            efidisk0: Default::default(),
+            freeze: Default::default(),
+            hookscript: Default::default(),
+            hostpcis: Default::default(),
+            hotplug: Default::default(),
+            hugepages: Default::default(),
+            ides: Default::default(),
+            ipconfigs: Default::default(),
+            ivshmem: Default::default(),
+            keephugepages: Default::default(),
+            keyboard: Default::default(),
+            kvm: Default::default(),
+            localtime: Default::default(),
+            lock: Default::default(),
+            machine: Default::default(),
+            memory: Default::default(),
+            migrate_downtime: Default::default(),
+            migrate_speed: Default::default(),
+            name: Default::default(),
+            nameserver: Default::default(),
+            nets: Default::default(),
+            numa: Default::default(),
+            numas: Default::default(),
+            onboot: Default::default(),
+            ostype: Default::default(),
+            parallels: Default::default(),
+            protection: Default::default(),
+            reboot: Default::default(),
+            rng0: Default::default(),
+            satas: Default::default(),
+            scsis: Default::default(),
+            scsihw: Default::default(),
+            searchdomain: Default::default(),
+            serials: Default::default(),
+            shares: Default::default(),
+            smbios1: Default::default(),
+            smp: Default::default(),
+            sockets: Default::default(),
+            spice_enhancements: Default::default(),
+            sshkeys: Default::default(),
+            startdate: Default::default(),
+            startup: Default::default(),
+            tablet: Default::default(),
+            tags: Default::default(),
+            tdf: Default::default(),
+            template: Default::default(),
+            tpmstate0: Default::default(),
+            unuseds: Default::default(),
+            usbs: Default::default(),
+            vcpus: Default::default(),
+            vga: Default::default(),
+            virtios: Default::default(),
+            vmgenid: Default::default(),
+            vmstatestorage: Default::default(),
+            watchdog: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
@@ -1048,6 +1134,7 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub watchdog: Option<String>,
 }
+
 pub fn deserialize_repeated_hostpci_in_post_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -1701,6 +1788,7 @@ pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub watchdog: Option<String>,
 }
+
 pub fn deserialize_repeated_hostpci_in_put_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

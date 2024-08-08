@@ -28,6 +28,19 @@ pub struct GetResponseItem {
     pub used: u64,
 }
 
+impl GetResponseItem {
+    pub fn new(format: String, path: String, size: u64, used: u64) -> Self {
+        Self {
+            format,
+            path,
+            size,
+            used,
+            notes: Default::default(),
+            protected: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Target volume identifier"]
@@ -35,6 +48,15 @@ pub struct PostParameters {
     #[doc = "Target node. Default is local node."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub target_node: Option<String>,
+}
+
+impl PostParameters {
+    pub fn new(target: String) -> Self {
+        Self {
+            target,
+            target_node: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]

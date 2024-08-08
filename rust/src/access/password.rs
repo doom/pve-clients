@@ -13,6 +13,16 @@ pub struct PutParameters {
     pub userid: String,
 }
 
+impl PutParameters {
+    pub fn new(password: String, userid: String) -> Self {
+        Self {
+            password,
+            userid,
+            confirmation_password: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct PasswordClient<T> {
     client: T,

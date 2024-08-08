@@ -9,6 +9,16 @@ pub struct GetParameters {
     pub timeframe: String,
 }
 
+impl GetParameters {
+    pub fn new(ds: String, timeframe: String) -> Self {
+        Self {
+            ds,
+            timeframe,
+            cf: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     pub filename: String,

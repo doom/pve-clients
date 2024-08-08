@@ -34,6 +34,16 @@ pub struct PostParameters {
     pub map: Vec<String>,
 }
 
+impl PostParameters {
+    pub fn new(id: String, map: Vec<String>) -> Self {
+        Self {
+            id,
+            map,
+            description: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct UsbClient<T> {
     client: T,

@@ -44,6 +44,20 @@ pub struct GetResponseItem {
     pub signal: Option<u64>,
 }
 
+impl GetResponseItem {
+    pub fn new(exited: bool) -> Self {
+        Self {
+            exited,
+            err_data: Default::default(),
+            err_truncated: Default::default(),
+            exitcode: Default::default(),
+            out_data: Default::default(),
+            out_truncated: Default::default(),
+            signal: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ExecStatusClient<T> {
     client: T,

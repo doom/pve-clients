@@ -11,6 +11,15 @@ pub struct GetResponseItem {
     pub members: Vec<GetResponseMembersItem>,
 }
 
+impl GetResponseItem {
+    pub fn new(members: Vec<GetResponseMembersItem>) -> Self {
+        Self {
+            members,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseMembersItem {
     pub id: String,
@@ -20,6 +29,18 @@ pub struct GetResponseMembersItem {
     pub r#type: String,
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub vmid: Option<u64>,
+}
+
+impl GetResponseMembersItem {
+    pub fn new(id: String, node: String, r#type: String) -> Self {
+        Self {
+            id,
+            node,
+            r#type,
+            storage: Default::default(),
+            vmid: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]

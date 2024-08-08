@@ -41,6 +41,25 @@ pub struct GetResponseItem {
     pub status: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        children: Vec<GetResponseChildrenItem>,
+        errors: String,
+        name: String,
+        state: String,
+    ) -> Self {
+        Self {
+            children,
+            errors,
+            name,
+            state,
+            action: Default::default(),
+            scan: Default::default(),
+            status: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseChildrenItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -56,6 +75,19 @@ pub struct GetResponseChildrenItem {
     pub state: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub write: Option<f64>,
+}
+
+impl GetResponseChildrenItem {
+    pub fn new(msg: String, name: String) -> Self {
+        Self {
+            msg,
+            name,
+            cksum: Default::default(),
+            read: Default::default(),
+            state: Default::default(),
+            write: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

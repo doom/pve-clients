@@ -23,6 +23,17 @@ pub struct GetResponseItem {
     pub userid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(entries: Vec<GetResponseItemEntriesItem>, userid: String) -> Self {
+        Self {
+            entries,
+            userid,
+            tfa_locked_until: Default::default(),
+            totp_locked: Default::default(),
+        }
+    }
+}
+
 #[doc = "TFA Entry."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItemEntriesItem {
@@ -42,6 +53,18 @@ pub struct GetResponseItemEntriesItem {
     pub id: String,
     #[doc = "TFA Entry Type."]
     pub r#type: String,
+}
+
+impl GetResponseItemEntriesItem {
+    pub fn new(created: u64, description: String, id: String, r#type: String) -> Self {
+        Self {
+            created,
+            description,
+            id,
+            r#type,
+            enable: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

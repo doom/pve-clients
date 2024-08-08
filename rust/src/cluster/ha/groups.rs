@@ -35,6 +35,19 @@ pub struct PostParameters {
     pub r#type: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(group: String, nodes: String) -> Self {
+        Self {
+            group,
+            nodes,
+            comment: Default::default(),
+            nofailback: Default::default(),
+            restricted: Default::default(),
+            r#type: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct GroupsClient<T> {
     client: T,

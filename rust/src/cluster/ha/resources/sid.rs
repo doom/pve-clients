@@ -26,6 +26,21 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(digest: String, sid: String, r#type: String) -> Self {
+        Self {
+            digest,
+            sid,
+            r#type,
+            comment: Default::default(),
+            group: Default::default(),
+            max_relocate: Default::default(),
+            max_restart: Default::default(),
+            state: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Description."]

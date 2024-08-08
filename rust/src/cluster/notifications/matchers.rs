@@ -55,6 +55,23 @@ pub struct GetResponseItem {
     pub target: Option<Vec<String>>,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, origin: String) -> Self {
+        Self {
+            name,
+            origin,
+            comment: Default::default(),
+            disable: Default::default(),
+            invert_match: Default::default(),
+            match_calendar: Default::default(),
+            match_field: Default::default(),
+            match_severity: Default::default(),
+            mode: Default::default(),
+            target: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Comment"]
@@ -106,6 +123,22 @@ pub struct PostParameters {
     #[doc = "Targets to notify on match"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub target: Option<Vec<String>>,
+}
+
+impl PostParameters {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            comment: Default::default(),
+            disable: Default::default(),
+            invert_match: Default::default(),
+            match_calendar: Default::default(),
+            match_field: Default::default(),
+            match_severity: Default::default(),
+            mode: Default::default(),
+            target: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

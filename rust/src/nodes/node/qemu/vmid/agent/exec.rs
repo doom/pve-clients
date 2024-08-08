@@ -11,6 +11,15 @@ pub struct PostParameters {
     pub input_data: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(command: Vec<String>) -> Self {
+        Self {
+            command,
+            input_data: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostResponseItem {
     #[doc = "The PID of the process started by the guest-agent."]

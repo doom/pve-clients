@@ -48,6 +48,19 @@ pub struct PostParameters {
     pub zone: String,
 }
 
+impl PostParameters {
+    pub fn new(vnet: String, zone: String) -> Self {
+        Self {
+            vnet,
+            zone,
+            alias: Default::default(),
+            tag: Default::default(),
+            r#type: Default::default(),
+            vlanaware: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct VnetsClient<T> {
     client: T,

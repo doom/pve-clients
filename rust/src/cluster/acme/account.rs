@@ -28,6 +28,19 @@ pub struct PostParameters {
     pub tos_url: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(contact: String) -> Self {
+        Self {
+            contact,
+            directory: Default::default(),
+            eab_hmac_key: Default::default(),
+            eab_kid: Default::default(),
+            name: Default::default(),
+            tos_url: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct AccountClient<T> {
     client: T,

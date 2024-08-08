@@ -7,6 +7,15 @@ pub struct PostParameters {
     pub uuid: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(disk: String) -> Self {
+        Self {
+            disk,
+            uuid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct InitgptClient<T> {
     client: T,

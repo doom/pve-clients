@@ -12,6 +12,15 @@ pub struct PutParameters {
     pub skiplock: Option<bool>,
 }
 
+impl PutParameters {
+    pub fn new(key: String) -> Self {
+        Self {
+            key,
+            skiplock: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct SendkeyClient<T> {
     client: T,

@@ -58,6 +58,20 @@ pub struct PostParameters {
     pub r#type: String,
 }
 
+impl PostParameters {
+    pub fn new(subnet: String, r#type: String) -> Self {
+        Self {
+            subnet,
+            r#type,
+            dhcp_dns_server: Default::default(),
+            dhcp_range: Default::default(),
+            dnszoneprefix: Default::default(),
+            gateway: Default::default(),
+            snat: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct SubnetsClient<T> {
     client: T,

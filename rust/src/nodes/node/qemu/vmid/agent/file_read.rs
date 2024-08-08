@@ -19,6 +19,15 @@ pub struct GetResponseItem {
     pub truncated: Option<bool>,
 }
 
+impl GetResponseItem {
+    pub fn new(content: String) -> Self {
+        Self {
+            content,
+            truncated: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct FileReadClient<T> {
     client: T,

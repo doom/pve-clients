@@ -68,6 +68,30 @@ pub struct GetResponseItem {
     pub vmid: u64,
 }
 
+impl GetResponseItem {
+    pub fn new(ha: Ha, status: String, vmid: u64) -> Self {
+        Self {
+            ha,
+            status,
+            vmid,
+            agent: Default::default(),
+            clipboard: Default::default(),
+            cpus: Default::default(),
+            lock: Default::default(),
+            maxdisk: Default::default(),
+            maxmem: Default::default(),
+            name: Default::default(),
+            pid: Default::default(),
+            qmpstatus: Default::default(),
+            running_machine: Default::default(),
+            running_qemu: Default::default(),
+            spice: Default::default(),
+            tags: Default::default(),
+            uptime: Default::default(),
+        }
+    }
+}
+
 #[doc = "HA manager service status."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct Ha {}

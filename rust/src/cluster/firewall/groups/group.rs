@@ -52,6 +52,28 @@ pub struct PostParameters {
     pub r#type: String,
 }
 
+impl PostParameters {
+    pub fn new(action: String, r#type: String) -> Self {
+        Self {
+            action,
+            r#type,
+            comment: Default::default(),
+            dest: Default::default(),
+            digest: Default::default(),
+            dport: Default::default(),
+            enable: Default::default(),
+            icmp_type: Default::default(),
+            iface: Default::default(),
+            log: Default::default(),
+            r#macro: Default::default(),
+            pos: Default::default(),
+            proto: Default::default(),
+            source: Default::default(),
+            sport: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct GroupClient<T> {
     client: T,

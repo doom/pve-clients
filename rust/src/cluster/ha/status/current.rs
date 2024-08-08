@@ -39,6 +39,25 @@ pub struct GetResponseItem {
     pub r#type: serde_json::Value,
 }
 
+impl GetResponseItem {
+    pub fn new(id: String, node: String, status: String, r#type: serde_json::Value) -> Self {
+        Self {
+            id,
+            node,
+            status,
+            r#type,
+            crm_state: Default::default(),
+            max_relocate: Default::default(),
+            max_restart: Default::default(),
+            quorate: Default::default(),
+            request_state: Default::default(),
+            sid: Default::default(),
+            state: Default::default(),
+            timestamp: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct CurrentClient<T> {
     client: T,

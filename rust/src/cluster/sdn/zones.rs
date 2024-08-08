@@ -52,6 +52,24 @@ pub struct GetResponseItem {
     pub zone: String,
 }
 
+impl GetResponseItem {
+    pub fn new(r#type: String, zone: String) -> Self {
+        Self {
+            r#type,
+            zone,
+            dhcp: Default::default(),
+            dns: Default::default(),
+            dnszone: Default::default(),
+            ipam: Default::default(),
+            mtu: Default::default(),
+            nodes: Default::default(),
+            pending: Default::default(),
+            reversedns: Default::default(),
+            state: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Advertise evpn subnets if you have silent hosts"]
@@ -161,6 +179,38 @@ pub struct PostParameters {
     pub vxlan_port: Option<u64>,
     #[doc = "The SDN zone object identifier."]
     pub zone: String,
+}
+
+impl PostParameters {
+    pub fn new(r#type: String, zone: String) -> Self {
+        Self {
+            r#type,
+            zone,
+            advertise_subnets: Default::default(),
+            bridge: Default::default(),
+            bridge_disable_mac_learning: Default::default(),
+            controller: Default::default(),
+            dhcp: Default::default(),
+            disable_arp_nd_suppression: Default::default(),
+            dns: Default::default(),
+            dnszone: Default::default(),
+            dp_id: Default::default(),
+            exitnodes: Default::default(),
+            exitnodes_local_routing: Default::default(),
+            exitnodes_primary: Default::default(),
+            ipam: Default::default(),
+            mac: Default::default(),
+            mtu: Default::default(),
+            nodes: Default::default(),
+            peers: Default::default(),
+            reversedns: Default::default(),
+            rt_import: Default::default(),
+            tag: Default::default(),
+            vlan_protocol: Default::default(),
+            vrf_vxlan: Default::default(),
+            vxlan_port: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

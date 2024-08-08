@@ -45,6 +45,22 @@ pub struct PostParameters {
     pub target_vmid: Option<u64>,
 }
 
+impl PostParameters {
+    pub fn new(disk: String) -> Self {
+        Self {
+            disk,
+            bwlimit: Default::default(),
+            delete: Default::default(),
+            digest: Default::default(),
+            format: Default::default(),
+            storage: Default::default(),
+            target_digest: Default::default(),
+            target_disk: Default::default(),
+            target_vmid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MoveDiskClient<T> {
     client: T,

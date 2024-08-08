@@ -41,6 +41,20 @@ pub struct PostParameters {
     pub raidlevel: String,
 }
 
+impl PostParameters {
+    pub fn new(devices: String, name: String, raidlevel: String) -> Self {
+        Self {
+            devices,
+            name,
+            raidlevel,
+            add_storage: Default::default(),
+            ashift: Default::default(),
+            compression: Default::default(),
+            draid_config: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ZfsClient<T> {
     client: T,

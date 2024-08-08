@@ -29,6 +29,20 @@ pub struct PostParameters {
     pub url: String,
 }
 
+impl PostParameters {
+    pub fn new(dns: String, key: String, r#type: String, url: String) -> Self {
+        Self {
+            dns,
+            key,
+            r#type,
+            url,
+            reversemaskv6: Default::default(),
+            reversev6mask: Default::default(),
+            ttl: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct DnsClient<T> {
     client: T,

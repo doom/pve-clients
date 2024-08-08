@@ -30,6 +30,20 @@ pub struct PostParameters {
     pub verify_certificates: Option<bool>,
 }
 
+impl PostParameters {
+    pub fn new(content: String, filename: String, url: String) -> Self {
+        Self {
+            content,
+            filename,
+            url,
+            checksum: Default::default(),
+            checksum_algorithm: Default::default(),
+            compression: Default::default(),
+            verify_certificates: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct DownloadUrlClient<T> {
     client: T,

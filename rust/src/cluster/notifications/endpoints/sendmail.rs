@@ -39,6 +39,21 @@ pub struct GetResponseItem {
     pub origin: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, origin: String) -> Self {
+        Self {
+            name,
+            origin,
+            author: Default::default(),
+            comment: Default::default(),
+            disable: Default::default(),
+            from_address: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Author of the mail"]
@@ -74,6 +89,20 @@ pub struct PostParameters {
     pub mailto_user: Option<Vec<String>>,
     #[doc = "The name of the endpoint."]
     pub name: String,
+}
+
+impl PostParameters {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            author: Default::default(),
+            comment: Default::default(),
+            disable: Default::default(),
+            from_address: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

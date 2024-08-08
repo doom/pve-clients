@@ -10,11 +10,30 @@ pub struct GetResponseItem {
     pub users: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(groupid: String) -> Self {
+        Self {
+            groupid,
+            comment: Default::default(),
+            users: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
     pub groupid: String,
+}
+
+impl PostParameters {
+    pub fn new(groupid: String) -> Self {
+        Self {
+            groupid,
+            comment: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

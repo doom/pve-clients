@@ -97,6 +97,50 @@ pub struct GetResponseItem {
     pub write_fadvise_dontneed: bool,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        fast_read: bool,
+        hashpspool: bool,
+        id: u64,
+        name: String,
+        nodeep_scrub: bool,
+        nodelete: bool,
+        nopgchange: bool,
+        noscrub: bool,
+        nosizechange: bool,
+        pgp_num: u64,
+        use_gmt_hitset: bool,
+        write_fadvise_dontneed: bool,
+    ) -> Self {
+        Self {
+            fast_read,
+            hashpspool,
+            id,
+            name,
+            nodeep_scrub,
+            nodelete,
+            nopgchange,
+            noscrub,
+            nosizechange,
+            pgp_num,
+            use_gmt_hitset,
+            write_fadvise_dontneed,
+            application: Default::default(),
+            application_list: Default::default(),
+            autoscale_status: Default::default(),
+            crush_rule: Default::default(),
+            min_size: Default::default(),
+            pg_autoscale_mode: Default::default(),
+            pg_num: Default::default(),
+            pg_num_min: Default::default(),
+            size: Default::default(),
+            statistics: Default::default(),
+            target_size: Default::default(),
+            target_size_ratio: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct AutoscaleStatus {}
 

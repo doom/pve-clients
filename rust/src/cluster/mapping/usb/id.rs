@@ -16,6 +16,17 @@ pub struct PutParameters {
     pub map: Vec<String>,
 }
 
+impl PutParameters {
+    pub fn new(map: Vec<String>) -> Self {
+        Self {
+            map,
+            delete: Default::default(),
+            description: Default::default(),
+            digest: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct IdClient<T> {
     client: T,

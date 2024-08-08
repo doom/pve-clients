@@ -10,6 +10,16 @@ pub struct GetResponseItem {
     pub group: String,
 }
 
+impl GetResponseItem {
+    pub fn new(digest: String, group: String) -> Self {
+        Self {
+            digest,
+            group,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -22,6 +32,17 @@ pub struct PostParameters {
     #[doc = "Rename/update an existing security group. You can set 'rename' to the same value as 'name' to update the 'comment' of an existing group."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub rename: Option<String>,
+}
+
+impl PostParameters {
+    pub fn new(group: String) -> Self {
+        Self {
+            group,
+            comment: Default::default(),
+            digest: Default::default(),
+            rename: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

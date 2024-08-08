@@ -29,6 +29,17 @@ pub struct PutParameters {
     pub search: String,
 }
 
+impl PutParameters {
+    pub fn new(search: String) -> Self {
+        Self {
+            search,
+            dns1: Default::default(),
+            dns2: Default::default(),
+            dns3: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct DnsClient<T> {
     client: T,

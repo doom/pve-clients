@@ -288,6 +288,75 @@ pub struct PostParameters {
     pub volume: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(storage: String, r#type: String) -> Self {
+        Self {
+            storage,
+            r#type,
+            authsupported: Default::default(),
+            base: Default::default(),
+            blocksize: Default::default(),
+            bwlimit: Default::default(),
+            comstar_hg: Default::default(),
+            comstar_tg: Default::default(),
+            content: Default::default(),
+            content_dirs: Default::default(),
+            create_base_path: Default::default(),
+            create_subdirs: Default::default(),
+            data_pool: Default::default(),
+            datastore: Default::default(),
+            disable: Default::default(),
+            domain: Default::default(),
+            encryption_key: Default::default(),
+            export: Default::default(),
+            fingerprint: Default::default(),
+            format: Default::default(),
+            fs_name: Default::default(),
+            fuse: Default::default(),
+            is_mountpoint: Default::default(),
+            iscsiprovider: Default::default(),
+            keyring: Default::default(),
+            krbd: Default::default(),
+            lio_tpg: Default::default(),
+            master_pubkey: Default::default(),
+            max_protected_backups: Default::default(),
+            maxfiles: Default::default(),
+            mkdir: Default::default(),
+            monhost: Default::default(),
+            mountpoint: Default::default(),
+            namespace: Default::default(),
+            nocow: Default::default(),
+            nodes: Default::default(),
+            nowritecache: Default::default(),
+            options: Default::default(),
+            password: Default::default(),
+            path: Default::default(),
+            pool: Default::default(),
+            port: Default::default(),
+            portal: Default::default(),
+            preallocation: Default::default(),
+            prune_backups: Default::default(),
+            saferemove: Default::default(),
+            saferemove_throughput: Default::default(),
+            server: Default::default(),
+            server2: Default::default(),
+            share: Default::default(),
+            shared: Default::default(),
+            skip_cert_verification: Default::default(),
+            smbversion: Default::default(),
+            sparse: Default::default(),
+            subdir: Default::default(),
+            tagged_only: Default::default(),
+            target: Default::default(),
+            thinpool: Default::default(),
+            transport: Default::default(),
+            username: Default::default(),
+            vgname: Default::default(),
+            volume: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostResponseItem {
     #[doc = "Partial, possible server generated, configuration properties."]
@@ -297,6 +366,16 @@ pub struct PostResponseItem {
     pub storage: String,
     #[doc = "The type of the created storage."]
     pub r#type: String,
+}
+
+impl PostResponseItem {
+    pub fn new(storage: String, r#type: String) -> Self {
+        Self {
+            storage,
+            r#type,
+            config: Default::default(),
+        }
+    }
 }
 
 #[doc = "Partial, possible server generated, configuration properties."]

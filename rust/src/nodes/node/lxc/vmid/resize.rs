@@ -9,6 +9,16 @@ pub struct PutParameters {
     pub size: String,
 }
 
+impl PutParameters {
+    pub fn new(disk: String, size: String) -> Self {
+        Self {
+            disk,
+            size,
+            digest: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ResizeClient<T> {
     client: T,

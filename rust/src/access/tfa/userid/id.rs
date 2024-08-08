@@ -26,6 +26,18 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(created: u64, description: String, id: String, r#type: String) -> Self {
+        Self {
+            created,
+            description,
+            id,
+            r#type,
+            enable: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "A description to distinguish multiple entries from one another"]
