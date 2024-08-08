@@ -36,6 +36,20 @@ pub struct PostParameters {
     pub r#type: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(sid: String) -> Self {
+        Self {
+            sid,
+            comment: Default::default(),
+            group: Default::default(),
+            max_relocate: Default::default(),
+            max_restart: Default::default(),
+            state: Default::default(),
+            r#type: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ResourcesClient<T> {
     client: T,

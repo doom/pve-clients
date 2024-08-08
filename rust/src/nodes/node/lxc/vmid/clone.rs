@@ -33,6 +33,22 @@ pub struct PostParameters {
     pub target: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(newid: u64) -> Self {
+        Self {
+            newid,
+            bwlimit: Default::default(),
+            description: Default::default(),
+            full: Default::default(),
+            hostname: Default::default(),
+            pool: Default::default(),
+            snapname: Default::default(),
+            storage: Default::default(),
+            target: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct CloneClient<T> {
     client: T,

@@ -54,6 +54,23 @@ pub struct GetResponseItem {
     pub target: Option<Vec<String>>,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            comment: Default::default(),
+            digest: Default::default(),
+            disable: Default::default(),
+            invert_match: Default::default(),
+            match_calendar: Default::default(),
+            match_field: Default::default(),
+            match_severity: Default::default(),
+            mode: Default::default(),
+            target: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Comment"]

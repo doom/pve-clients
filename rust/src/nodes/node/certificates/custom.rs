@@ -35,6 +35,17 @@ pub struct PostParameters {
     pub restart: Option<bool>,
 }
 
+impl PostParameters {
+    pub fn new(certificates: String) -> Self {
+        Self {
+            certificates,
+            force: Default::default(),
+            key: Default::default(),
+            restart: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]

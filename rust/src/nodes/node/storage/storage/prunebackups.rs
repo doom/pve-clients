@@ -47,6 +47,18 @@ pub struct GetResponseItem {
     pub volid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(ctime: u64, mark: String, r#type: String, volid: String) -> Self {
+        Self {
+            ctime,
+            mark,
+            r#type,
+            volid,
+            vmid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct PrunebackupsClient<T> {
     client: T,

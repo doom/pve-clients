@@ -65,6 +65,28 @@ pub struct PostParameters {
     pub verify_certificate: Option<bool>,
 }
 
+impl PostParameters {
+    pub fn new(port: u64, server: String, r#type: String) -> Self {
+        Self {
+            port,
+            server,
+            r#type,
+            api_path_prefix: Default::default(),
+            bucket: Default::default(),
+            disable: Default::default(),
+            influxdbproto: Default::default(),
+            max_body_size: Default::default(),
+            mtu: Default::default(),
+            organization: Default::default(),
+            path: Default::default(),
+            proto: Default::default(),
+            timeout: Default::default(),
+            token: Default::default(),
+            verify_certificate: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PutParameters {
     #[doc = "An API path prefix inserted between '<host>:<port>/' and '/api2/'. Can be useful if the InfluxDB service runs behind a reverse proxy."]
@@ -131,6 +153,29 @@ pub struct PutParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub verify_certificate: Option<bool>,
+}
+
+impl PutParameters {
+    pub fn new(port: u64, server: String) -> Self {
+        Self {
+            port,
+            server,
+            api_path_prefix: Default::default(),
+            bucket: Default::default(),
+            delete: Default::default(),
+            digest: Default::default(),
+            disable: Default::default(),
+            influxdbproto: Default::default(),
+            max_body_size: Default::default(),
+            mtu: Default::default(),
+            organization: Default::default(),
+            path: Default::default(),
+            proto: Default::default(),
+            timeout: Default::default(),
+            token: Default::default(),
+            verify_certificate: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

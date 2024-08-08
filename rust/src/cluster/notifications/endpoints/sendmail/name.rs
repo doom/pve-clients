@@ -38,6 +38,21 @@ pub struct GetResponseItem {
     pub name: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            author: Default::default(),
+            comment: Default::default(),
+            digest: Default::default(),
+            disable: Default::default(),
+            from_address: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Author of the mail"]

@@ -28,6 +28,41 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        bytes_used: u64,
+        crush_rule: u64,
+        crush_rule_name: String,
+        min_size: u64,
+        percent_used: f64,
+        pg_num: u64,
+        pool: u64,
+        pool_name: String,
+        size: u64,
+        r#type: String,
+    ) -> Self {
+        Self {
+            bytes_used,
+            crush_rule,
+            crush_rule_name,
+            min_size,
+            percent_used,
+            pg_num,
+            pool,
+            pool_name,
+            size,
+            r#type,
+            application_metadata: Default::default(),
+            autoscale_status: Default::default(),
+            pg_autoscale_mode: Default::default(),
+            pg_num_final: Default::default(),
+            pg_num_min: Default::default(),
+            target_size: Default::default(),
+            target_size_ratio: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct ApplicationMetadata {}
 
@@ -80,6 +115,25 @@ pub struct PostParameters {
     #[doc = "The estimated target ratio of the pool for the PG autoscaler."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub target_size_ratio: Option<f64>,
+}
+
+impl PostParameters {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            add_storages: Default::default(),
+            application: Default::default(),
+            crush_rule: Default::default(),
+            erasure_coding: Default::default(),
+            min_size: Default::default(),
+            pg_autoscale_mode: Default::default(),
+            pg_num: Default::default(),
+            pg_num_min: Default::default(),
+            size: Default::default(),
+            target_size: Default::default(),
+            target_size_ratio: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

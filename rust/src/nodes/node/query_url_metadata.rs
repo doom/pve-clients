@@ -13,6 +13,15 @@ pub struct GetParameters {
     pub verify_certificates: Option<bool>,
 }
 
+impl GetParameters {
+    pub fn new(url: String) -> Self {
+        Self {
+            url,
+            verify_certificates: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]

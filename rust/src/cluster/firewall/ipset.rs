@@ -10,6 +10,16 @@ pub struct GetResponseItem {
     pub name: String,
 }
 
+impl GetResponseItem {
+    pub fn new(digest: String, name: String) -> Self {
+        Self {
+            digest,
+            name,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -22,6 +32,17 @@ pub struct PostParameters {
     #[doc = "Rename an existing IPSet. You can set 'rename' to the same value as 'name' to update the 'comment' of an existing IPSet."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub rename: Option<String>,
+}
+
+impl PostParameters {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            comment: Default::default(),
+            digest: Default::default(),
+            rename: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

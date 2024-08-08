@@ -19,6 +19,18 @@ pub struct PostParameters {
     pub tmpfilename: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(content: String, filename: String) -> Self {
+        Self {
+            content,
+            filename,
+            checksum: Default::default(),
+            checksum_algorithm: Default::default(),
+            tmpfilename: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct UploadClient<T> {
     client: T,

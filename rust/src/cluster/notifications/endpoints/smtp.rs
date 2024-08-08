@@ -46,6 +46,25 @@ pub struct GetResponseItem {
     pub username: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(from_address: String, name: String, origin: String, server: String) -> Self {
+        Self {
+            from_address,
+            name,
+            origin,
+            server,
+            author: Default::default(),
+            comment: Default::default(),
+            disable: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+            mode: Default::default(),
+            port: Default::default(),
+            username: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Author of the mail. Defaults to 'Proxmox VE'."]
@@ -91,6 +110,25 @@ pub struct PostParameters {
     #[doc = "Username for SMTP authentication"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub username: Option<String>,
+}
+
+impl PostParameters {
+    pub fn new(from_address: String, name: String, server: String) -> Self {
+        Self {
+            from_address,
+            name,
+            server,
+            author: Default::default(),
+            comment: Default::default(),
+            disable: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+            mode: Default::default(),
+            password: Default::default(),
+            port: Default::default(),
+            username: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

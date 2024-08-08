@@ -11,6 +11,17 @@ pub struct GetResponseItem {
     pub version: String,
 }
 
+impl GetResponseItem {
+    pub fn new(release: String, repoid: String, version: String) -> Self {
+        Self {
+            release,
+            repoid,
+            version,
+            console: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct VersionClient<T> {
     client: T,

@@ -19,6 +19,17 @@ pub struct GetResponseItem {
     pub tokenid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(tokenid: String) -> Self {
+        Self {
+            tokenid,
+            comment: Default::default(),
+            expire: Default::default(),
+            privsep: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TokenClient<T> {
     client: T,

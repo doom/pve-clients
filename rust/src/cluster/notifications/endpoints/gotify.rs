@@ -21,6 +21,18 @@ pub struct GetResponseItem {
     pub server: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, origin: String, server: String) -> Self {
+        Self {
+            name,
+            origin,
+            server,
+            comment: Default::default(),
+            disable: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Comment"]
@@ -40,6 +52,18 @@ pub struct PostParameters {
     pub server: String,
     #[doc = "Secret token"]
     pub token: String,
+}
+
+impl PostParameters {
+    pub fn new(name: String, server: String, token: String) -> Self {
+        Self {
+            name,
+            server,
+            token,
+            comment: Default::default(),
+            disable: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

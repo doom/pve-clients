@@ -12,6 +12,15 @@ pub struct GetParameters {
     pub healthonly: Option<bool>,
 }
 
+impl GetParameters {
+    pub fn new(disk: String) -> Self {
+        Self {
+            disk,
+            healthonly: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -21,6 +30,17 @@ pub struct GetResponseItem {
     pub text: Option<String>,
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub r#type: Option<String>,
+}
+
+impl GetResponseItem {
+    pub fn new(health: String) -> Self {
+        Self {
+            health,
+            attributes: Default::default(),
+            text: Default::default(),
+            r#type: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

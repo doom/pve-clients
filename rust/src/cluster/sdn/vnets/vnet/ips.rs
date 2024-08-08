@@ -9,6 +9,16 @@ pub struct DeleteParameters {
     pub zone: String,
 }
 
+impl DeleteParameters {
+    pub fn new(ip: String, zone: String) -> Self {
+        Self {
+            ip,
+            zone,
+            mac: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "The IP address to associate with the given MAC address"]
@@ -18,6 +28,16 @@ pub struct PostParameters {
     pub mac: Option<String>,
     #[doc = "The SDN zone object identifier."]
     pub zone: String,
+}
+
+impl PostParameters {
+    pub fn new(ip: String, zone: String) -> Self {
+        Self {
+            ip,
+            zone,
+            mac: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -32,6 +52,17 @@ pub struct PutParameters {
     pub vmid: Option<u64>,
     #[doc = "The SDN zone object identifier."]
     pub zone: String,
+}
+
+impl PutParameters {
+    pub fn new(ip: String, zone: String) -> Self {
+        Self {
+            ip,
+            zone,
+            mac: Default::default(),
+            vmid: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

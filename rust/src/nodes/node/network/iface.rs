@@ -106,6 +106,40 @@ pub struct PutParameters {
     pub vlan_raw_device: Option<String>,
 }
 
+impl PutParameters {
+    pub fn new(r#type: String) -> Self {
+        Self {
+            r#type,
+            address: Default::default(),
+            address6: Default::default(),
+            autostart: Default::default(),
+            bond_primary: Default::default(),
+            bond_mode: Default::default(),
+            bond_xmit_hash_policy: Default::default(),
+            bridge_ports: Default::default(),
+            bridge_vlan_aware: Default::default(),
+            cidr: Default::default(),
+            cidr6: Default::default(),
+            comments: Default::default(),
+            comments6: Default::default(),
+            delete: Default::default(),
+            gateway: Default::default(),
+            gateway6: Default::default(),
+            mtu: Default::default(),
+            netmask: Default::default(),
+            netmask6: Default::default(),
+            ovs_bonds: Default::default(),
+            ovs_bridge: Default::default(),
+            ovs_options: Default::default(),
+            ovs_ports: Default::default(),
+            ovs_tag: Default::default(),
+            slaves: Default::default(),
+            vlan_id: Default::default(),
+            vlan_raw_device: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct IfaceClient<T> {
     client: T,

@@ -40,6 +40,20 @@ pub struct PostParameters {
     pub scope: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(schedule: String) -> Self {
+        Self {
+            schedule,
+            comment: Default::default(),
+            enable_new: Default::default(),
+            enabled: Default::default(),
+            realm: Default::default(),
+            remove_vanished: Default::default(),
+            scope: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PutParameters {
     #[doc = "Description for the Job."]
@@ -77,6 +91,20 @@ pub struct PutParameters {
     #[doc = "Select what to sync."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub scope: Option<String>,
+}
+
+impl PutParameters {
+    pub fn new(schedule: String) -> Self {
+        Self {
+            schedule,
+            comment: Default::default(),
+            delete: Default::default(),
+            enable_new: Default::default(),
+            enabled: Default::default(),
+            remove_vanished: Default::default(),
+            scope: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

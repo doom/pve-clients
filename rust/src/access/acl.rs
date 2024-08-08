@@ -15,6 +15,18 @@ pub struct GetResponseItem {
     pub ugid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(path: String, roleid: String, r#type: String, ugid: String) -> Self {
+        Self {
+            path,
+            roleid,
+            r#type,
+            ugid,
+            propagate: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PutParameters {
     #[doc = "Remove permissions (instead of adding it)."]
@@ -46,6 +58,20 @@ pub struct PutParameters {
     #[doc = "List of users."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub users: Option<String>,
+}
+
+impl PutParameters {
+    pub fn new(path: String, roles: String) -> Self {
+        Self {
+            path,
+            roles,
+            delete: Default::default(),
+            groups: Default::default(),
+            propagate: Default::default(),
+            tokens: Default::default(),
+            users: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

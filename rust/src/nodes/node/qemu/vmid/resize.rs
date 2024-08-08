@@ -17,6 +17,17 @@ pub struct PutParameters {
     pub skiplock: Option<bool>,
 }
 
+impl PutParameters {
+    pub fn new(disk: String, size: String) -> Self {
+        Self {
+            disk,
+            size,
+            digest: Default::default(),
+            skiplock: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ResizeClient<T> {
     client: T,

@@ -75,6 +75,23 @@ pub struct GetResponseItem {
     pub used_fraction: Option<f64>,
 }
 
+impl GetResponseItem {
+    pub fn new(content: String, storage: String, r#type: String) -> Self {
+        Self {
+            content,
+            storage,
+            r#type,
+            active: Default::default(),
+            avail: Default::default(),
+            enabled: Default::default(),
+            shared: Default::default(),
+            total: Default::default(),
+            used: Default::default(),
+            used_fraction: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct StorageClient<T> {
     client: T,

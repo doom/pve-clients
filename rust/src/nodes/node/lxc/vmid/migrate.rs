@@ -33,6 +33,19 @@ pub struct PostParameters {
     pub timeout: Option<u64>,
 }
 
+impl PostParameters {
+    pub fn new(target: String) -> Self {
+        Self {
+            target,
+            bwlimit: Default::default(),
+            online: Default::default(),
+            restart: Default::default(),
+            target_storage: Default::default(),
+            timeout: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MigrateClient<T> {
     client: T,

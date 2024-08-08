@@ -37,6 +37,28 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(action: String, pos: u64, r#type: String) -> Self {
+        Self {
+            action,
+            pos,
+            r#type,
+            comment: Default::default(),
+            dest: Default::default(),
+            dport: Default::default(),
+            enable: Default::default(),
+            icmp_type: Default::default(),
+            iface: Default::default(),
+            ipversion: Default::default(),
+            log: Default::default(),
+            r#macro: Default::default(),
+            proto: Default::default(),
+            source: Default::default(),
+            sport: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Rule action ('ACCEPT', 'DROP', 'REJECT') or security group name."]

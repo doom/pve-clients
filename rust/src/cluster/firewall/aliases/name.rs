@@ -22,6 +22,17 @@ pub struct PutParameters {
     pub rename: Option<String>,
 }
 
+impl PutParameters {
+    pub fn new(cidr: String) -> Self {
+        Self {
+            cidr,
+            comment: Default::default(),
+            digest: Default::default(),
+            rename: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct NameClient<T> {
     client: T,

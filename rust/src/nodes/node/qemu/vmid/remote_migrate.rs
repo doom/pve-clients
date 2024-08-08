@@ -37,6 +37,20 @@ pub struct PostParameters {
     pub target_vmid: Option<u64>,
 }
 
+impl PostParameters {
+    pub fn new(target_bridge: String, target_endpoint: String, target_storage: String) -> Self {
+        Self {
+            target_bridge,
+            target_endpoint,
+            target_storage,
+            bwlimit: Default::default(),
+            delete: Default::default(),
+            online: Default::default(),
+            target_vmid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct RemoteMigrateClient<T> {
     client: T,

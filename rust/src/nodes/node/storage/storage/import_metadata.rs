@@ -25,6 +25,19 @@ pub struct GetResponseItem {
     pub warnings: Option<Vec<GetResponseWarningsItem>>,
 }
 
+impl GetResponseItem {
+    pub fn new(create_args: CreateArgs, source: String, r#type: String) -> Self {
+        Self {
+            create_args,
+            source,
+            r#type,
+            disks: Default::default(),
+            net: Default::default(),
+            warnings: Default::default(),
+        }
+    }
+}
+
 #[doc = "Parameters which can be used in a call to create a VM or container."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct CreateArgs {}
@@ -47,6 +60,16 @@ pub struct GetResponseWarningsItem {
     #[doc = "Related subject (config) value of warning."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub value: Option<String>,
+}
+
+impl GetResponseWarningsItem {
+    pub fn new(r#type: String) -> Self {
+        Self {
+            r#type,
+            key: Default::default(),
+            value: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

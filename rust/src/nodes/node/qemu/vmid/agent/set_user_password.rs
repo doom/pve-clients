@@ -14,6 +14,16 @@ pub struct PostParameters {
     pub username: String,
 }
 
+impl PostParameters {
+    pub fn new(password: String, username: String) -> Self {
+        Self {
+            password,
+            username,
+            crypted: Default::default(),
+        }
+    }
+}
+
 #[doc = "Returns an object with a single `result` property."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PostResponseItem {}

@@ -12,6 +12,17 @@ pub struct GetResponseItem {
     pub state: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: serde_json::Value, state: String) -> Self {
+        Self {
+            name,
+            state,
+            addr: Default::default(),
+            host: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MgrClient<T> {
     client: T,

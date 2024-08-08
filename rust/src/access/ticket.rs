@@ -34,6 +34,21 @@ pub struct PostParameters {
     pub username: String,
 }
 
+impl PostParameters {
+    pub fn new(password: String, username: String) -> Self {
+        Self {
+            password,
+            username,
+            new_format: Default::default(),
+            otp: Default::default(),
+            path: Default::default(),
+            privs: Default::default(),
+            realm: Default::default(),
+            tfa_challenge: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostResponseItem {
     #[serde(
@@ -47,6 +62,17 @@ pub struct PostResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub ticket: Option<String>,
     pub username: String,
+}
+
+impl PostResponseItem {
+    pub fn new(username: String) -> Self {
+        Self {
+            username,
+            csrfprevention_token: Default::default(),
+            clustername: Default::default(),
+            ticket: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

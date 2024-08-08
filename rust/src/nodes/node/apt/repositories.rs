@@ -71,6 +71,27 @@ pub struct GetResponseFilesItemRepositoriesItem {
     pub uris: Vec<String>,
 }
 
+impl GetResponseFilesItemRepositoriesItem {
+    pub fn new(
+        enabled: bool,
+        file_type: String,
+        suites: Vec<String>,
+        types: Vec<String>,
+        uris: Vec<String>,
+    ) -> Self {
+        Self {
+            enabled,
+            file_type,
+            suites,
+            types,
+            uris,
+            comment: Default::default(),
+            components: Default::default(),
+            options: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseFilesItemRepositoriesItemOptionsItem {
     #[serde(rename = "Key")]
@@ -94,6 +115,18 @@ pub struct GetResponseInfosItem {
     pub property: Option<String>,
 }
 
+impl GetResponseInfosItem {
+    pub fn new(index: String, kind: String, message: String, path: String) -> Self {
+        Self {
+            index,
+            kind,
+            message,
+            path,
+            property: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseStandardReposItem {
     #[doc = "Handle to identify the repository."]
@@ -108,6 +141,16 @@ pub struct GetResponseStandardReposItem {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub status: Option<bool>,
+}
+
+impl GetResponseStandardReposItem {
+    pub fn new(handle: String, name: String) -> Self {
+        Self {
+            handle,
+            name,
+            status: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -129,6 +172,17 @@ pub struct PostParameters {
     pub path: String,
 }
 
+impl PostParameters {
+    pub fn new(index: u64, path: String) -> Self {
+        Self {
+            index,
+            path,
+            digest: Default::default(),
+            enabled: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PutParameters {
     #[doc = "Digest to detect modifications."]
@@ -136,6 +190,15 @@ pub struct PutParameters {
     pub digest: Option<String>,
     #[doc = "Handle that identifies a repository."]
     pub handle: String,
+}
+
+impl PutParameters {
+    pub fn new(handle: String) -> Self {
+        Self {
+            handle,
+            digest: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

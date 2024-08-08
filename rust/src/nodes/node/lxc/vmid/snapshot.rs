@@ -14,6 +14,17 @@ pub struct GetResponseItem {
     pub snaptime: Option<u64>,
 }
 
+impl GetResponseItem {
+    pub fn new(description: String, name: String) -> Self {
+        Self {
+            description,
+            name,
+            parent: Default::default(),
+            snaptime: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "A textual description or comment."]
@@ -21,6 +32,15 @@ pub struct PostParameters {
     pub description: Option<String>,
     #[doc = "The name of the snapshot."]
     pub snapname: String,
+}
+
+impl PostParameters {
+    pub fn new(snapname: String) -> Self {
+        Self {
+            snapname,
+            description: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

@@ -14,11 +14,30 @@ pub struct GetResponseItem {
     pub special: Option<bool>,
 }
 
+impl GetResponseItem {
+    pub fn new(roleid: String) -> Self {
+        Self {
+            roleid,
+            privs: Default::default(),
+            special: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub privs: Option<String>,
     pub roleid: String,
+}
+
+impl PostParameters {
+    pub fn new(roleid: String) -> Self {
+        Self {
+            roleid,
+            privs: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

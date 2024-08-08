@@ -42,6 +42,21 @@ pub struct PostParameters {
     pub volume: String,
 }
 
+impl PostParameters {
+    pub fn new(volume: String) -> Self {
+        Self {
+            volume,
+            bwlimit: Default::default(),
+            delete: Default::default(),
+            digest: Default::default(),
+            storage: Default::default(),
+            target_digest: Default::default(),
+            target_vmid: Default::default(),
+            target_volume: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MoveVolumeClient<T> {
     client: T,

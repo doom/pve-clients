@@ -22,6 +22,16 @@ pub struct GetResponseItem {
     pub poolid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(poolid: String) -> Self {
+        Self {
+            poolid,
+            comment: Default::default(),
+            members: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItemMembersItem {
     pub id: String,
@@ -33,11 +43,32 @@ pub struct GetResponseItemMembersItem {
     pub vmid: Option<u64>,
 }
 
+impl GetResponseItemMembersItem {
+    pub fn new(id: String, node: String, r#type: String) -> Self {
+        Self {
+            id,
+            node,
+            r#type,
+            storage: Default::default(),
+            vmid: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comment: Option<String>,
     pub poolid: String,
+}
+
+impl PostParameters {
+    pub fn new(poolid: String) -> Self {
+        Self {
+            poolid,
+            comment: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -68,6 +99,19 @@ pub struct PutParameters {
     #[doc = "List of guest VMIDs to add or remove from this pool."]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub vms: Option<String>,
+}
+
+impl PutParameters {
+    pub fn new(poolid: String) -> Self {
+        Self {
+            poolid,
+            allow_move: Default::default(),
+            comment: Default::default(),
+            delete: Default::default(),
+            storage: Default::default(),
+            vms: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

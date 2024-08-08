@@ -36,6 +36,22 @@ pub struct PostParameters {
     pub r#type: String,
 }
 
+impl PostParameters {
+    pub fn new(id: String, target: String, r#type: String) -> Self {
+        Self {
+            id,
+            target,
+            r#type,
+            comment: Default::default(),
+            disable: Default::default(),
+            rate: Default::default(),
+            remove_job: Default::default(),
+            schedule: Default::default(),
+            source: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ReplicationClient<T> {
     client: T,

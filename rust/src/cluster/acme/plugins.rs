@@ -45,6 +45,20 @@ pub struct PostParameters {
     pub validation_delay: Option<u64>,
 }
 
+impl PostParameters {
+    pub fn new(id: String, r#type: String) -> Self {
+        Self {
+            id,
+            r#type,
+            api: Default::default(),
+            data: Default::default(),
+            disable: Default::default(),
+            nodes: Default::default(),
+            validation_delay: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct PluginsClient<T> {
     client: T,

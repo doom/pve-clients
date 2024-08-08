@@ -55,6 +55,32 @@ pub struct GetResponseItem {
     pub user: String,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        id: String,
+        node: String,
+        pid: u64,
+        pstart: u64,
+        starttime: u64,
+        r#type: String,
+        upid: String,
+        user: String,
+    ) -> Self {
+        Self {
+            id,
+            node,
+            pid,
+            pstart,
+            starttime,
+            r#type,
+            upid,
+            user,
+            endtime: Default::default(),
+            status: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TasksClient<T> {
     client: T,

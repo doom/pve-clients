@@ -18,6 +18,17 @@ pub struct GetResponseChildrenItem {
     pub r#type: String,
 }
 
+impl GetResponseChildrenItem {
+    pub fn new(id: u64, r#type: String) -> Self {
+        Self {
+            id,
+            r#type,
+            children: Default::default(),
+            name: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseChildrenItemChildrenItem {
     #[doc = "Configuration key of the volume."]

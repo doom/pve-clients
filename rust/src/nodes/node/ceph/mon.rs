@@ -33,6 +33,23 @@ pub struct GetResponseItem {
     pub state: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            addr: Default::default(),
+            ceph_version: Default::default(),
+            ceph_version_short: Default::default(),
+            direxists: Default::default(),
+            host: Default::default(),
+            quorum: Default::default(),
+            rank: Default::default(),
+            service: Default::default(),
+            state: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MonClient<T> {
     client: T,

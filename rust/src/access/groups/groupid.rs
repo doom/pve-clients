@@ -5,6 +5,15 @@ pub struct GetResponseItem {
     pub members: Vec<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(members: Vec<String>) -> Self {
+        Self {
+            members,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]

@@ -7,6 +7,15 @@ pub struct GetParameters {
     pub timeframe: String,
 }
 
+impl GetParameters {
+    pub fn new(timeframe: String) -> Self {
+        Self {
+            timeframe,
+            cf: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct GetResponseItem {}
 

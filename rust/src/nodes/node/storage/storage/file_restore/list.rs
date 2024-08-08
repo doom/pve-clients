@@ -28,6 +28,19 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(filepath: String, leaf: bool, text: String, r#type: String) -> Self {
+        Self {
+            filepath,
+            leaf,
+            text,
+            r#type,
+            mtime: Default::default(),
+            size: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ListClient<T> {
     client: T,

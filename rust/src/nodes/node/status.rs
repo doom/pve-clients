@@ -23,6 +23,15 @@ pub struct BootInfo {
     pub secureboot: Option<bool>,
 }
 
+impl BootInfo {
+    pub fn new(mode: String) -> Self {
+        Self {
+            mode,
+            secureboot: Default::default(),
+        }
+    }
+}
+
 #[doc = "The uptime of the system in seconds."]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct CurrentKernel {

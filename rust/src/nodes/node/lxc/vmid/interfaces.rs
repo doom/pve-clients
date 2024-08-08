@@ -12,6 +12,17 @@ pub struct GetResponseItem {
     pub name: String,
 }
 
+impl GetResponseItem {
+    pub fn new(hwaddr: String, name: String) -> Self {
+        Self {
+            hwaddr,
+            name,
+            inet: Default::default(),
+            inet6: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct InterfacesClient<T> {
     client: T,

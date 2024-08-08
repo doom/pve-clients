@@ -13,6 +13,17 @@ pub struct GetParameters {
     pub username: Option<String>,
 }
 
+impl GetParameters {
+    pub fn new(server: String) -> Self {
+        Self {
+            server,
+            domain: Default::default(),
+            password: Default::default(),
+            username: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     #[doc = "Descriptive text from server."]

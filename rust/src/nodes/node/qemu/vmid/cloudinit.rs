@@ -15,6 +15,17 @@ pub struct GetResponseItem {
     pub value: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(key: String) -> Self {
+        Self {
+            key,
+            delete: Default::default(),
+            pending: Default::default(),
+            value: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct CloudinitClient<T> {
     client: T,

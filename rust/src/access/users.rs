@@ -75,6 +75,26 @@ pub struct GetResponseItem {
     pub userid: String,
 }
 
+impl GetResponseItem {
+    pub fn new(userid: String) -> Self {
+        Self {
+            userid,
+            comment: Default::default(),
+            email: Default::default(),
+            enable: Default::default(),
+            expire: Default::default(),
+            firstname: Default::default(),
+            groups: Default::default(),
+            keys: Default::default(),
+            lastname: Default::default(),
+            realm_type: Default::default(),
+            tfa_locked_until: Default::default(),
+            tokens: Default::default(),
+            totp_locked: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItemTokensItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
@@ -92,6 +112,17 @@ pub struct GetResponseItemTokensItem {
     pub privsep: Option<bool>,
     #[doc = "User-specific token identifier."]
     pub tokenid: String,
+}
+
+impl GetResponseItemTokensItem {
+    pub fn new(tokenid: String) -> Self {
+        Self {
+            tokenid,
+            comment: Default::default(),
+            expire: Default::default(),
+            privsep: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
@@ -125,6 +156,23 @@ pub struct PostParameters {
     pub password: Option<String>,
     #[doc = "Full User ID, in the `name@realm` format."]
     pub userid: String,
+}
+
+impl PostParameters {
+    pub fn new(userid: String) -> Self {
+        Self {
+            userid,
+            comment: Default::default(),
+            email: Default::default(),
+            enable: Default::default(),
+            expire: Default::default(),
+            firstname: Default::default(),
+            groups: Default::default(),
+            keys: Default::default(),
+            lastname: Default::default(),
+            password: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

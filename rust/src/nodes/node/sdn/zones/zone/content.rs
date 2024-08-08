@@ -10,6 +10,16 @@ pub struct GetResponseItem {
     pub vnet: String,
 }
 
+impl GetResponseItem {
+    pub fn new(vnet: String) -> Self {
+        Self {
+            vnet,
+            status: Default::default(),
+            statusmsg: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ContentClient<T> {
     client: T,

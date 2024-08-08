@@ -19,6 +19,17 @@ pub struct PostParameters {
     pub with_local_disks: Option<bool>,
 }
 
+impl PostParameters {
+    pub fn new(target: String) -> Self {
+        Self {
+            target,
+            maxworkers: Default::default(),
+            vms: Default::default(),
+            with_local_disks: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct MigrateallClient<T> {
     client: T,

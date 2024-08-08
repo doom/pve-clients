@@ -7,6 +7,15 @@ pub struct GetParameters {
     pub version: Option<String>,
 }
 
+impl GetParameters {
+    pub fn new(name: String) -> Self {
+        Self {
+            name,
+            version: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ChangelogClient<T> {
     client: T,

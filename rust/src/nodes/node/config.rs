@@ -36,6 +36,7 @@ pub struct GetResponseItem {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
 }
+
 pub fn deserialize_repeated_acmedomain_in_get_response_item<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>
@@ -91,6 +92,7 @@ pub struct PutParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub wakeonlan: Option<String>,
 }
+
 pub fn deserialize_repeated_acmedomain_in_put_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

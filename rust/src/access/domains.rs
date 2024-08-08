@@ -12,6 +12,17 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(realm: String, r#type: String) -> Self {
+        Self {
+            realm,
+            r#type,
+            comment: Default::default(),
+            tfa: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Specifies the Authentication Context Class Reference values that theAuthorization Server is being requested to use for the Auth Request."]
@@ -178,6 +189,51 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub verify: Option<bool>,
+}
+
+impl PostParameters {
+    pub fn new(realm: String, r#type: String) -> Self {
+        Self {
+            realm,
+            r#type,
+            acr_values: Default::default(),
+            autocreate: Default::default(),
+            base_dn: Default::default(),
+            bind_dn: Default::default(),
+            capath: Default::default(),
+            case_sensitive: Default::default(),
+            cert: Default::default(),
+            certkey: Default::default(),
+            check_connection: Default::default(),
+            client_id: Default::default(),
+            client_key: Default::default(),
+            comment: Default::default(),
+            default: Default::default(),
+            domain: Default::default(),
+            filter: Default::default(),
+            group_classes: Default::default(),
+            group_dn: Default::default(),
+            group_filter: Default::default(),
+            group_name_attr: Default::default(),
+            issuer_url: Default::default(),
+            mode: Default::default(),
+            password: Default::default(),
+            port: Default::default(),
+            prompt: Default::default(),
+            scopes: Default::default(),
+            secure: Default::default(),
+            server1: Default::default(),
+            server2: Default::default(),
+            sslversion: Default::default(),
+            sync_defaults_options: Default::default(),
+            sync_attributes: Default::default(),
+            tfa: Default::default(),
+            user_attr: Default::default(),
+            user_classes: Default::default(),
+            username_claim: Default::default(),
+            verify: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

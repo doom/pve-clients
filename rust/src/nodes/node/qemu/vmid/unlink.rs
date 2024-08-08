@@ -12,6 +12,15 @@ pub struct PutParameters {
     pub idlist: String,
 }
 
+impl PutParameters {
+    pub fn new(idlist: String) -> Self {
+        Self {
+            idlist,
+            force: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct UnlinkClient<T> {
     client: T,

@@ -27,6 +27,24 @@ pub struct GetResponseItem {
     pub running: bool,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        local_disks: Vec<serde_json::Value>,
+        local_resources: Vec<serde_json::Value>,
+        mapped_resources: Vec<serde_json::Value>,
+        running: bool,
+    ) -> Self {
+        Self {
+            local_disks,
+            local_resources,
+            mapped_resources,
+            running,
+            allowed_nodes: Default::default(),
+            not_allowed_nodes: Default::default(),
+        }
+    }
+}
+
 #[doc = "List not allowed nodes with additional informations, only passed if VM is offline"]
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct NotAllowedNodes {}
@@ -72,6 +90,21 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub with_local_disks: Option<bool>,
+}
+
+impl PostParameters {
+    pub fn new(target: String) -> Self {
+        Self {
+            target,
+            bwlimit: Default::default(),
+            force: Default::default(),
+            migration_network: Default::default(),
+            migration_type: Default::default(),
+            online: Default::default(),
+            targetstorage: Default::default(),
+            with_local_disks: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

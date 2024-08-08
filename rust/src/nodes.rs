@@ -29,6 +29,22 @@ pub struct GetResponseItem {
     pub uptime: Option<u64>,
 }
 
+impl GetResponseItem {
+    pub fn new(node: String, status: String) -> Self {
+        Self {
+            node,
+            status,
+            cpu: Default::default(),
+            level: Default::default(),
+            maxcpu: Default::default(),
+            maxmem: Default::default(),
+            mem: Default::default(),
+            ssl_fingerprint: Default::default(),
+            uptime: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct NodesClient<T> {
     client: T,

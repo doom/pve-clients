@@ -10,6 +10,17 @@ pub struct GetResponseItem {
     pub name: String,
 }
 
+impl GetResponseItem {
+    pub fn new(cidr: String, digest: String, name: String) -> Self {
+        Self {
+            cidr,
+            digest,
+            name,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Network/IP specification in CIDR format."]
@@ -18,6 +29,16 @@ pub struct PostParameters {
     pub comment: Option<String>,
     #[doc = "Alias name."]
     pub name: String,
+}
+
+impl PostParameters {
+    pub fn new(cidr: String, name: String) -> Self {
+        Self {
+            cidr,
+            name,
+            comment: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

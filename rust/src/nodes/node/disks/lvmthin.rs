@@ -32,6 +32,16 @@ pub struct PostParameters {
     pub name: String,
 }
 
+impl PostParameters {
+    pub fn new(device: String, name: String) -> Self {
+        Self {
+            device,
+            name,
+            add_storage: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct LvmthinClient<T> {
     client: T,

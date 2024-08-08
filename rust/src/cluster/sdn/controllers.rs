@@ -38,6 +38,17 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(controller: String, r#type: String) -> Self {
+        Self {
+            controller,
+            r#type,
+            pending: Default::default(),
+            state: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "autonomous system number"]
@@ -95,6 +106,25 @@ pub struct PostParameters {
     pub peers: Option<String>,
     #[doc = "Plugin type."]
     pub r#type: String,
+}
+
+impl PostParameters {
+    pub fn new(controller: String, r#type: String) -> Self {
+        Self {
+            controller,
+            r#type,
+            asn: Default::default(),
+            bgp_multipath_as_path_relax: Default::default(),
+            ebgp: Default::default(),
+            ebgp_multihop: Default::default(),
+            isis_domain: Default::default(),
+            isis_ifaces: Default::default(),
+            isis_net: Default::default(),
+            loopback: Default::default(),
+            node: Default::default(),
+            peers: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

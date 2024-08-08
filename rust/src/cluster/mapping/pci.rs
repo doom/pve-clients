@@ -24,6 +24,17 @@ pub struct GetResponseItem {
     pub map: Vec<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(description: String, id: String, map: Vec<String>) -> Self {
+        Self {
+            description,
+            id,
+            map,
+            checks: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItemChecksItem {
     #[doc = "The message of the error"]
@@ -49,6 +60,17 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub mdev: Option<bool>,
+}
+
+impl PostParameters {
+    pub fn new(id: String, map: Vec<String>) -> Self {
+        Self {
+            id,
+            map,
+            description: Default::default(),
+            mdev: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

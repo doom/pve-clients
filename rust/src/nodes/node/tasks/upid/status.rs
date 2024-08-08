@@ -12,6 +12,31 @@ pub struct GetResponseItem {
     pub user: String,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        id: String,
+        node: String,
+        pid: u64,
+        starttime: f64,
+        status: String,
+        r#type: String,
+        upid: String,
+        user: String,
+    ) -> Self {
+        Self {
+            id,
+            node,
+            pid,
+            starttime,
+            status,
+            r#type,
+            upid,
+            user,
+            exitstatus: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct StatusClient<T> {
     client: T,

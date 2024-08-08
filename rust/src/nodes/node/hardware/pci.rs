@@ -55,6 +55,25 @@ pub struct GetResponseItem {
     pub vendor_name: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(class: String, device: String, id: String, iommugroup: u64, vendor: String) -> Self {
+        Self {
+            class,
+            device,
+            id,
+            iommugroup,
+            vendor,
+            device_name: Default::default(),
+            mdev: Default::default(),
+            subsystem_device: Default::default(),
+            subsystem_device_name: Default::default(),
+            subsystem_vendor: Default::default(),
+            subsystem_vendor_name: Default::default(),
+            vendor_name: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct PciClient<T> {
     client: T,

@@ -9,6 +9,16 @@ pub struct GetResponseItem {
     pub vmid: u64,
 }
 
+impl GetResponseItem {
+    pub fn new(r#type: String, vmid: u64) -> Self {
+        Self {
+            r#type,
+            vmid,
+            name: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct NotBackedUpClient<T> {
     client: T,

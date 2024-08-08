@@ -14,6 +14,16 @@ pub struct PostParameters {
     pub file: String,
 }
 
+impl PostParameters {
+    pub fn new(content: String, file: String) -> Self {
+        Self {
+            content,
+            file,
+            encode: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct FileWriteClient<T> {
     client: T,

@@ -21,6 +21,18 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, origin: String, r#type: String) -> Self {
+        Self {
+            name,
+            origin,
+            r#type,
+            comment: Default::default(),
+            disable: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct TargetsClient<T> {
     client: T,

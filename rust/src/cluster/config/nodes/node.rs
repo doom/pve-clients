@@ -30,6 +30,7 @@ pub struct PostParameters {
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub votes: Option<u64>,
 }
+
 pub fn deserialize_repeated_link_in_post_parameters<'de, D, V>(
     deserializer: D,
 ) -> Result<std::collections::HashMap<u32, V>, D::Error>

@@ -7,6 +7,15 @@ pub struct GetParameters {
     pub snapname: Option<String>,
 }
 
+impl GetParameters {
+    pub fn new(feature: String) -> Self {
+        Self {
+            feature,
+            snapname: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseItem {
     #[serde(

@@ -45,6 +45,25 @@ pub struct GetResponseItem {
     pub username: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(from_address: String, name: String, server: String) -> Self {
+        Self {
+            from_address,
+            name,
+            server,
+            author: Default::default(),
+            comment: Default::default(),
+            digest: Default::default(),
+            disable: Default::default(),
+            mailto: Default::default(),
+            mailto_user: Default::default(),
+            mode: Default::default(),
+            port: Default::default(),
+            username: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize, Default)]
 pub struct PutParameters {
     #[doc = "Author of the mail. Defaults to 'Proxmox VE'."]

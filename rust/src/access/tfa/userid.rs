@@ -21,6 +21,18 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(created: u64, description: String, id: String, r#type: String) -> Self {
+        Self {
+            created,
+            description,
+            id,
+            r#type,
+            enable: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "When responding to a u2f challenge: the original challenge string"]
@@ -42,6 +54,19 @@ pub struct PostParameters {
     pub value: Option<String>,
 }
 
+impl PostParameters {
+    pub fn new(r#type: String) -> Self {
+        Self {
+            r#type,
+            challenge: Default::default(),
+            description: Default::default(),
+            password: Default::default(),
+            totp: Default::default(),
+            value: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostResponseItem {
     #[doc = "When adding u2f entries, this contains a challenge the user must respond to in order to finish the registration."]
@@ -52,6 +77,16 @@ pub struct PostResponseItem {
     #[doc = "When adding recovery codes, this contains the list of codes to be displayed to the user"]
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub recovery: Option<Vec<String>>,
+}
+
+impl PostResponseItem {
+    pub fn new(id: String) -> Self {
+        Self {
+            id,
+            challenge: Default::default(),
+            recovery: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

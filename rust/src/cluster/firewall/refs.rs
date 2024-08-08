@@ -15,6 +15,18 @@ pub struct GetResponseItem {
     pub r#type: String,
 }
 
+impl GetResponseItem {
+    pub fn new(name: String, r#ref: String, scope: String, r#type: String) -> Self {
+        Self {
+            name,
+            r#ref,
+            scope,
+            r#type,
+            comment: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct RefsClient<T> {
     client: T,

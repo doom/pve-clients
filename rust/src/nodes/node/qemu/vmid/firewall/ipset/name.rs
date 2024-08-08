@@ -28,6 +28,17 @@ pub struct GetResponseItem {
     pub nomatch: Option<bool>,
 }
 
+impl GetResponseItem {
+    pub fn new(cidr: String, digest: String) -> Self {
+        Self {
+            cidr,
+            digest,
+            comment: Default::default(),
+            nomatch: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct PostParameters {
     #[doc = "Network/IP specification in CIDR format."]
@@ -41,6 +52,16 @@ pub struct PostParameters {
         serialize_with = "crate::common::serialize_option_bool_as_u64"
     )]
     pub nomatch: Option<bool>,
+}
+
+impl PostParameters {
+    pub fn new(cidr: String) -> Self {
+        Self {
+            cidr,
+            comment: Default::default(),
+            nomatch: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

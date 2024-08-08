@@ -31,6 +31,19 @@ pub struct PostResponseItem {
     pub user: String,
 }
 
+impl PostResponseItem {
+    pub fn new(cert: String, port: u64, ticket: String, upid: String, user: String) -> Self {
+        Self {
+            cert,
+            port,
+            ticket,
+            upid,
+            user,
+            password: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct VncproxyClient<T> {
     client: T,

@@ -28,6 +28,18 @@ pub struct GetResponseChildrenItem {
     pub size: u64,
 }
 
+impl GetResponseChildrenItem {
+    pub fn new(free: u64, leaf: bool, name: String, size: u64) -> Self {
+        Self {
+            free,
+            leaf,
+            name,
+            size,
+            children: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct GetResponseChildrenItemChildrenItem {
     #[doc = "The free bytes in the physical volume"]
@@ -57,6 +69,16 @@ pub struct PostParameters {
     pub device: String,
     #[doc = "The storage identifier."]
     pub name: String,
+}
+
+impl PostParameters {
+    pub fn new(device: String, name: String) -> Self {
+        Self {
+            device,
+            name,
+            add_storage: Default::default(),
+        }
+    }
 }
 
 #[derive(Debug, Clone)]

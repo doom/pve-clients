@@ -57,6 +57,33 @@ pub struct GetResponseItem {
     pub wwn: Option<String>,
 }
 
+impl GetResponseItem {
+    pub fn new(
+        devpath: String,
+        gpt: bool,
+        mounted: bool,
+        osdid: u64,
+        osdid_list: Vec<u64>,
+        size: u64,
+    ) -> Self {
+        Self {
+            devpath,
+            gpt,
+            mounted,
+            osdid,
+            osdid_list,
+            size,
+            health: Default::default(),
+            model: Default::default(),
+            parent: Default::default(),
+            serial: Default::default(),
+            used: Default::default(),
+            vendor: Default::default(),
+            wwn: Default::default(),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 pub struct ListClient<T> {
     client: T,
