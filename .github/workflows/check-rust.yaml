@@ -32,3 +32,8 @@ jobs:
         run: |
           cd rust
           cargo check
+
+      - name: Check Rust examples
+        run: |
+          cd rust/example
+          cargo check
